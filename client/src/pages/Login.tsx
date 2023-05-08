@@ -3,7 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 type Props = {}
 
-function Login({}: Props) {
+const Login =  ({}: Props) => {
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState<SubmitLoginData>({
     email: "",

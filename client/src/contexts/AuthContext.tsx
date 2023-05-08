@@ -1,17 +1,16 @@
-import { ReactNode, createContext, useState } from "react"
+import { ReactNode, createContext, useState, useEffect } from "react"
 
 interface User {
-  password: string,
   email?: string,
   username: string,
   avatar: string,
-  pets: string[]
 }
 
 interface AuthContextType {
   user: User | null,
   error: Error | null,
   login(email: string, password: string): void,
+  logout() : void
 }
 
 // export const AuthContext = createContext<AuthContextType | null>(null); // not recommended
@@ -23,6 +22,9 @@ const initialAuth: AuthContextType = {
   error: null,
   login: () => {
     throw new Error('login not implemented.');
+  },
+   logout: () => {
+    throw new Error('login not implemented.');
   }
 };
 
@@ -30,10 +32,10 @@ export const AuthContext = createContext<AuthContextType>(initialAuth);
 
 export const AuthContextProvider = ({children} : {children: ReactNode}) => {
   const [user, setUser] = useState<User | null>(null);
+  console.log("active user : ", user)
   const [error, setError] = useState<Error | null>(null);
 
   const login = async(email: string, password: string) => {
-    console.log({ email: email, password: password })
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     const urlencoded = new URLSearchParams();
@@ -49,6 +51,9 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
       const result = await response.json();
       if (result.user) {
         setUser(result.user);
+        console.log("test-result.user",result.user )
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("my name", "doron")
       }
       console.log(result);
     } catch (error) {
@@ -59,8 +64,43 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
 
   }
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("token")
+  }
+
+  const checkForToken = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log("There is a token")
+    } else {
+      console.log("There is no token")
+    }
+  }
+
+  const fethcActiveUser = async(token: string) => {
+     const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}users/active`, requestOptions);
+      const result = await response.json();
+      console.log("active user result:", result);
+      setUser(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    checkForToken();
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ user, login, error }}>
+    <AuthContext.Provider value={{ user, login, logout, error }}>
       { children }
     </AuthContext.Provider>
   )

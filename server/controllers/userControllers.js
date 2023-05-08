@@ -1,6 +1,7 @@
 import UserModel from "../models/userModels.js";
 import { imageUpload } from "../utils/imageMangement.js";
 import { verifyPassword, encryptPassword } from "../utils/bcrypt.js";
+import { generateToken } from "../utils/jwt.js";
 
 const testingRoute = (req, res) => {
     res.send('testing 1')
@@ -78,8 +79,10 @@ const login = async(req, res) => {
         res.status(406).json({ error: "password doesn't match" })
       }
       if (verified) {
+        const token = generateToken(existingUser)
         res.status(200).json({
           verified: true,
+          token:token,
           user: {
             _id: existingUser._id,
             username: existingUser.username,
@@ -95,6 +98,16 @@ const login = async(req, res) => {
   }
 }
 
+const getActiveUser = (req, res) => {
+  // res.send(req.user)   this will send the whole user object to the front
+    res.status(200).json({
+    _id: req.user._id,
+    email: req.user.email,
+    username: req.user.username,
+    avatar: req.user.avatar,
+  });
+}
 
 
-export { testingRoute, getUsers, getUserById ,createUser, updateUser, login }
+
+export { testingRoute, getUsers, getUserById ,createUser, updateUser, login , getActiveUser}

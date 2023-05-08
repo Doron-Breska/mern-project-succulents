@@ -6,6 +6,7 @@ import succulentRouter from "./routes/succulentRoutes.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
+import { passportConfig } from "./config/passport.js";
 
 
 
@@ -20,7 +21,8 @@ app.use(
   })
 );
 app.use(cors());
-cloudinaryConfig()
+  cloudinaryConfig();
+  passportConfig();
 }
 
 const connectMongoose = () => {
