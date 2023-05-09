@@ -78,7 +78,7 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
     }
   }
 
-  const fethcActiveUser = async(token: string) => {
+  const fetchActiveUser = async(token: string) => {
      const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
     const requestOptions = {
@@ -95,9 +95,12 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
     }
   }
 
-  useEffect(() => {
-    checkForToken();
-  }, [])
+ useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    fetchActiveUser(token);
+  }
+}, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout, error }}>

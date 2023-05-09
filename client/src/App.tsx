@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
 
   return (
+    <div className='app-container'>
     <AuthContextProvider>
         <BrowserRouter>
           <NavBar />
@@ -23,6 +24,7 @@ function App() {
         </Routes>
         </BrowserRouter>
         </AuthContextProvider>
+    </div>
   );
 }
 

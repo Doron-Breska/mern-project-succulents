@@ -1,19 +1,25 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Josefin Sans',
+  sans-serif;
+  /* font-family: 'Sigmar',
+  cursive; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app-container {
+  /* Set the background image */
+  background-image: url('/Users/doronbrsqh/Downloads/Web\ Dev\ Code\ Academy\ \ /mern-project/client/assets/light-green.jpg');
+  /* Use the correct path or URL to your image */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
 }
-
 
 /* side bar */
 .menu-button {

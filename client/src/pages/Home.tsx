@@ -51,7 +51,7 @@ function Home(props: Props) {
           return <p key={i}>{user.username}</p>
       })}
         <h2>User with ID: 6450cfc9b65b487e9927d4c2 </h2>
-      { user && <p>{user.username}</p> }
+      {user && <p>{user.username}</p>}
       </div>
   )
 }
