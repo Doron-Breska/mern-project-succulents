@@ -45,7 +45,7 @@ function Home(props: Props) {
 
   return (
     <div>
-      <h1>hello</h1>
+      <h1 className="text-3xl font-bold underline">hello</h1>
       <h2>all users</h2>
       { users && users.map((user, i) => {
           return <p key={i}>{user.username}</p>

@@ -22,7 +22,7 @@ const Login =  ({}: Props) => {
       <form onSubmit={handleSubmit}>
         <input type='email' name='email' placeholder='email' onChange={handleChange}/>
         <input type='password' name='password' placeholder='password'onChange={handleChange}/>
-        <button type='submit'>Register me!</button>
+        <button type='submit'>Log-In</button>
       </form>
     </div>
   )
