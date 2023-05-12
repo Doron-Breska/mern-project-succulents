@@ -38,7 +38,7 @@ mongoose
  
 const connectRoutes = () => {
   app.use('/api/users', userRouter);
-app.use('/api/succulents', succulentRouter)
+  app.use('/api/succulents', succulentRouter)
 }
 
 

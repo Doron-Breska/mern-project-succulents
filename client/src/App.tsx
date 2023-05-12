@@ -4,9 +4,9 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import Login from './pages/Login'; 
 import { AuthContext, AuthContextProvider } from './contexts/AuthContext';
-import NavBar from './components/NavBar';
 import Profile from './pages/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
+import SideBar from './components/SideBar';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
     <div className='app-container'>
     <AuthContextProvider>
         <BrowserRouter>
-          <NavBar />
+          <SideBar />
         <Routes>
           <Route path='/' element={ <Home /> }/>
           <Route path='/register' element={<Register />} />

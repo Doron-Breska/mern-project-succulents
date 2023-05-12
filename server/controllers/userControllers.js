@@ -1,15 +1,16 @@
+
 import UserModel from "../models/userModels.js";
 import { imageUpload } from "../utils/imageMangement.js";
 import { verifyPassword, encryptPassword } from "../utils/bcrypt.js";
+
 import { generateToken } from "../utils/jwt.js";
 
-const testingRoute = (req, res) => {
-    res.send('testing 1')
-}
+
+
 
 const getUsers = async (req, res) => {
      try {
-    const users = await UserModel.find();
+    const users = await UserModel.find().populate("succulents");
     res.status(200).json(users);
      } catch (e) {
        res.status(500).json({error:"something went wrong.."})
@@ -30,6 +31,8 @@ const getUserById = async(req, res) => {
      res.status(500).json({error:"something went wrong..."})
  }
 }
+
+
 
 const createUser = async (req, res) => {
     if (!req.body.email || !req.body.password || !req.body.username) {
@@ -56,15 +59,40 @@ const createUser = async (req, res) => {
   }
 }
 
+
+const updatePassword = async (password) => {
+  const encryptedPassword = await encryptPassword(password);
+  return encryptedPassword;
+};
+
+const updateAvatar = async (file) => {
+  const avatar = await imageUpload(file, "avatars");
+  return avatar;
+};
+
 const updateUser = async (req, res) => {
   try {
-  const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.status(200).json(updatedUser);
+    let updatedData = { ...req.body };
+
+    // Check if there's a new password and encrypt it
+    if (req.body.password) {
+      updatedData.password = await updatePassword(req.body.password);
+    }
+
+    // Check if there's a new avatar and upload it
+    if (req.file) {
+      updatedData.avatar = await updateAvatar(req.file);
+    }
+
+    // Update the user with the new data
+    const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    res.status(200).json(updatedUser);
   } catch (e) {
     console.log(e);
-    res.status(500).send(e.message)
+    res.status(500).send(e.message);
   }
-}
+};
+
 
 const login = async(req, res) => {
   try {
@@ -110,4 +138,4 @@ const getActiveUser = (req, res) => {
 
 
 
-export { testingRoute, getUsers, getUserById ,createUser, updateUser, login , getActiveUser}
+export { getUsers, getUserById, createUser, updateUser, login, getActiveUser }

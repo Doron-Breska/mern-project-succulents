@@ -1,3 +1,4 @@
+
 import { ReactNode, createContext, useState, useEffect } from "react"
 
 interface User {
@@ -69,15 +70,37 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
     localStorage.removeItem("token")
   }
 
-  const checkForToken = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      console.log("There is a token")
-    } else {
-      console.log("There is no token")
-    }
-  }
+  //old vers start
+  // const checkForToken = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     console.log("There is a token")
+  //   } else {
+  //     console.log("There is no token")
+  //   }
+  // }
 
+//  useEffect(() => {
+//   const token = localStorage.getItem("token");
+//   if (token) {
+//     fetchActiveUser(token);
+//   }
+// }, []);
+  
+// old vers end
+  
+const checkForToken = () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    console.log("There is a token");
+    fetchActiveUser(token);
+  } else {
+    console.log("There is no token");
+  }
+};
+  
+
+  
   const fetchActiveUser = async(token: string) => {
      const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -95,12 +118,9 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
     }
   }
 
- useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    fetchActiveUser(token);
-  }
-}, []);
+    useEffect(() => {
+  checkForToken();
+    }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout, error }}>

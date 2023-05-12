@@ -9,17 +9,41 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
 }
+
 .app-container {
-  /* Set the background image */
-  background-image: url('/Users/doronbrsqh/Downloads/Web\ Dev\ Code\ Academy\ \ /mern-project/client/assets/light-green.jpg');
-  /* Use the correct path or URL to your image */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: auto;
 }
+
+.app-container::before {
+  content: "";
+  background-image: url('/Users/doronbrsqh/Downloads/Web\ Dev\ Code\ Academy\ \ /mern-project/client/assets/light-green.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 0.2;
+  /* Set the opacity you want (0 to 1) */
+
+  /* Set the dimensions and position of the pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* Ensure the pseudo-element is below the actual content */
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .app-container::before {
+    background-size: auto 100%;
+  }
+}
+
+
 
 /* side bar */
 .menu-button {
@@ -83,4 +107,5 @@ body {
   font-weight: bold;
   color: #007bff;
 }
+
 /*  */
