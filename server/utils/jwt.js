@@ -1,3 +1,4 @@
+
 import jwt from 'jsonwebtoken';
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -5,7 +6,7 @@ dotenv.config();
 const generateToken = (existingUser) => {
   const payload = {
     sub: existingUser._id,
-    msg: "hello"
+    role: existingUser.role
   }
   const options = {
     expiresIn: "7d",

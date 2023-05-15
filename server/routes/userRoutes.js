@@ -14,10 +14,13 @@ userRouter.get("/all", getUsers)
 userRouter.get("/id/:id", getUserById);
 userRouter.get("/active",jwtAuth, getActiveUser);
 
+
 userRouter.post("/new", multerUpload.single("avatar"), createUser);
-userRouter.post("/update/:_id",multerUpload.single("avatar"), updateUser);
 userRouter.post("/login", login);
 
+
+// userRouter.put("/update/:_id", multerUpload.single("avatar"), jwtAuth, updateUser);
+userRouter.put("/update/:id", multerUpload.single("avatar"), jwtAuth, updateUser);
 
 
 
