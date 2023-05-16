@@ -19,7 +19,6 @@ userRouter.post("/new", multerUpload.single("avatar"), createUser);
 userRouter.post("/login", login);
 
 
-// userRouter.put("/update/:_id", multerUpload.single("avatar"), jwtAuth, updateUser);
 userRouter.put("/update/:id", multerUpload.single("avatar"), jwtAuth, updateUser);
 
 

@@ -13,21 +13,16 @@ const SideBar = (props: Props) => {
     setIsSidebarVisible(!isSidebarVisible);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-      setIsSidebarVisible(false);
-    }
-  };
-
- useEffect(() => {
-  const currentSidebar = sidebarRef.current;
-  if(currentSidebar) {
-    currentSidebar.addEventListener("mouseup", handleClickOutside);
+const handleClickOutside = (event: MouseEvent) => {
+  if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+    setIsSidebarVisible(false);
   }
+};
+
+useEffect(() => {
+  document.addEventListener("mousedown", handleClickOutside);
   return () => {
-    if(currentSidebar) {
-      currentSidebar.removeEventListener("mouseup", handleClickOutside);
-    }
+    document.removeEventListener("mousedown", handleClickOutside);
   };
 }, []);
 
@@ -68,6 +63,9 @@ const SideBar = (props: Props) => {
               </li>
               <li>
                 <NavLink className={activePath === "/register" ? "active" : ""} onClick={toggleSidebar} to="/register">Register</NavLink>
+              </li>
+              <li>
+                <NavLink className={activePath === "/succulents" ? "active" : ""} onClick={toggleSidebar} to="/succulents">Succulents</NavLink>
               </li>
               {user !== null && (
                 <li>

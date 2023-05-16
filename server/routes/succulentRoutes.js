@@ -10,10 +10,10 @@ succulentRouter.get("/all", getAllSucculents)
 
 
 succulentRouter.post("/new", multerUpload.single("img"),jwtAuth, createSucculent);
-succulentRouter.post("/comments/:succulentId",jwtAuth, createComment);
-succulentRouter.post("/likes/:succulentId",jwtAuth, addOrRemoveLike);
+succulentRouter.post("/comments/:succulentId", jwtAuth, createComment);
 
 
+succulentRouter.put("/likes/:succulentId",jwtAuth, addOrRemoveLike);
 succulentRouter.put("/update/:succulentId", multerUpload.single("img"), jwtAuth, updateSucculent);
 
 

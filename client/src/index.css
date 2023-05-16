@@ -43,9 +43,26 @@ body {
   }
 }
 
+.parent-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
+.page-container {
+    margin: 2rem 2rem;
+    margin-top: 5.5rem;
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #000;
+    background-color: #e8f4ea;
+}
+.inner-component{
+  width: 100%;
+}
 
-/* side bar */
+/***************************     side bar      **********************************/ 
+
 .menu-button {
   position: fixed;
   top: 1rem;
@@ -69,7 +86,7 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  width: 200px;
+  width: 220px;
   background-color: #f8f9fa;
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -108,4 +125,4 @@ body {
   color: #007bff;
 }
 
-/*  */
+/****************************************************************************************************************************/

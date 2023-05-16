@@ -115,7 +115,7 @@ const updateUser = async (req, res) => {
       }
     }
 
-    // Check if any updates are being made
+    // Check for udates 
     let isChanged = false;
     for (let key in updatedData) {
       if (currentUser[key] !== updatedData[key]) {

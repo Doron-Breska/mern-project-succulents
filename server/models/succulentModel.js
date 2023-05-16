@@ -10,7 +10,6 @@ const commentSchema = new Schema({
     text: { type: String, required: true, },
 }, { timestamps: true });
 
-//  commentTime: {type: Date, required: true }
 
 const succulentSchema = new mongoose.Schema({
     species: { type: String, required: true },
