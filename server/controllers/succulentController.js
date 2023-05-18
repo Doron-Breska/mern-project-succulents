@@ -242,7 +242,8 @@ const updateSucculent = async (req, res) => {
     const updatedSucculent = await SucculentModel.findByIdAndUpdate(succulentIdToUpdate, updatedData, { new: true });
 
     // Return updated succulent
-    res.status(200).json({ msg: "Succulent successfully updated!",updatedSucculent });
+    // res.status(200).json({ msg: "Succulent successfully updated!", updatedSucculent });
+    res.status(200).json({ msg: "Succulent successfully updated!"});
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: "Something went wrong with updating the succulent." });

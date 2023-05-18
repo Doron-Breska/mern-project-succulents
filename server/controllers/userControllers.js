@@ -2,7 +2,6 @@
 import UserModel from "../models/userModels.js";
 import { imageUpload } from "../utils/imageMangement.js";
 import { verifyPassword, encryptPassword } from "../utils/bcrypt.js";
-
 import { generateToken } from "../utils/jwt.js";
 
 
@@ -50,7 +49,10 @@ const createUser = async (req, res) => {
 
   try {
     const registeredUser = await newUser.save();
-    res.status(200).json({msg: "Successfully registered!"});
+    res.status(200).json({
+      msg: "Successfully registered!",
+      username: registeredUser.username
+    });
   } catch(e) {
     console.log(e);
     if (e.code === 11000) {
@@ -169,7 +171,9 @@ const login = async(req, res) => {
             _id: existingUser._id,
             username: existingUser.username,
             succulents: existingUser.succulents,
-            avatar: existingUser.avatar
+            avatar: existingUser.avatar,
+            succulents: existingUser.succulents,
+            role: existingUser.role
           }
         })
       }
@@ -180,14 +184,21 @@ const login = async(req, res) => {
   }
 }
 
-const getActiveUser = (req, res) => {
-  // res.send(req.user)   this will send the whole user object to the front
+const getActiveUser = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user._id).populate("succulents");
     res.status(200).json({
-    _id: req.user._id,
-    email: req.user.email,
-    username: req.user.username,
-    avatar: req.user.avatar,
-  });
+      _id: user._id,
+      email: user.email,
+      username: user.username,
+      avatar: user.avatar,
+      succulents: user.succulents,
+      role: user.role,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: "something went wrong.." })
+  }
 }
 
 

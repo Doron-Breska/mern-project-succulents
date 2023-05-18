@@ -5,7 +5,8 @@ type Props = {}
 interface User {
   email :string,
   password: string,
-  username :string
+  username: string,
+  avatar: string
 }
 type Users = User[]
 
@@ -48,7 +49,7 @@ function Home(props: Props) {
       <h1 className="text-3xl font-bold underline">hello</h1>
       <h2>all users</h2>
       { users && users.map((user, i) => {
-          return <p key={i}>{user.username}</p>
+          return <p key={i}>{user.avatar}</p>
       })}
         <h2>User with ID: 6450cfc9b65b487e9927d4c2 </h2>
       {user && <p>{user.username}</p>}

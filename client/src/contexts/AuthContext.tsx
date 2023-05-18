@@ -2,9 +2,12 @@
 import { ReactNode, createContext, useState, useEffect } from "react"
 
 interface User {
-  email?: string,
+  _id:string
+  email: string,
   username: string,
   avatar: string,
+  succulents: [],
+  role: string
 }
 
 interface AuthContextType {
