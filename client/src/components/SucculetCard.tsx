@@ -2,6 +2,16 @@ import { AuthContext } from '../contexts/AuthContext';
 import SucculentCardModal from '../components/SucculentCardModal'
 import React, { ChangeEvent, FormEvent, useState, useContext } from 'react'
 import { MdDeleteForever } from 'react-icons/md';
+import { FaRobot } from 'react-icons/fa';
+import { MdComment } from 'react-icons/md';
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
+
+
+
+
+
+
+
 
 
 
@@ -60,8 +70,11 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
       <p>Description: {succulent.description}</p>
       <p>City: {succulent.city}</p>
       <p>Posted by: {succulent.owner.username}, on: {new Date(succulent.createdAt).toLocaleDateString()} {new Date(succulent.createdAt).toLocaleTimeString()}</p>
-      <button className='open-modal' onClick={toggleModal}>open modal</button>
+      <MdComment className='succulent-card-btn' onClick={toggleModal}/><FaRobot className='succulent-card-btn'/>{ user && succulent.likes.includes(user._id) ? <AiFillLike className='succulent-card-btn'/> : <AiOutlineLike className='succulent-card-btn'/> }
      <SucculentCardModal isOpen={isModalOpen} closeModal={toggleModal}>
+
+
+
   <h3>Comments</h3>
   {
     user ? (

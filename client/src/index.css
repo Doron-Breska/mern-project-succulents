@@ -232,7 +232,7 @@ object-fit:cover;
   right: 0;
   margin-top: 0.5rem;
   margin-right: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   /* this makes the change in size and color smooth */
 }
 
@@ -247,4 +247,22 @@ object-fit:cover;
   /* make the background color round */
   padding: 3px;
   /* add some space between the icon and the background color */
+}
+.succulent-card-btn {
+  width: 30px;
+  height: 30px;
+  padding: 7px;
+  box-sizing: content-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  overflow: visible;
+  /* new property */
+}
+
+.succulent-card-btn:hover {
+  background-color: lightgrey;
+  transform: scale(1.1);
 }

@@ -1,8 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState, useContext, useEffect } from 'react'
 import SucculentCard from './SucculetCard';
 import { AuthContext } from '../contexts/AuthContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComment } from '@fortawesome/free-solid-svg-icons'
+
+
+
+
+
 
 
 type Props = {}
@@ -154,7 +157,6 @@ return (
                                 <div className="comment-details">
                                     <p>{comment.text}</p>
                               <p>{new Date(comment.createdAt).toLocaleString()}</p>
-                              <FontAwesomeIcon icon={faComment} style={{color:"#000000"}} />
                                     <button onClick={() => deleteComment(succulent._id, comment._id)}>Delete Comment</button>
                                 </div>
                             </div>
