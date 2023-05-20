@@ -9,28 +9,33 @@ interface User {
   succulents: [],
   role: string
 }
-
 interface AuthContextType {
-  user: User | null,
-  error: Error | null,
-  login(email: string, password: string): void,
-  logout() : void
+  user: User | null;
+  error: Error | null;
+  errorMsg: string;
+  setErrorMsg: React.Dispatch<React.SetStateAction<string>>;
+  login(email: string, password: string): void;
+  logout(): void;
 }
+
+
 
 // export const AuthContext = createContext<AuthContextType | null>(null); // not recommended
 // export const AuthContext = createContext<AuthContextType>({} as AuthContextType); // less recommended
 // export const AuthContext = createContext<AuthContextType>(null!); // less recommended
-
 const initialAuth: AuthContextType = {
   user: null,
   error: null,
+  errorMsg: '',
+  setErrorMsg: () => {},
   login: () => {
-    throw new Error('login not implemented.');
+    throw new Error('login function not implemented.');
   },
-   logout: () => {
-    throw new Error('login not implemented.');
-  }
+  logout: () => {
+    throw new Error('logout function not implemented.');
+  },
 };
+
 
 export const AuthContext = createContext<AuthContextType>(initialAuth);
 
@@ -38,6 +43,8 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
   const [user, setUser] = useState<User | null>(null);
   console.log("active user : ", user)
   const [error, setError] = useState<Error | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
+
 
   const login = async(email: string, password: string) => {
     const myHeaders = new Headers();
@@ -57,7 +64,8 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
         setUser(result.user);
         console.log("test-result.user",result.user )
         localStorage.setItem("token", result.token);
-        localStorage.setItem("my name", "doron")
+        localStorage.setItem("my name", "doron");
+        setErrorMsg("")
       }
       console.log(result);
     } catch (error) {
@@ -126,8 +134,8 @@ const checkForToken = () => {
     }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, error }}>
-      { children }
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, logout, error, errorMsg, setErrorMsg }}>
+    { children }
+  </AuthContext.Provider>
   )
 }
