@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   return (
-    <div className='app-container' style={{width: '100%'}}>
+    <div className='app-container' style={{width: '100%',}}>
     <AuthContextProvider>
         <BrowserRouter>
           <SideBar />

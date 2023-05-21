@@ -179,8 +179,9 @@ return (
         <h1>ProfileHistory</h1>
         <div className='history-profile-container'>
             <div className='profile-succulents-container'>
-                     {succulents.filter(succulent => succulent.owner._id === user?._id).map(succulent => (
-                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}deleteComment={deleteComment} />))}
+        {succulents.filter(succulent => succulent.owner._id === user?._id).map(succulent => (
+                       <div key={succulent._id}>
+                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}deleteComment={deleteComment} /></div> ))}
             </div>
             <div className='profile-comments-container'>
                    {userComments.length === 0 ? 

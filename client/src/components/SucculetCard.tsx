@@ -56,6 +56,8 @@ const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentC
   const token = localStorage.getItem("token");
   const userId = user?._id.toString();
   const [likes, setLikes] = useState(succulent.likes);
+  const [isFlipped, setIsFlipped] = useState(false);
+
     
     
 
@@ -117,8 +119,9 @@ const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentC
     
     
   return (
-    <div className='succulent-card-div'>
-      <img src={succulent.img} alt={succulent.species} className="succulent-card-img" />
+    <div className={`succulent-card-div ${isFlipped ? 'flipped' : ''}`}>
+       <div className="front">
+                <img src={succulent.img} alt={succulent.species} className="succulent-card-img" />
       <p>Species: {succulent.species}</p>
       <p>Description: {succulent.description}</p>
       <p>City: {succulent.city}</p>
@@ -127,7 +130,7 @@ const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentC
       ? <AiFillLike className='succulent-card-btn' onClick={addOrRemoveLike}/> 
       : <AiOutlineLike className='succulent-card-btn' onClick={addOrRemoveLike} />}
           {succulent.owner._id === userId && <MdDeleteForever className='succulent-card-btn' onClick={handleDeleteSucculent} />}
-          {succulent.owner._id === userId && <FaEdit className='succulent-card-btn' />}
+          {succulent.owner._id === userId && <FaEdit className='succulent-card-btn' onClick={() => setIsFlipped(!isFlipped)} />}
     <SucculentCardModal isOpen={isModalOpen} closeModal={toggleModal}>
   {errorMsg ? <p>{errorMsg}</p> : (
     <>
@@ -153,8 +156,14 @@ const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentC
   )}
 </SucculentCardModal>
 
+       </div>
+       <div className="back">
+              <p>this is the back of the Card</p>
+              <button onClick={() => setIsFlipped(!isFlipped)}>flip back</button>
+      </div>
     </div>
   );
 };
 
 export default SucculentCard;
+
