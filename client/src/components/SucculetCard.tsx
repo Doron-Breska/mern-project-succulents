@@ -5,11 +5,7 @@ import { MdDeleteForever } from 'react-icons/md';
 import { FaRobot } from 'react-icons/fa';
 import { MdComment } from 'react-icons/md';
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
-
-
-
-
-
+import { FaEdit } from 'react-icons/fa';
 
 
 
@@ -50,10 +46,11 @@ interface Succulent {
 
 interface SucculentCardProps {
   succulent: Succulent;
-  deleteComment: (succulentId: string, commentId: string) => void;
+    deleteComment: (succulentId: string, commentId: string) => void;
+    deleteSucculent: (succulentId: string) => void; 
 }
 
-const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
+const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentCardProps) => {
   const { user, errorMsg, setErrorMsg } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const token = localStorage.getItem("token");
@@ -108,36 +105,15 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
     }
   };
   
-    
-     const deleteSucculent = async () => {
-    // check if user exists
-    if (!user) {
-      setErrorMsg("Members only feature");
-      setIsModalOpen(true);
-      return;
-    }
-
+      const handleDeleteSucculent = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/succulents/delete/${succulent._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error);
-      }
-      
-      // Handle the response data here
-      console.log(data.msg); // Succulent successfully deleted!
-
+      await deleteSucculent(succulent._id);
     } catch (error) {
       console.error('Failed to delete succulent:', error);
     }
   };
+
+ 
     
     
   return (
@@ -148,8 +124,10 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
       <p>City: {succulent.city}</p>
       <p>Posted by: {succulent.owner.username}, on: {new Date(succulent.createdAt).toLocaleDateString()} {new Date(succulent.createdAt).toLocaleTimeString()}</p>
       <MdComment className='succulent-card-btn' onClick={toggleModal}/><FaRobot className='succulent-card-btn'/>{ user && likes.includes(user._id) 
-    ? <AiFillLike className='succulent-card-btn' onClick={addOrRemoveLike}/> 
-    : <AiOutlineLike className='succulent-card-btn' onClick={addOrRemoveLike}/> }{ succulent.owner._id === userId && <MdDeleteForever className='succulent-card-btn' onClick={deleteSucculent} /> }
+      ? <AiFillLike className='succulent-card-btn' onClick={addOrRemoveLike}/> 
+      : <AiOutlineLike className='succulent-card-btn' onClick={addOrRemoveLike} />}
+          {succulent.owner._id === userId && <MdDeleteForever className='succulent-card-btn' onClick={handleDeleteSucculent} />}
+          {succulent.owner._id === userId && <FaEdit className='succulent-card-btn' />}
     <SucculentCardModal isOpen={isModalOpen} closeModal={toggleModal}>
   {errorMsg ? <p>{errorMsg}</p> : (
     <>
@@ -159,7 +137,7 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
           succulent.Comments.length > 0 ? (
             succulent.Comments.map(comment => (
                 <div key={comment._id} className="single-comment-modal">
-                    <img src={comment.authorImage} className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
+                    <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
                     <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
                     { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteComment(succulent._id, comment._id)}/> }
               </div>

@@ -43,7 +43,8 @@ interface Succulent {
 
 
 const ProfileHistory = (props: Props) => {
-    const { user } = useContext(AuthContext);
+    const { user, errorMsg, setErrorMsg } = useContext(AuthContext);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const token = localStorage.getItem("token");
     const [succulents, setSucculents] = useState<Succulent[]>([]);
     const userId = user?._id.toString();
@@ -51,7 +52,7 @@ const ProfileHistory = (props: Props) => {
     succulent.Comments.some(comment => comment.authorId.toString() === userId)
 );
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const fetchSucculents = async () => {
         const requestOptions = {
             method: 'GET',
@@ -73,7 +74,9 @@ const ProfileHistory = (props: Props) => {
     useEffect(() => {
         fetchSucculents();
     }, []);
-    
+  
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   const deleteComment = async (succulentId: string, commentId: string) => {
   const requestOptions = {
     method: 'DELETE',
@@ -103,7 +106,9 @@ const ProfileHistory = (props: Props) => {
   }
   };
     
-    const dislikeSucculent = async (succulentId:string) => {
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const dislikeSucculent = async (succulentId:string) => {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -134,6 +139,39 @@ const ProfileHistory = (props: Props) => {
 
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+      const deleteSucculent = async (id: string) => {
+    // check if user exists
+    if (!user) {
+      setErrorMsg("Members only feature");
+      setIsModalOpen(true);
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/succulents/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+      
+      // Handle the response data here
+      console.log(data.msg); // Succulent successfully deleted!
+      setSucculents(succulents.filter((succulent) => succulent._id !== id));
+
+    } catch (error) {
+      console.error('Failed to delete succulent:', error);
+    }
+      };
+  
 
 
 return (
@@ -142,7 +180,7 @@ return (
         <div className='history-profile-container'>
             <div className='profile-succulents-container'>
                      {succulents.filter(succulent => succulent.owner._id === user?._id).map(succulent => (
-                     <SucculentCard key={succulent._id} succulent={succulent} deleteComment={deleteComment} />))}
+                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}deleteComment={deleteComment} />))}
             </div>
             <div className='profile-comments-container'>
                    {userComments.length === 0 ? 
