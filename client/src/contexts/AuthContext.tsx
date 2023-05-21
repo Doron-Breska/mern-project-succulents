@@ -1,5 +1,5 @@
 
-import { ReactNode, createContext, useState, useEffect } from "react"
+import { ReactNode, createContext, useState, useEffect ,useCallback} from "react"
 
 interface User {
   _id:string
@@ -100,15 +100,16 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
   
 // old vers end
   
-const checkForToken = () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    console.log("There is a token");
-    fetchActiveUser(token);
-  } else {
-    console.log("There is no token");
-  }
-};
+  const checkForToken = useCallback(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log("There is a token");
+      fetchActiveUser(token);
+    } else {
+      console.log("There is no token");
+    }
+  }, []);
+    
   
 
   
@@ -129,9 +130,9 @@ const checkForToken = () => {
     }
   }
 
-    useEffect(() => {
-  checkForToken();
-    }, []);
+  useEffect(() => {
+    checkForToken();
+  }, [checkForToken]);
 
   return (
     <AuthContext.Provider value={{ user, login, logout, error, errorMsg, setErrorMsg }}>

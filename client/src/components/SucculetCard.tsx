@@ -68,7 +68,12 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
 
     
     
-  const toggleModal = () => {
+    const toggleModal = () => {
+    if (!user) {
+    setErrorMsg("Members only feature");
+    setIsModalOpen(true);
+    return;
+  }
     setIsModalOpen(!isModalOpen);
   };
     
@@ -102,7 +107,37 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
       console.error('Failed to update likes:', error);
     }
   };
+  
     
+     const deleteSucculent = async () => {
+    // check if user exists
+    if (!user) {
+      setErrorMsg("Members only feature");
+      setIsModalOpen(true);
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/succulents/delete/${succulent._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+      
+      // Handle the response data here
+      console.log(data.msg); // Succulent successfully deleted!
+
+    } catch (error) {
+      console.error('Failed to delete succulent:', error);
+    }
+  };
     
     
   return (
@@ -114,7 +149,7 @@ const SucculentCard = ({ succulent, deleteComment }: SucculentCardProps) => {
       <p>Posted by: {succulent.owner.username}, on: {new Date(succulent.createdAt).toLocaleDateString()} {new Date(succulent.createdAt).toLocaleTimeString()}</p>
       <MdComment className='succulent-card-btn' onClick={toggleModal}/><FaRobot className='succulent-card-btn'/>{ user && likes.includes(user._id) 
     ? <AiFillLike className='succulent-card-btn' onClick={addOrRemoveLike}/> 
-    : <AiOutlineLike className='succulent-card-btn' onClick={addOrRemoveLike}/> }
+    : <AiOutlineLike className='succulent-card-btn' onClick={addOrRemoveLike}/> }{ succulent.owner._id === userId && <MdDeleteForever className='succulent-card-btn' onClick={deleteSucculent} /> }
     <SucculentCardModal isOpen={isModalOpen} closeModal={toggleModal}>
   {errorMsg ? <p>{errorMsg}</p> : (
     <>
