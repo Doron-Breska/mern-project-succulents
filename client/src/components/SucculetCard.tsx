@@ -6,6 +6,7 @@ import { FaRobot } from 'react-icons/fa';
 import { MdComment } from 'react-icons/md';
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import { FaEdit } from 'react-icons/fa';
+import { ModalContext } from '../contexts/ModalContext'
 
 
 
@@ -51,36 +52,52 @@ interface SucculentCardProps {
 }
 
 const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentCardProps) => {
-  const { user, errorMsg, setErrorMsg } = useContext(AuthContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useContext(AuthContext);
+const { isModalOpen, closeModal, openModal, modalContent, setModalContent, setModalContent2} = useContext(ModalContext);
   const token = localStorage.getItem("token");
   const userId = user?._id.toString();
   const [likes, setLikes] = useState(succulent.likes);
-  const [isFlipped, setIsFlipped] = useState(false);
+     
 
-    
-    
+ const ModalEl =   
+  <>
+          <h3>Comments</h3>
+          {
+            user ? (
+              succulent.Comments.length > 0 ? (
+                succulent.Comments.map(comment => (
+                    <div key={comment._id} className="single-comment-modal">
+                        <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
+                        <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
+                        { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteComment(succulent._id, comment._id)}/> }
+                  </div>
+                ))
+              ) : (
+                <p>No comments found for this post</p>
+              )
+            ) : (
+              <p>You have to log in to comment</p>
+            )
+          }
+</>
 
-
-  
-
-
-    
     
     const toggleModal = () => {
-    if (!user) {
-    setErrorMsg("Members only feature");
-    setIsModalOpen(true);
-    return;
-  }
-    setIsModalOpen(!isModalOpen);
+        if (!user) {
+            setModalContent("Members only feature");
+            openModal();
+        }
+    else {
+         setModalContent2(ModalEl)
+    openModal() 
+    }
   };
     
     const addOrRemoveLike = async () => {
       // check if user exists
   if (!user) {
-    setErrorMsg("Members only feature");
-    setIsModalOpen(true);
+    setModalContent("Members only feature");
+    openModal()
     return;
   }
     try {
@@ -115,13 +132,12 @@ const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentC
     }
   };
 
- 
+
     
     
   return (
-    <div className={`succulent-card-div ${isFlipped ? 'flipped' : ''}`}>
-       <div className="front">
-                <img src={succulent.img} alt={succulent.species} className="succulent-card-img" />
+    <div className='succulent-card-div'>
+      <img src={succulent.img} alt={succulent.species} className="succulent-card-img" />
       <p>Species: {succulent.species}</p>
       <p>Description: {succulent.description}</p>
       <p>City: {succulent.city}</p>
@@ -130,40 +146,35 @@ const SucculentCard = ({ succulent, deleteComment, deleteSucculent }: SucculentC
       ? <AiFillLike className='succulent-card-btn' onClick={addOrRemoveLike}/> 
       : <AiOutlineLike className='succulent-card-btn' onClick={addOrRemoveLike} />}
           {succulent.owner._id === userId && <MdDeleteForever className='succulent-card-btn' onClick={handleDeleteSucculent} />}
-          {succulent.owner._id === userId && <FaEdit className='succulent-card-btn' onClick={() => setIsFlipped(!isFlipped)} />}
-    <SucculentCardModal isOpen={isModalOpen} closeModal={toggleModal}>
-  {errorMsg ? <p>{errorMsg}</p> : (
-    <>
-      <h3>Comments</h3>
-      {
-        user ? (
-          succulent.Comments.length > 0 ? (
-            succulent.Comments.map(comment => (
-                <div key={comment._id} className="single-comment-modal">
-                    <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
-                    <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
-                    { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteComment(succulent._id, comment._id)}/> }
-              </div>
-            ))
-          ) : (
-            <p>No comments found for this post</p>
-          )
-        ) : (
-          <p>You have to log in to comment</p>
-        )
-      }
-    </>
-  )}
-</SucculentCardModal>
+          {succulent.owner._id === userId && <FaEdit className='succulent-card-btn' />}
+    {/* <SucculentCardModal isOpen={isModalOpen} closeModal={toggleModal} modalContent={modalContent}>
+        <>
+          <h3>Comments</h3>
+          {
+            user ? (
+              succulent.Comments.length > 0 ? (
+                succulent.Comments.map(comment => (
+                    <div key={comment._id} className="single-comment-modal">
+                        <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
+                        <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
+                        { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteComment(succulent._id, comment._id)}/> }
+                  </div>
+                ))
+              ) : (
+                <p>No comments found for this post</p>
+              )
+            ) : (
+              <p>You have to log in to comment</p>
+            )
+          }
+        </>
+      </SucculentCardModal> */}
 
-       </div>
-       <div className="back">
-              <p>this is the back of the Card</p>
-              <button onClick={() => setIsFlipped(!isFlipped)}>flip back</button>
-      </div>
+
     </div>
   );
 };
 
-export default SucculentCard;
 
+        
+export default SucculentCard;

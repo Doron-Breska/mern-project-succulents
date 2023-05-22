@@ -167,7 +167,7 @@ body {
 
 
 .succulent-card-div {
-  /* perspective: 1000px; */
+  perspective: 1000px;
   width: 300px;
   /* adjust to your needs */
   height: 550px;
@@ -233,9 +233,11 @@ object-fit:cover;
   /* Add border radius */
   background-color: #fff;
   padding: 1em;
+  padding-top: 3rem;
   max-width: 90%;
   max-height: 90%;
   overflow: auto;
+  width: 400px;   
 }
 
 /* New style for the close button */

@@ -51,7 +51,6 @@ const createUser = async (req, res) => {
     const registeredUser = await newUser.save();
     res.status(200).json({
       msg: "Successfully registered!",
-      username: registeredUser.username
     });
   } catch(e) {
     console.log(e);
@@ -150,40 +149,73 @@ const updateUser = async (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// const login = async(req, res) => {
+//   try {
+//     const existingUser = await UserModel.findOne({ email: req.body.email });
+//     if (!existingUser) {
+//       res.status(404).json({error: "no user found"})
+//       return;
+//     }
+//     if (existingUser) {
+//       const verified = await verifyPassword(req.body.password, existingUser.password); //comparing the password the user entered to the password connected to the user that found in the prev stage
+//       if (!verified) {
+//         res.status(406).json({ error: "password doesn't match" })
+//       }
+//       if (verified) {
+//         const token = generateToken(existingUser)
+//         res.status(200).json({
+//           verified: true,
+//           token:token,
+//           user: {
+//             _id: existingUser._id,
+//             username: existingUser.username,
+//             succulents: existingUser.succulents,
+//             avatar: existingUser.avatar,
+//             role: existingUser.role
+//           }
+//         })
+//       }
+//     }
+//   } catch (e) {
+//     console.log(e);
+//     res.status(500).json({ error: "something went wrong with loggin you in.." })
+//   }
+// }
+
 const login = async(req, res) => {
   try {
     const existingUser = await UserModel.findOne({ email: req.body.email });
+
     if (!existingUser) {
-      res.status(404).json({error: "no user found"})
-      return;
+      return res.status(404).json({error: "no user found"});
     }
-    if (existingUser) {
-      const verified = await verifyPassword(req.body.password, existingUser.password); //comparing the password the user entered to the password connected to the user that found in the prev stage
-      if (!verified) {
-        res.status(406).json({ error: "password doesn't match" })
-      }
-      if (verified) {
-        const token = generateToken(existingUser)
-        res.status(200).json({
-          verified: true,
-          token:token,
-          user: {
-            _id: existingUser._id,
-            username: existingUser.username,
-            succulents: existingUser.succulents,
-            avatar: existingUser.avatar,
-            succulents: existingUser.succulents,
-            role: existingUser.role
-          }
-        })
-      }
+
+    const verified = await verifyPassword(req.body.password, existingUser.password);
+    
+    if (!verified) {
+      return res.status(406).json({ error: "password doesn't match" });
     }
+
+    const token = generateToken(existingUser)
+
+    res.status(200).json({
+      verified: true,
+      token: token,
+      user: {
+        _id: existingUser._id,
+        username: existingUser.username,
+        avatar: existingUser.avatar,
+        succulents: existingUser.succulents,
+        role: existingUser.role
+      }
+    })
   } catch (e) {
     console.log(e);
-    res.status(500).json({ error: "something went wrong with loggin you in.." })
+    res.status(500).json({ error: "something went wrong with logging you in.." })
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////
 const getActiveUser = async (req, res) => {
   try {
     const user = await UserModel.findById(req.user._id).populate("succulents");

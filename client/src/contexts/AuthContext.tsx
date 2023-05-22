@@ -1,5 +1,6 @@
 
-import { ReactNode, createContext, useState, useEffect ,useCallback} from "react"
+import { ReactNode, createContext, useState, useEffect, useCallback, useContext } from "react";
+import { ModalContext } from "./ModalContext"
 
 interface User {
   _id:string
@@ -12,8 +13,6 @@ interface User {
 interface AuthContextType {
   user: User | null;
   error: Error | null;
-  errorMsg: string;
-  setErrorMsg: React.Dispatch<React.SetStateAction<string>>;
   login(email: string, password: string): void;
   logout(): void;
 }
@@ -26,8 +25,6 @@ interface AuthContextType {
 const initialAuth: AuthContextType = {
   user: null,
   error: null,
-  errorMsg: '',
-  setErrorMsg: () => {},
   login: () => {
     throw new Error('login function not implemented.');
   },
@@ -41,12 +38,12 @@ export const AuthContext = createContext<AuthContextType>(initialAuth);
 
 export const AuthContextProvider = ({children} : {children: ReactNode}) => {
   const [user, setUser] = useState<User | null>(null);
-  console.log("active user : ", user)
+  console.log("active user testing: ", user)
+   const { setModalContent, openModal } = useContext(ModalContext); // get setModalContent from ModalContext
   const [error, setError] = useState<Error | null>(null);
-  const [errorMsg, setErrorMsg] = useState("");
+  
 
-
-  const login = async(email: string, password: string) => {
+const login = async(email: string, password: string) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     const urlencoded = new URLSearchParams();
@@ -59,22 +56,28 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
     };
     try {
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}users/login`, requestOptions);
+      if (!response.ok) {
+        const errorData = await response.json(); // get the error message from the response
+        setModalContent(errorData.error); // set the error message as modal content
+        openModal();
+        return;
+      }
       const result = await response.json();
       if (result.user) {
         setUser(result.user);
-        console.log("test-result.user",result.user )
+        console.log("test--- result.user :",result.user )
         localStorage.setItem("token", result.token);
         localStorage.setItem("my name", "doron");
-        setErrorMsg("")
+        setModalContent("");
       }
       console.log(result);
     } catch (error) {
       console.log(error);
-      // setError(error); //I still have to figure out how to type the unknown fetch results
-      alert("Something went wrong - check console for error")
+      setModalContent("Unexpected error occurred"); // a general error message when an unexpected error (like network error) occurs
+      openModal();
     }
-
   }
+
 
   const logout = () => {
     setUser(null);
@@ -112,30 +115,35 @@ export const AuthContextProvider = ({children} : {children: ReactNode}) => {
     
   
 
-  
-  const fetchActiveUser = async(token: string) => {
-     const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
-    const requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-    };
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}users/active`, requestOptions);
-      const result = await response.json();
-      console.log("active user result:", result);
-      setUser(result);
-    } catch (error) {
-      console.log(error);
+const fetchActiveUser = async(token: string) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`);
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+  };
+  try {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}users/active`, requestOptions); 
+    if (!response.ok) {
+      const errorData = await response.json();
+      setModalContent(errorData.error);
+      return;
     }
+    const result = await response.json();
+    console.log("active user result:", result);
+    setUser(result);
+  } catch (error) {
+    console.log(error);
   }
+}
+
 
   useEffect(() => {
     checkForToken();
   }, [checkForToken]);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, error, errorMsg, setErrorMsg }}>
+    <AuthContext.Provider value={{ user, login, logout, error }}>
     { children }
   </AuthContext.Provider>
   )

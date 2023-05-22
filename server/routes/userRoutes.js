@@ -12,7 +12,8 @@ const userRouter = express.Router();
 
 userRouter.get("/all", getUsers)
 userRouter.get("/id/:id", getUserById);
-userRouter.get("/active",jwtAuth, getActiveUser);
+userRouter.get("/active", jwtAuth, getActiveUser);
+
 
 
 userRouter.post("/new", multerUpload.single("avatar"), createUser);

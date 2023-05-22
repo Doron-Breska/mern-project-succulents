@@ -1,22 +1,49 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
-interface ModalContextInterface {
-    isModalOpen: boolean;
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+export interface ModalContextInterface {
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+    modalContent: string | null;
+    modalContent2: ReactNode | null;
+    setModalContent: (content: string | null) => void; 
+     setModalContent2: (content: ReactNode | null) => void; 
+
 }
 
-export const ModalContext = createContext<ModalContextInterface | null>(null);
+export const ModalContext = createContext<ModalContextInterface>({
+    isModalOpen: false,
+    openModal: () => { },
+  closeModal: () => {},
+    modalContent: '',
+  modalContent2: null,
+    setModalContent: () => { }, 
+  setModalContent2: () => { }, 
+});
 
 interface ModalContextProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
-export const ModalContextProvider: React.FC<ModalContextProviderProps> = ({ children }) => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+// export const ModalContextProvider: React.FC<ModalContextProviderProps> = ({ children }) => {
+//   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+//     const [modalContent, setModalContent] = useState<string | null>(null);
+//       const [modalContent2, setModalContent2] = useState<ReactNode  | null>(null);
 
-    return (
-        <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
-            {children}
-        </ModalContext.Provider>
-    );
-};
+
+    
+//     const openModal = () => {
+//     setIsModalOpen(true);
+//   }
+
+//   const closeModal = () => {
+//     setIsModalOpen(false);
+//     setModalContent(null);
+//   }
+
+//   return (
+//    <ModalContext.Provider value={{ isModalOpen,openModal, closeModal, modalContent, setModalContent, setModalContent2 }}>
+//   {children}
+// </ModalContext.Provider>
+//   );
+// };

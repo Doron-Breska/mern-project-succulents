@@ -1,12 +1,7 @@
-import React, { ChangeEvent, FormEvent, useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import SucculentCard from './SucculetCard';
 import { AuthContext } from '../contexts/AuthContext';
-
-
-
-
-
-
+import { ModalContext } from '../contexts/ModalContext';
 
 type Props = {}
 
@@ -43,8 +38,8 @@ interface Succulent {
 
 
 const ProfileHistory = (props: Props) => {
-    const { user, errorMsg, setErrorMsg } = useContext(AuthContext);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { user } = useContext(AuthContext);
+    const { isModalOpen, closeModal, modalContent, setModalContent } = useContext(ModalContext);
     const token = localStorage.getItem("token");
     const [succulents, setSucculents] = useState<Succulent[]>([]);
     const userId = user?._id.toString();
@@ -140,38 +135,36 @@ const ProfileHistory = (props: Props) => {
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
-      const deleteSucculent = async (id: string) => {
-    // check if user exists
-    if (!user) {
-      setErrorMsg("Members only feature");
-      setIsModalOpen(true);
-      return;
+ const deleteSucculent = async (id: string) => {
+  // check if user exists
+  if (!user) {
+    setModalContent("Members only feature");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5001/api/succulents/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
     }
-
-    try {
-      const response = await fetch(`http://localhost:5001/api/succulents/delete/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error);
-      }
       
-      // Handle the response data here
-      console.log(data.msg); // Succulent successfully deleted!
-      setSucculents(succulents.filter((succulent) => succulent._id !== id));
+    // Handle the response data here
+    console.log(data.msg); // Succulent successfully deleted!
+    setSucculents(succulents.filter((succulent) => succulent._id !== id));
+    setModalContent(null); // Clear the modal content
 
-    } catch (error) {
-      console.error('Failed to delete succulent:', error);
-    }
-      };
-  
+  } catch (error) {
+    console.error('Failed to delete succulent:', error);
+  }
+};
 
 
 return (
@@ -180,8 +173,7 @@ return (
         <div className='history-profile-container'>
             <div className='profile-succulents-container'>
         {succulents.filter(succulent => succulent.owner._id === user?._id).map(succulent => (
-                       <div key={succulent._id}>
-                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}deleteComment={deleteComment} /></div> ))}
+                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}deleteComment={deleteComment} /> ))}
             </div>
             <div className='profile-comments-container'>
                    {userComments.length === 0 ? 
