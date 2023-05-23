@@ -4,7 +4,11 @@ import ProfileUpdate from '../components/ProfileUpdate'
 
 type Props = {}
 
+
 const Profile = (props: Props) => {
+
+
+
   return (
     <div className='parent-div'>
       <div className='page-container'>

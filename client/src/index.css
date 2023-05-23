@@ -305,5 +305,5 @@ margin-top: 1.3rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-
+/* need to change the % on smaller screens !!!!! */
 }

@@ -46,6 +46,8 @@ const ProfileHistory = (props: Props) => {
     const userComments = succulents.filter(succulent => 
     succulent.Comments.some(comment => comment.authorId.toString() === userId));
 
+  
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const fetchSucculents = async () => {
         const requestOptions = {
