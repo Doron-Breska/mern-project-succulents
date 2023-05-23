@@ -52,6 +52,10 @@ interface SucculentCardProps {
 
 }
 
+interface FormData {
+    comment: string,
+}
+
 const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCardProps) => {
   const { user } = useContext(AuthContext);
   const { isModalOpen, closeModal, openModal, modalContent, setModalContent, setModalContent2} = useContext(ModalContext);
@@ -60,13 +64,76 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
   const [likes, setLikes] = useState(succulent.likes);
   const [isFlipped, setIsFlipped] = useState(false);
   const [commentText, setCommentText] = useState('');
+  const [comments, setComments] = useState(succulent.Comments);
+  const [formData, setFormData] = useState<FormData>({
+    comment: "",
+    });
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setFormData({...formData, [e.target.name]: e.target.value})
+  }
+
+  const handleCommentSubmit = async (event: FormEvent) => {
+  event.preventDefault();
+
+  // check if user exists
+  if (!user) {
+    setModalContent("Members only feature");
+    openModal();
+    return;
+  }
+
+  try {
+    // form data
+    const submitData = new URLSearchParams();
+    submitData.set('text', formData.comment);
+  
+    // request options
+    const requestOptions = {
+      method: 'POST',
+      headers: new Headers({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      body: submitData
+    };
+   console.log("test for submot data :",requestOptions)
+    // send a POST request to create a new comment
+    const response = await fetch(`http://localhost:5001/api/succulents/comments/${succulent._id}`, requestOptions);
+
+    // convert the response to JSON
+    const data = await response.json();
+
+    if (!response.ok) {
+        setModalContent(data.error); // set the error message as modal content
+        openModal();
+    }
+       setComments([
+    ...comments,
+    {
+      ...data.comment,  // assuming the response contains the comment data
+      authorId: user._id,
+      authorName: user.username,
+      authorImage: user.avatar,
+    },
+  ]);
+
+    // reset the form data
+    setFormData({
+      comment: "",
+    });
+
+  } catch (error) {
+    console.error('Failed to create a comment:', error);
+    setModalContent('Failed to create a comment'); // a general error message when an unexpected error (like network error) occurs
+    openModal();
+  }
+};
 
     
-    
-    
-    
-    const deleteCommentModal = async (succulentId: string, commentId: string) => {
+  /////////////////////////////////////////////////////////////////////////////////////////////
+
+  const deleteCommentModal = async (succulentId: string, commentId: string) => {
   try {
     const response = await fetch(`http://localhost:5001/api/succulents/delete/${succulentId}/comments/${commentId}`, {
       method: 'DELETE',
@@ -80,13 +147,15 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
     }
 
     // Update the local state of the Succulent's comments
-    const updatedComments = succulent.Comments.filter(comment => comment._id !== commentId);
-    setSucculents((prevState: Succulent[]) => prevState.map(suc => {
-  if (suc._id === succulent._id) {
-    return { ...suc, Comments: updatedComments }
-  }
-  return suc;
-  }));
+    const updatedComments = comments.filter(comment => comment._id !== commentId);
+    
+    setComments(updatedComments);
+    // setSucculents((prevState: Succulent[]) => prevState.map(suc => {
+    //   if (suc._id === succulent._id) {
+    //     return { ...suc, Comments: updatedComments }
+    //   }
+    //   return suc;
+    // }));   this part is updating the container in the profile page 
   } catch (error) {
     console.error('Failed to delete comment:', error);
   }
@@ -106,8 +175,8 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
     {
         user ? (
         <>
-            { succulent.Comments.length > 0 ? (
-                succulent.Comments.map(comment => (
+            { comments.length > 0 ? (
+                comments.map(comment => (
                     <div key={comment._id} className="single-comment-modal">
                         <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
                         <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
@@ -118,8 +187,9 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
                 <p>No comments found for this post</p>
             )}
 
-            <form>
-                <input type="text" placeholder="Write something" />
+           <form onSubmit={handleCommentSubmit}>
+            <input type='text' name='comment' placeholder='write something' onChange={handleChange} /><br />
+            <button type="submit" >Submit</button>
             </form>
         </>
         ) : (
