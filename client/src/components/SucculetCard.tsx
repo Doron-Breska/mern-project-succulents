@@ -52,9 +52,7 @@ interface SucculentCardProps {
 
 }
 
-interface FormData {
-    comment: string,
-}
+
 
 const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCardProps) => {
   const { user } = useContext(AuthContext);
@@ -65,12 +63,11 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
   const [isFlipped, setIsFlipped] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState(succulent.Comments);
-  const [formData, setFormData] = useState<FormData>({
-    comment: "",
-    });
+  const[textInput, setTextInput]= useState("")
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  setFormData({...formData, [e.target.name]: e.target.value})
+    const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target.value)
+      setTextInput(e.target.value)
   }
 
   const handleCommentSubmit = async (event: FormEvent) => {
@@ -84,9 +81,9 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
   }
 
   try {
-    // form data
+    console.log("test for submit data :",textInput) 
     const submitData = new URLSearchParams();
-    submitData.set('text', formData.comment);
+    submitData.set('text', textInput);
   
     // request options
     const requestOptions = {
@@ -97,7 +94,7 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
       }),
       body: submitData
     };
-   console.log("test for submot data :",requestOptions)
+  
     // send a POST request to create a new comment
     const response = await fetch(`http://localhost:5001/api/succulents/comments/${succulent._id}`, requestOptions);
 
@@ -119,9 +116,9 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
   ]);
 
     // reset the form data
-    setFormData({
-      comment: "",
-    });
+    // setFormData({
+    //   comment: "",
+    // });
 
   } catch (error) {
     console.error('Failed to create a comment:', error);
@@ -133,34 +130,32 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
     
   /////////////////////////////////////////////////////////////////////////////////////////////
 
-  const deleteCommentModal = async (succulentId: string, commentId: string) => {
-  try {
-    const response = await fetch(`http://localhost:5001/api/succulents/delete/${succulentId}/comments/${commentId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to delete comment');
-    }
-
-    // Update the local state of the Succulent's comments
-    const updatedComments = comments.filter(comment => comment._id !== commentId);
     
-    setComments(updatedComments);
-    // setSucculents((prevState: Succulent[]) => prevState.map(suc => {
-    //   if (suc._id === succulent._id) {
-    //     return { ...suc, Comments: updatedComments }
-    //   }
-    //   return suc;
-    // }));   this part is updating the container in the profile page 
+    const deleteCommentModal = async (succulentId: string, commentId: string) => {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  };
+
+  try {
+    const response = await fetch(`http://localhost:5001/api/succulents/delete/${succulentId}/comments/${commentId}`, requestOptions);
+    if (!response.ok) {
+      throw new Error('HTTP error ' + response.status);
+    }
+//    const updatedComments = comments.filter(comment => comment._id !== commentId);
+    
+    //   setComments(updatedComments);
+      setComments((prev) => {
+          return prev.filter(comment => comment._id !== commentId)
+      })
+      
   } catch (error) {
     console.error('Failed to delete comment:', error);
   }
-};
-
+  };
+    
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     const handleFlip = () => {
         setIsFlipped(!isFlipped);
@@ -174,7 +169,7 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
     <h3>Comments</h3>
     {
         user ? (
-        <>
+        <> 
             { comments.length > 0 ? (
                 comments.map(comment => (
                     <div key={comment._id} className="single-comment-modal">
@@ -188,7 +183,7 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
             )}
 
            <form onSubmit={handleCommentSubmit}>
-            <input type='text' name='comment' placeholder='write something' onChange={handleChange} /><br />
+            <input type='text' name='comment' placeholder='write something' onChange={handleCommentChange} /><br />
             <button type="submit" >Submit</button>
             </form>
         </>

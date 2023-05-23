@@ -24,7 +24,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='*' element={<ErrorPage />} />
             <Route path='/register' element={<Register />} />
-            {/* <Route path='/succulents' element={<Succulents />} /> */}
+            <Route path='/succulents' element={<Succulents />} />
             <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           </Routes>
           {isModalOpen && 
