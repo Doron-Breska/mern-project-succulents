@@ -1,13 +1,13 @@
 import { AuthContext } from '../contexts/AuthContext';
 import SucculentCardModal from '../components/SucculentCardModal'
-import React, { ChangeEvent, FormEvent, useState, useContext } from 'react'
+import React, { ChangeEvent, FormEvent, useState, useContext, useReducer } from 'react'
 import { MdDeleteForever } from 'react-icons/md';
 import { FaRobot } from 'react-icons/fa';
 import { MdComment } from 'react-icons/md';
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import { FaEdit } from 'react-icons/fa';
 import { ModalContext } from '../contexts/ModalContext'
-
+import { NewModalElement } from '../components/NewModalElement';
 
 
 interface Owner {
@@ -43,8 +43,6 @@ interface Succulent {
 
 
 
-
-
 interface SucculentCardProps {
   succulent: Succulent;
     deleteSucculent: (succulentId: string) => void; 
@@ -62,15 +60,19 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
   const [isFlipped, setIsFlipped] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState(succulent.Comments);
-  const[textInput, setTextInput]= useState("")
+  const [textInput, setTextInput] = useState("")
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
+
 
     const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
       console.log(e.target.value)
       setTextInput(e.target.value)
-  }
-console.log("testing comment for git brunch")
-  const handleCommentSubmit = async (event: FormEvent) => {
-  event.preventDefault();
+    }
+  console.log(textInput)
+
+
+  const handleCommentSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
   // check if user exists
   if (!user) {
@@ -104,20 +106,14 @@ console.log("testing comment for git brunch")
         setModalContent(data.error); // set the error message as modal content
         openModal();
     }
-       setComments([
-    ...comments,
-    {
-      ...data.comment,  // assuming the response contains the comment data
-      authorId: user._id,
-      authorName: user.username,
-      authorImage: user.avatar,
-    },
-  ]);
 
-    // reset the form data
-    // setFormData({
-    //   comment: "",
-    // });
+    const newComment = data.succulent.Comments[data.succulent.Comments.length - 1];
+
+       setComments([
+        ...comments,
+        newComment
+       ]);
+    setTextInput("")
 
   } catch (error) {
     console.error('Failed to create a comment:', error);
@@ -129,8 +125,7 @@ console.log("testing comment for git brunch")
     
   /////////////////////////////////////////////////////////////////////////////////////////////
 
-    
-    const deleteCommentModal = async (succulentId: string, commentId: string) => {
+  const deleteCommentModal = async (succulentId: string, commentId: string) => {
   const requestOptions = {
     method: 'DELETE',
     headers: {
@@ -143,17 +138,16 @@ console.log("testing comment for git brunch")
     if (!response.ok) {
       throw new Error('HTTP error ' + response.status);
     }
-//    const updatedComments = comments.filter(comment => comment._id !== commentId);
+    const result = await response.json();
+    const updatedComments = result.succulent.Comments;  // this is the new succulent back from the server without the comment we deleted
     
-    //   setComments(updatedComments);
-      setComments((prev) => {
-          return prev.filter(comment => comment._id !== commentId)
-      })
+    setComments(updatedComments);
       
   } catch (error) {
     console.error('Failed to delete comment:', error);
   }
-  };
+};
+
     
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     const handleFlip = () => {
@@ -163,34 +157,34 @@ console.log("testing comment for git brunch")
   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    const ModalEl =   
-    <>
-    <h3>Comments</h3>
-    {
-        user ? (
-        <> 
-            { comments.length > 0 ? (
-                comments.map(comment => (
-                    <div key={comment._id} className="single-comment-modal">
-                        <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
-                        <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
-                        { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteCommentModal(succulent._id, comment._id)} /> }
-                    </div>
-                ))
-            ) : (
-                <p>No comments found for this post</p>
-            )}
+//     const ModalEl =   
+//     <>
+//     <h3>Comments</h3>
+//     {
+//         user ? (
+//         <> 
+//             { comments.length > 0 ? (
+//                 comments.map(comment => (
+//                     <div key={comment._id} className="single-comment-modal">
+//                         <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
+//                         <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
+//                         { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteCommentModal(succulent._id, comment._id)} /> }
+//                     </div>
+//                 ))
+//             ) : (
+//                 <p>No comments found for this post</p>
+//             )}
 
-           <form onSubmit={handleCommentSubmit}>
-            <input type='text' name='comment' placeholder='write something' onChange={handleCommentChange} /><br />
-            <button type="submit" >Submit</button>
-            </form>
-        </>
-        ) : (
-            <p>You have to log in to comment</p>
-        )
-    }
-</>
+//            <form onSubmit={handleCommentSubmit}>
+//             <input type='text' name='comment' placeholder='write something' onChange={handleCommentChange} /><br />
+//             <button type="submit" >Submit</button>
+//             </form>
+//         </>
+//         ) : (
+//             <p>You have to log in to comment</p>
+//         )
+//     }
+// </>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -200,7 +194,18 @@ console.log("testing comment for git brunch")
             openModal();
         }
     else {
-         setModalContent2(ModalEl)
+     setModalContent2(
+            <NewModalElement 
+                user={user}
+                succulent={succulent}
+                comments={comments}
+                setComments={setComments}
+                handleCommentSubmit={handleCommentSubmit}
+                handleCommentChange={handleCommentChange}
+                deleteCommentModal={deleteCommentModal}
+                textInput={textInput}
+            />
+        );
     openModal() 
     }
   };

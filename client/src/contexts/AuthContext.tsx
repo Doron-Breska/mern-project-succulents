@@ -38,7 +38,7 @@ export const AuthContext = createContext<AuthContextType>(initialAuth);
 
 export const AuthContextProvider = ({children} : {children: ReactNode}) => {
   const [user, setUser] = useState<User | null>(null);
-  console.log("active user testing: ", user)
+  // console.log("active user testing: ", user)
    const { setModalContent, openModal } = useContext(ModalContext); // get setModalContent from ModalContext
   const [error, setError] = useState<Error | null>(null);
   
@@ -65,7 +65,7 @@ const login = async(email: string, password: string) => {
       const result = await response.json();
       if (result.user) {
         setUser(result.user);
-        console.log("test--- result.user :",result.user )
+        // console.log("test--- result.user :",result.user )
         localStorage.setItem("token", result.token);
         localStorage.setItem("my name", "doron");
         setModalContent("");
@@ -106,10 +106,10 @@ const login = async(email: string, password: string) => {
   const checkForToken = useCallback(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      console.log("There is a token");
+      // console.log("There is a token");
       fetchActiveUser(token);
     } else {
-      console.log("There is no token");
+      // console.log("There is no token");
     }
   }, []);
     
@@ -130,7 +130,7 @@ const fetchActiveUser = async(token: string) => {
       return;
     }
     const result = await response.json();
-    console.log("active user result:", result);
+    // console.log("active user result:", result);
     setUser(result);
   } catch (error) {
     console.log(error);

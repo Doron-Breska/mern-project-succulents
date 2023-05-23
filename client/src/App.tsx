@@ -17,7 +17,6 @@ function App() {
 
   return (
     <div className='app-container' style={{ width: '100%' }}>
-      <h1>testing brunch</h1>
       <AuthContextProvider>
         <BrowserRouter>
           <SideBar />
