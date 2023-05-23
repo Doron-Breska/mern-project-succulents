@@ -49,7 +49,6 @@ interface SucculentCardProps {
   succulent: Succulent;
     deleteSucculent: (succulentId: string) => void; 
     setSucculents: React.Dispatch<React.SetStateAction<Succulent[]>>;
-
 }
 
 
@@ -69,13 +68,13 @@ const SucculentCard = ({ succulent, deleteSucculent ,setSucculents}: SucculentCa
       console.log(e.target.value)
       setTextInput(e.target.value)
   }
-
+console.log("testing comment for git brunch")
   const handleCommentSubmit = async (event: FormEvent) => {
   event.preventDefault();
 
   // check if user exists
   if (!user) {
-    setModalContent("Members only feature");
+    setModalContent("Members only feature!");
     openModal();
     return;
   }
