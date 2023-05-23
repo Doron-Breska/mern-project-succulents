@@ -16,7 +16,8 @@ function App() {
   const { isModalOpen, closeModal, modalContent, modalContent2 } = useContext(ModalContext);
 
   return (
-    <div className='app-container' style={{width: '100%'}}>
+    <div className='app-container' style={{ width: '100%' }}>
+      <h1>testing brunch</h1>
       <AuthContextProvider>
         <BrowserRouter>
           <SideBar />
