@@ -72,67 +72,9 @@ const Succulents = (props: Props) => {
   
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  const deleteComment = async (succulentId: string, commentId: string) => {
-  const requestOptions = {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  };
 
-  try {
-    const response = await fetch(`http://localhost:5001/api/succulents/delete/${succulentId}/comments/${commentId}`, requestOptions);
-    if (!response.ok) {
-      throw new Error('HTTP error ' + response.status);
-    }
-    // The server returns a success message, not an updated succulent.
-    // So, manually remove the deleted comment from the local state.
-    setSucculents(succulents.map(succulent => {
-      if (succulent._id === succulentId) {
-        return {
-          ...succulent,
-          Comments: succulent.Comments.filter(comment => comment._id !== commentId)
-        };
-      }
-      return succulent;
-    }));
-  } catch (error) {
-    console.error('Failed to delete comment:', error);
-  }
-  };
     
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  const dislikeSucculent = async (succulentId:string) => {
-  const myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${token}`);
-
-  const requestOptions = {
-    method: 'PUT',
-    headers: myHeaders,
-  };
-
-  try {
-  const response = await fetch(`http://localhost:5001/api/succulents/likes/${succulentId}`, requestOptions);
-  if (!response.ok) {
-    throw new Error('HTTP error ' + response.status);
-  }
-  const result = await response.json(); // If your API returns updated succulent data, parse it as JSON
-  console.log('response:', result);
-  
-  // Update the state
-  setSucculents(succulents.map(succulent => {
-    if (succulent._id === succulentId) {
-      // replace the entire succulent object with the one from the server
-      return result.succulent;
-    }
-    return succulent;
-  }));
-} catch (error) {
-  console.log('error', error);
-}
-
-};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  const deleteSucculent = async (id: string) => {
@@ -170,7 +112,7 @@ const Succulents = (props: Props) => {
 return (
          <div className='succulents-page-container'>
         {succulents.map(succulent => (
-                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}setSucculents={setSucculents} /> ))}
+                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent} setSucculents={setSucculents} /> ))}
             </div>
    
 )
