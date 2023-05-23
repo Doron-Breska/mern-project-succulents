@@ -205,7 +205,7 @@ const deleteComment = async (req, res) => {
 
     await succulent.save();
 
-    res.status(200).json({ msg: "Comment successfully deleted!" });
+    res.status(200).json({ msg: "Comment successfully deleted!" ,succulent });
   } catch(e) {
     res.status(500).json({ msg: "Something went wrong while deleting the comment." });
   }

@@ -10,6 +10,7 @@ body {
   cursive; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
 
 }
 
@@ -18,6 +19,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: auto;
+  text-align: center
 }
 
 .app-container::before {
@@ -155,60 +157,47 @@ body {
   border: 2px dotted black;
   display: flex;
   flex-wrap: wrap;
+  justify-content:center;
   column-gap: 15px;
   row-gap: 15px;
 }
 
 /***************************************    succulent card    ******************************************/
-.profile-succulents-container{
-  display: grid ;
-  grid-template-columns: 1fr 1fr;
-}
-
 
 .succulent-card-div {
-  perspective: 1000px;
-  width: 300px;
-  /* adjust to your needs */
-  height: 550px;
-  /* adjust to your needs */
-  position: relative;
   border: 2px solid red;
+  width: 300px;
+  height: 520px;
+  padding: 1rem;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  /* overflow: auto; */
 }
-
-/* This will animate the flip */
-.succulent-card-div.flipped .front {
+.succulent-card-div.flipped {
   transform: rotateY(180deg);
 }
-
-.succulent-card-div.flipped .back {
-  transform: rotateY(0);
-}
-
-/* The front and back faces of the card */
 .front,
 .back {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
+  -webkit-backface-visibility: hidden;
+  /* for Safari */
   backface-visibility: hidden;
-  transition: transform 0.6s;
 }
 
-/* The front face is visible by default */
-.front {
-  transform: rotateY(0);
-}
-
-/* The back face is initially rotated 180 degrees around the Y axis */
 .back {
   transform: rotateY(180deg);
 }
+/* test flipping card */
 
 .succulent-card-img{
 width: 250px;
 height: 250px;
 object-fit:cover;
+margin-top: 1.3rem;
 }
 
 .Succulent-Card-Modal {
@@ -307,4 +296,14 @@ object-fit:cover;
 .succulent-card-btn:hover {
   background-color: lightgrey;
   transform: scale(1.1);
+}
+
+.succulents-page-container{
+  width: 80%;
+  border: 2px solid black;
+  margin: 5rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
 }

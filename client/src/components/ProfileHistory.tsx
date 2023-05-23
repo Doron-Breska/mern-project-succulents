@@ -71,7 +71,7 @@ const ProfileHistory = (props: Props) => {
     }, []);
   
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   const deleteComment = async (succulentId: string, commentId: string) => {
   const requestOptions = {
     method: 'DELETE',
@@ -85,8 +85,7 @@ const ProfileHistory = (props: Props) => {
     if (!response.ok) {
       throw new Error('HTTP error ' + response.status);
     }
-    // The server returns a success message, not an updated succulent.
-    // So, manually remove the deleted comment from the local state.
+    // manually remove the deleted comment from the local state.
     setSucculents(succulents.map(succulent => {
       if (succulent._id === succulentId) {
         return {
@@ -173,7 +172,7 @@ return (
         <div className='history-profile-container'>
             <div className='profile-succulents-container'>
         {succulents.filter(succulent => succulent.owner._id === user?._id).map(succulent => (
-                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent}deleteComment={deleteComment} /> ))}
+                     <SucculentCard  key={succulent._id} succulent={succulent} deleteSucculent={deleteSucculent} setSucculents={setSucculents} /> ))}
             </div>
             <div className='profile-comments-container'>
                    {userComments.length === 0 ? 
