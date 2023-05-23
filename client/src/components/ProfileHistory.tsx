@@ -44,8 +44,7 @@ const ProfileHistory = (props: Props) => {
     const [succulents, setSucculents] = useState<Succulent[]>([]);
     const userId = user?._id.toString();
     const userComments = succulents.filter(succulent => 
-    succulent.Comments.some(comment => comment.authorId.toString() === userId)
-);
+    succulent.Comments.some(comment => comment.authorId.toString() === userId));
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const fetchSucculents = async () => {
