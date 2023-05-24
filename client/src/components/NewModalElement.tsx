@@ -50,7 +50,7 @@ interface NewModalElementProps {
   textInput: string;
 }
 
-export const NewModalElement = ({ 
+const NewModalElement = ({ 
   user, 
   succulent, 
   comments, 
@@ -90,3 +90,4 @@ export const NewModalElement = ({
     </>
   );
 };
+ export default NewModalElement

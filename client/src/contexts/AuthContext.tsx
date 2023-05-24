@@ -12,6 +12,7 @@ interface User {
 }
 interface AuthContextType {
   user: User | null;
+  setUser: (user: User | null) => void;
   error: Error | null;
   login(email: string, password: string): void;
   logout(): void;
@@ -24,6 +25,10 @@ interface AuthContextType {
 // export const AuthContext = createContext<AuthContextType>(null!); // less recommended
 const initialAuth: AuthContextType = {
   user: null,
+    setUser: () => {
+    throw new Error('setUser function not implemented.');
+  },
+
   error: null,
   login: () => {
     throw new Error('login function not implemented.');
@@ -143,7 +148,7 @@ const fetchActiveUser = async(token: string) => {
   }, [checkForToken]);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, error }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, error }}>
     { children }
   </AuthContext.Provider>
   )

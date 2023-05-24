@@ -19,7 +19,7 @@ interface FormData {
 }
 
 const ProfileUpdate = (props: Props) => {
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const token = localStorage.getItem("token");
     console.log("this is the user",user)
      const [formData, setFormData] = useState<FormData>({
@@ -27,7 +27,9 @@ const ProfileUpdate = (props: Props) => {
     password: "",
     username: "",
     avatar: ""
-    });
+     });
+    const fileInput = React.useRef<HTMLInputElement>(null);
+
     
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({...formData, [e.target.name]: e.target.value})
@@ -45,10 +47,18 @@ const ProfileUpdate = (props: Props) => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const submitData = new FormData();
+        if (formData.email !== "") {
         submitData.append("email", formData.email);
+        }
+        if (formData.password !== "") {
         submitData.append("password", formData.password);
+        }
+        if (formData.username !== "") {
         submitData.append("username", formData.username);
+        }
+        if (formData.avatar !== "") {
         submitData.append("avatar", formData.avatar);
+        }
         const requestOptions = {
             method: 'PUT',
             headers: new Headers({"Authorization": `Bearer ${token}` }),
@@ -56,12 +66,24 @@ const ProfileUpdate = (props: Props) => {
         };
         try {
                  const response = await fetch(`http://localhost:5001/api/users/update/${user?._id}`, requestOptions);
-                 const result = await response.text();
-                 console.log("results of update-profile",result);
+                 const result = await response.json();
+                 setUser(result);
+                 setFormData({ // Reset form
+                email: "",
+                password: "",
+                username: "",
+                avatar: ""
+                 });
+           if (fileInput.current) {
+                fileInput.current.value = '';
+            }
         } catch (error) {
                 console.error('error', error);
         }
     }
+  
+
+  
 
   return (
       <div className="inner-component">
@@ -74,13 +96,13 @@ const ProfileUpdate = (props: Props) => {
                     <div className='profile-edit'>
                          <p>current eamil : {user && user.email }</p>
                          <p>current username : {user && user.username}</p>
-                         <Form onSubmit={handleSubmit}>
-                            <input type='email'  name='email' placeholder='email' onChange={handleChange}/><br />
-                            <input type='password' name='password' placeholder='password' onChange={handleChange}/><br />
-                            <input type='text' name='username' placeholder='username' onChange={handleChange} /><br />
-                            <input type='file' name='avatar' onChange={handleFile} accept="image/png, image/jpg, image/jpeg"/><br />
-                            <button type='submit'>edit profile</button>
-                        </Form>
+                         <Form  onSubmit={handleSubmit}>
+                           <input type='email'  name='email' value={formData.email} placeholder='email' onChange={handleChange}/><br />
+                           <input type='password' name='password' value={formData.password} placeholder='password' onChange={handleChange}/><br />
+                           <input type='text' name='username' value={formData.username} placeholder='username' onChange={handleChange} /><br />
+                           <input ref={fileInput} type='file' name='avatar' onChange={handleFile} accept="image/png, image/jpg, image/jpeg"/><br />
+                           <button type='submit'>edit profile</button>
+                         </Form>
                    </div>
               </div>
       </div>
