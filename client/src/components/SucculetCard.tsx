@@ -78,7 +78,6 @@ const SucculentCard = ({
   const userId = user?._id.toString();
   const [likes, setLikes] = useState(succulent.likes);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState(succulent.Comments);
   const [textInput, setTextInput] = useState("");
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
