@@ -112,7 +112,7 @@ const SucculentCard = ({
     if (editFormData.city !== "") {
       submitData.append("city", editFormData.city);
     }
-    if (editFormData.img) {
+    if (editFormData.img !== "") {
       submitData.append("img", editFormData.img);
     }
 
@@ -134,11 +134,11 @@ const SucculentCard = ({
       const result = await response.json();
       console.log("Updated succulent: ", result.updatedSucculent);
 
-      // setSucculents((prevState) =>
-      //   prevState.map((succ) =>
-      //     succ._id === succulent._id ? result.updatedSucculent : succ
-      //   )
-      // );
+      setSucculents((prevState) =>
+        prevState.map((succ) =>
+          succ._id === succulent._id ? result.updatedSucculent : succ
+        )
+      );
       setIsFlipped(false); // flip the card back to front view
       setEditFormData({
         species: "",

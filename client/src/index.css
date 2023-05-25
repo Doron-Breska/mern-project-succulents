@@ -10,8 +10,6 @@ body {
   cursive; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-
 }
 
 .app-container {
@@ -29,8 +27,6 @@ body {
   background-position: center center;
   background-size: cover;
   opacity: 0.2;
-  /* Set the opacity you want (0 to 1) */
-
   /* Set the dimensions and position of the pseudo-element */
   position: absolute;
   top: 0;
@@ -145,7 +141,7 @@ body {
 
 .profile-pic-frame, .profile-edit-frame {
   border: 15px solid white;
-  border-bottom: 70px solid white;
+  border-bottom: 80px solid white;
   display: inline-block;
 }
 .edit-profile-container{
