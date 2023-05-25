@@ -78,6 +78,7 @@ body {
   background-color: #007bff;
   color: #ffffff;
   padding: 1rem 1rem;
+  padding-top: 1.2rem;
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
@@ -101,7 +102,7 @@ body {
   z-index: 900;
 }
 .first-line-sidebar{
-  margin-top: 4rem;
+  margin-top: 6rem;
 }
 
 .sidebar h1 {
@@ -143,7 +144,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin-bottom: 0.6rem;
+  margin-bottom: 1rem;
 }
 
 

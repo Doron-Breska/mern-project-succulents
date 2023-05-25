@@ -77,8 +77,10 @@ const SucculentCard = ({
   const token = localStorage.getItem("token");
   const userId = user?._id.toString();
   const [likes, setLikes] = useState(succulent.likes);
+  const [speices, setSpeices] = useState(succulent.species);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [comments, setComments] = useState(succulent.Comments);
+  // const [comments, setComments] = useState(succulent.Comments);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [textInput, setTextInput] = useState("");
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [editFormData, setEditFormData] = useState<FormData>({
@@ -88,7 +90,40 @@ const SucculentCard = ({
     img: "",
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
+  const [plantCare, setPlantCare] = useState<string | null>(null);
 
+  const getPlantCareAi = async (speices: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/succulents/plantCare/${speices}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      // parse the response to get the text part
+      // const text = data["response from OpenAI"].choices.text;
+
+      // setPlantCare(text);
+      console.log(
+        "this is the result from open ai",
+        data["response from OpenAI"].choices[0].text
+      );
+      // let unfilteredText = data["response from OpenAI"].choices[0].text;
+      // let filteredText = unfilteredText.trim();
+      // console.log("test for filted text", filteredText);
+      // setPlantCare(data["response from OpenAI"].choices[0].text);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
   const handleEditChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
   };
@@ -134,11 +169,11 @@ const SucculentCard = ({
       const result = await response.json();
       console.log("Updated succulent: ", result.updatedSucculent);
 
-      setSucculents((prevState) =>
-        prevState.map((succ) =>
-          succ._id === succulent._id ? result.updatedSucculent : succ
-        )
-      );
+      // setSucculents((prevState) =>
+      //   prevState.map((succ) =>
+      //     succ._id === succulent._id ? result.updatedSucculent : succ
+      //   )
+      // );
       setIsFlipped(false); // flip the card back to front view
       setEditFormData({
         species: "",
@@ -206,6 +241,7 @@ const SucculentCard = ({
 
       setComments([...comments, newComment]);
       setTextInput("");
+      toggleModal([...comments, newComment]);
     } catch (error) {
       console.error("Failed to create a comment:", error);
       setModalContent("Failed to create a comment"); // a general error message when an unexpected error (like network error) occurs
@@ -236,6 +272,7 @@ const SucculentCard = ({
       const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
 
       setComments(updatedComments);
+      toggleModal(updatedComments);
     } catch (error) {
       console.error("Failed to delete comment:", error);
     }
@@ -279,7 +316,7 @@ const SucculentCard = ({
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const toggleModal = () => {
+  const toggleModal = async (updatedComments: any) => {
     if (!user) {
       setModalContent("Members only feature");
       openModal();
@@ -288,7 +325,7 @@ const SucculentCard = ({
         <NewModalElement
           user={user}
           succulent={succulent}
-          comments={comments}
+          comments={updatedComments}
           setComments={setComments}
           handleCommentSubmit={handleCommentSubmit}
           handleCommentChange={handleCommentChange}
@@ -342,6 +379,39 @@ const SucculentCard = ({
       console.error("Failed to delete succulent:", error);
     }
   };
+  /////////////////////////////////////////////////////////////////////////////////////
+  const getAllComments = async (succulentId: string) => {
+    // console.log('%csucculent ID',"color:blue",  succulentId)
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
+        requestOptions
+      );
+      console.log("%call comments :>> ", "color:green", response);
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+      const result = await response.json();
+      console.log("%call comments :>> ", "color:green", result);
+      const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
+      console.log("%call comments :>> ", "color:green", updatedComments);
+
+      setComments(updatedComments);
+      toggleModal(updatedComments);
+      // toggleModal()
+      // openModal();
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  };
+  //////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className={`succulent-card-div ${isFlipped ? "flipped" : ""}`}>
@@ -360,7 +430,10 @@ const SucculentCard = ({
           {new Date(succulent.createdAt).toLocaleTimeString()}
         </p>
         <MdComment className="succulent-card-btn" onClick={toggleModal} />
-        <FaRobot className="succulent-card-btn" />
+        <FaRobot
+          className="succulent-card-btn"
+          onClick={() => getPlantCareAi(succulent.species)}
+        />
         {user && likes.includes(user._id) ? (
           <AiFillLike
             className="succulent-card-btn"
@@ -425,3 +498,6 @@ const SucculentCard = ({
 };
 
 export default SucculentCard;
+function async(species: string) {
+  throw new Error("Function not implemented.");
+}

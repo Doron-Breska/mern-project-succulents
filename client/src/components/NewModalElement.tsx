@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { MdDeleteForever } from "react-icons/md";
 
 interface User {
@@ -48,6 +48,7 @@ interface NewModalElementProps {
   handleCommentChange: (e: ChangeEvent<HTMLInputElement>) => void;
   deleteCommentModal: (succulentId: string, commentId: string) => Promise<void>;
   textInput: string;
+  getAllComments?: any;
 }
 
 const NewModalElement = ({
@@ -59,16 +60,54 @@ const NewModalElement = ({
   handleCommentChange,
   deleteCommentModal,
   textInput,
+  getAllComments,
 }: NewModalElementProps) => {
+  const [modalComments, setModalComments] = useState<Comment[]>([]);
+  const token = localStorage.getItem("token");
+
+  const getModalComments = async (succulentId: string) => {
+    // console.log('%csucculent ID',"color:blue",  succulentId)
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
+        requestOptions
+      );
+      //  console.log("%call comments :>> ", "color:green",response);
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+      const result = await response.json();
+      // console.log("%call comments :>> ", "color:green",result);
+      const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
+      console.log("%call comments :>> ", "color:green", updatedComments);
+
+      setModalComments(updatedComments);
+
+      // openModal();
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("%cuseEffectmodal", "color:lightblue", succulent._id);
+    getModalComments(succulent._id);
+  }, [comments.length, modalComments.length]);
   return (
     <>
       <h3>Comments</h3>
       {user ? (
         <>
-          {" "}
-          {console.log('testing for "comments" :', comments)}
-          {comments.length > 0 ? (
-            comments.map((comment) => (
+          {console.log('JSX modal "comments">>> :', modalComments)}
+          {modalComments.length > 0 ? (
+            modalComments.map((comment) => (
               <div key={comment._id} className="single-comment-modal">
                 <img
                   src={comment.authorImage}
@@ -85,9 +124,10 @@ const NewModalElement = ({
                 {user && comment.authorId === user._id && (
                   <MdDeleteForever
                     className="delete-icon-comment"
-                    onClick={() =>
-                      deleteCommentModal(succulent._id, comment._id)
-                    }
+                    onClick={() => {
+                      deleteCommentModal(succulent._id, comment._id);
+                      // getModalComments(succulent._id)
+                    }}
                   />
                 )}
               </div>
@@ -98,7 +138,7 @@ const NewModalElement = ({
           <form onSubmit={handleCommentSubmit}>
             <input
               type="text"
-              // name="comment"
+              name="comment"
               placeholder="write something"
               onChange={handleCommentChange}
               value={textInput}

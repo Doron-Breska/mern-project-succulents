@@ -1,6 +1,7 @@
 import SucculentModel from "../models/succulentModel.js";
 import { imageUpload } from "../utils/imageMangement.js";
 import UserModel from "../models/userModels.js";
+import openAiConfig from "../config/openAiConfig.js";
 
 ////////////////////////////////////////////////////////////////
 const getAllSucculents = async (req, res) => {
@@ -13,6 +14,23 @@ const getAllSucculents = async (req, res) => {
     console.log(e);
   }
 }
+
+/////////////////////////////////////////////////////////////////////////
+const getAllComments = async (req, res) => {
+  const userId = req.user._id;
+  const { succulentId } = req.params;
+  console.log("getAllcomments server----------", succulentId);
+  try {
+    const succulent = await SucculentModel.findById(succulentId);
+    console.log("allComments ln 64 >>>", succulent);
+    res.status(200).json({
+      msg: `all comments from succulent :${succulentId}`,
+      succulent,
+    });
+  } catch (error) {
+    console.log("error showing all comments >>>>", error);
+  }
+};
 //////////////////////////////////////////////////////////////
 const createSucculent = async (req, res) => {
   const userId = req.user._id; // The jwtAuth middleware decoding the token from the Authorization-header request and attaching the user's info in the req.user object.
@@ -248,6 +266,18 @@ const updateSucculent = async (req, res) => {
     res.status(500).json({ error: "Something went wrong with updating the succulent." });
   }
 };
+/////////////////////////////////////////////////////////////////////////////////
+const getPlantCare = async (req, res) => {
+  try {
+    const { speciesName } = req.params;
+    const data = await openAiConfig(speciesName); // Pass the speciesName to the openAiConfig function
+    res.status(200).json({ "response from OpenAI": data });
+  } catch (error) {
+    console.log(error.message);
+    console.log
+    res.status(500).json({ "something went wrong with getPlantCare backend": error });
+  }
+};
 
 
-export { getAllSucculents, createSucculent, createComment, addOrRemoveLike, deleteSucculent, deleteComment ,updateSucculent} 
+export { getAllSucculents, createSucculent, createComment, addOrRemoveLike, deleteSucculent, deleteComment ,updateSucculent, getAllComments, getPlantCare} 

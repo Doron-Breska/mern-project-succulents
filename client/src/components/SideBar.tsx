@@ -68,7 +68,7 @@ const SideBar = (props: Props) => {
       {isSidebarVisible && (
         <aside className="sidebar" ref={sidebarRef}>
           <div className="first-line-sidebar">
-            {user ? <p>User logged in!</p> : <p>User logged out!</p>}
+            {/* {user ? <p>User logged in!</p> : <p>User logged out!</p>} */}
           </div>
           <nav>
             <ul>
