@@ -144,7 +144,9 @@ const NewModalElement = ({
               value={textInput}
             />
             <br />
-            <button type="submit">Submit</button>
+            <button className="custom-button" type="submit">
+              Submit
+            </button>
           </form>
         </>
       ) : (

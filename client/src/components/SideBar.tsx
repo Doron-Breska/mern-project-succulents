@@ -106,24 +106,30 @@ const SideBar = (props: Props) => {
             </ul>
           </nav>
           {user !== null ? (
-            <button onClick={logout}>Log-Out</button>
+            <button className="custom-button" onClick={logout}>
+              Log-Out
+            </button>
           ) : (
             <>
               {" "}
               <form onSubmit={handleSubmit}>
                 <input
+                  className="TEST"
                   type="email"
                   name="email"
                   placeholder="email"
                   onChange={handleChange}
                 />
                 <input
+                  className="TEST"
                   type="password"
                   name="password"
                   placeholder="password"
                   onChange={handleChange}
                 />
-                <button type="submit">Log-In</button>
+                <button className="custom-button" type="submit">
+                  Log-In
+                </button>
               </form>
             </>
           )}

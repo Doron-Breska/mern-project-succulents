@@ -13,43 +13,16 @@ body {
 }
 
 .app-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
   text-align: center;
   font-family: 'Josefin Sans',
   sans-serif;
   /* font-family: 'Gloria Hallelujah',
-  cursive;
-  font-family: 'Josefin Sans',
-  sans-serif;
-  font-family: 'Sigmar',cursive; */
+    cursive;
+    font-family: 'Josefin Sans',
+    sans-serif;
+    font-family: 'Sigmar',cursive; */
 }
 
-.app-container::before {
-  content: "";
-  background-image: url('/Users/doronbrsqh/Downloads/Web\ Dev\ Code\ Academy\ \ /mern-project/client/assets/light-green.jpg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 0.2;
-  /* Set the dimensions and position of the pseudo-element */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  /* Ensure the pseudo-element is below the actual content */
-  z-index: -1;
-}
-
-@media (max-width: 768px) {
-  .app-container::before {
-    background-size: auto 100%;
-  }
-}
 
 .parent-div {
   display: flex;
@@ -60,7 +33,7 @@ body {
 .page-container {
     margin: 2rem 2rem;
     margin-top: 5.5rem;
-    max-width: 800px;
+    width: 80%;
     padding: 20px;
     border: 1px solid #000;
     background-color: #e8f4ea;
@@ -140,7 +113,7 @@ body {
 /***************************************************    Profile   ********************************************************/
 .profile-pic{
   width: 300px;
-  height:300px ;
+  height:305px ;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -157,8 +130,11 @@ body {
 
 .profile-edit-frame {
   border: 15px solid white;
-  border-bottom: 80px solid white;
+  background-color: white;
+  /* border-bottom: 80px solid white; */
   display: inline-block;
+  width: 332px;
+  padding-bottom: 0rem;
 }
 .profile-pic-text{
   font-family:'Gloria Hallelujah',
@@ -166,32 +142,61 @@ body {
   font-weight: 900;
   font-size: 1.3rem;
 }
-
+.profile-pic-text-div{
+  background-color: white;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  font-family:'Gloria Hallelujah',
+  cursive;
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+.semi-img-edit-profile{
+background-color: lightseagreen;
+}
+.semi-img-edit-profile p{
+  padding-top: 0.5rem;
+}
 
 .edit-profile-container{
   display: flex ;
-  flex-direction: row; 
+  flex-wrap: wrap;
+  justify-content: space-around;
   column-gap: 20px;
+  row-gap: 20px;
+  margin-bottom: 4rem;
 }
-.profile-comments-container, .profile-likes-container ,.profile-succulents-container{
-  border: 2px dotted black;
+
+.profile-succulents-container{
+    display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  column-gap: 35px;
+  row-gap: 35px;
+  margin-bottom: 3rem;
+}
+
+
+.profile-comments-container, .profile-likes-container{
   display: flex;
   flex-wrap: wrap;
   justify-content:center;
-  column-gap: 15px;
-  row-gap: 15px;
+  column-gap: 20px;
+  row-gap: 20px;
+  margin-bottom: 3rem;
+
 }
 
 /***************************************    succulent card    ******************************************/
 
 .succulent-card-div {
-  border: 2px solid red;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
   width: 300px;
-  height: 520px;
+  height: 690px;
   padding: 2rem;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  /* overflow: auto; */
 }
 .succulent-card-div.flipped {
   transform: rotateY(180deg);
@@ -208,17 +213,46 @@ body {
   backface-visibility: hidden;
 }
 
+.succulent-card-div p {
+  margin-left:2rem ;
+  margin-right:2rem ;
+  max-width:250px ;
+  word-break: break-word;
+}
+
+
 .back {
   transform: rotateY(180deg);
+  background-image: url("/Users/doronbrsqh/Downloads/plants/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464.jpg");
+  background-size: cover;
+  border-radius: 10px;
 }
-/* test flipping card */
+.front{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+  border-radius: 10px;
+}
+.succulent-card-buttons{
+ margin-bottom: 1rem;
+}
+
+.succulent-card-div p{
+  border-bottom: 1px dotted black;
+  
+}
+
 
 .succulent-card-img{
 width: 250px;
 height: 250px;
 object-fit:cover;
 margin-top: 1.3rem;
+border-radius: 10px;
+margin-bottom: 0.5rem;
 }
+
 
 .Succulent-Card-Modal {
   position: fixed;
@@ -253,11 +287,25 @@ margin-top: 1.3rem;
 .close-modal-btn {
   position: absolute;
   /* Position the button absolutely within the div */
-  top: 10px;
+  top: 12px;
   /* Place it near the top */
-  right: 10px;
+  right: 12px;
   /* And near the right side */
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #053313;
+  /* margin: 1.5rem auto; */
+  border: 2px solid #053313;
+  border-radius: 50%;
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
 }
+.close-modal-btn:hover{
+background-color: lightgrey;
+transform: scale(1.1);
+}
+
+
 .comment-user-pic{
   width: 55px;
   height:55px;
@@ -320,10 +368,230 @@ margin-top: 1.3rem;
 
 .succulents-page-container{
   width: 80%;
-  border: 2px solid black;
-  margin: 5rem auto;
+  margin: 1.5rem auto;
+  margin-bottom: 4rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  row-gap: 55px;
+  column-gap: 55px;
 /* need to change the % on smaller screens !!!!! */
+}
+
+/* ///////////////////////////////////////// SUCCULENTS PAGE /////////////////////////////////////// */
+.wobble-hor-bottom {
+  -webkit-animation: wobble-hor-bottom 5s both;
+  animation: wobble-hor-bottom 5s both;
+}
+
+@-webkit-keyframes wobble-hor-bottom {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+@keyframes wobble-hor-bottom {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+
+
+/* .text-input-position-edit-from{
+  transform: translateX(45px);
+} */
+/* .text-input-position-create-succulent{
+  transform: translateX(0px)
+} */
+
+.create-succulent-form{
+margin-top: 2rem;
+border: 2px dotted black;
+border-radius: 5px;
+width: 260px;
+margin: 2rem auto;
+padding-top: 2rem;
+padding-bottom: 2rem;
+background-image: url("/Users/doronbrsqh/Downloads/plants/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464.jpg");
+background-size: cover;
+
+}
+
+input[type="text"],input[type="file"],button[type="submit"],
+textarea, .TEST {
+  width: 172px;
+  margin: 0.5rem auto;
+  outline-color:lightseagreen;
+}
+
+.custom-button {
+  font-size: 17px;
+  padding: 0.2em 0.7em;
+  border: transparent;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  background: rgb(110, 171, 110);
+  color: white;
+  border-radius: 4px;
+}
+
+.custom-button:hover {
+  background: linear-gradient(135deg, rgb(111, 189, 111) 0%, rgb(149, 234, 23) 100%);
+}
+
+.custom-button:active {
+  transform: translate(0em, 0.2em);
+}
+
+.create-post-icon{
+width: 4rem;
+height: 4rem;
+color: #053313;
+cursor: pointer;
+margin-bottom: 1rem;
+}
+
+.flip-back-icon {
+width: 3rem;
+height: 3rem;
+color: #053313;
+margin: 1.5rem auto;
+border: 2px solid #053313;
+border-radius: 50%;
+padding: 0.5rem 0.5rem;
+cursor: pointer;
+}
+.flip-back-icon:hover{
+  background-color: lightgrey;
+  transform: scale(1.1);
+}
+
+.custom-button2 {
+  --color: #32CD32;
+  font-family: inherit;
+  display: inline-block;
+  width: 12em;
+  height: 2.6em;
+  line-height: 2.5em;
+  overflow: hidden;
+  margin: 20px;
+  font-size: 17px;
+  border: 2px solid var(--color);
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.custom-button2::before {
+  position: absolute;
+  content: "";
+  background: var(--color);
+  width: 300%;
+  height: 300%;
+  border-radius: 50%;
+  top: -100%;
+  right: -100%;
+  bottom: -100%;
+  left: -100%;
+  transition: .3s all;
+  z-index: -1;
+}
+
+.custom-button2:hover {
+  color: white;
+  z-index: 3;
+}
+
+.custom-button2:hover::before {
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+}
+.filter-buttons-container {
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}
+.profile-page-header{
+font-weight: 800;
+margin: 3rem auto;
+color: #053313;
+text-decoration: underline;
+}
+
+hr {
+  border: none;
+  /* removes the default border */
+  height: 7px;
+  /* height of the line */
+  background-image: linear-gradient(to right, rgba(0, 255, 0, 0), rgba(0, 255, 0, 0.75), rgba(0, 255, 0, 0));
+  /* gradient effect */
+}
+
+@media (max-width: 750px) {
+  .page-container {
+   
+    width: 90%;
+   
+  }
 }

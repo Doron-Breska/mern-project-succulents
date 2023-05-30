@@ -62,7 +62,7 @@ const ProfileHistory = (props: Props) => {
         throw new Error("HTTP error " + response.status);
       }
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       setSucculents(result);
     } catch (error) {
       console.error("Failed to fetch succulents:", error);
@@ -183,7 +183,9 @@ const ProfileHistory = (props: Props) => {
 
   return (
     <div className="inner-component">
-      <h1>ProfileHistory</h1>
+      <h1 className="profile-page-header">
+        Posts &#8674; Comments &#8674; Likes
+      </h1>
       <div className="history-profile-container">
         <div className="profile-succulents-container">
           {succulents
@@ -194,6 +196,7 @@ const ProfileHistory = (props: Props) => {
                 succulent={succulent}
                 deleteSucculent={deleteSucculent}
                 setSucculents={setSucculents}
+                // species={succulent.species}
               />
             ))}
         </div>

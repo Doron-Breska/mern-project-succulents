@@ -81,7 +81,7 @@ const ProfileUpdate = (props: Props) => {
 
   return (
     <div className="inner-component">
-      <h1>ProfileUpdate</h1>
+      <h1 className="profile-page-header">View / Edit your profile</h1>
       <div className="edit-profile-container">
         <div className="profile-pic-frame">
           <div
@@ -93,43 +93,58 @@ const ProfileUpdate = (props: Props) => {
         </div>
         <div className="profile-edit-frame">
           <div className="profile-edit">
-            <p>current eamil : {user && user.email}</p>
-            <p>current username : {user && user.username}</p>
-            <Form onSubmit={handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                placeholder="email"
-                onChange={handleChange}
-              />
+            <div className="semi-img-edit-profile">
+              <p>
+                current eamil : {user && user.email}
+                <br /> current username : {user && user.username}
+              </p>
+              <Form onSubmit={handleSubmit}>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  placeholder="email"
+                  onChange={handleChange}
+                  className="TEST"
+                />
+                <br />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  placeholder="password"
+                  onChange={handleChange}
+                  className="TEST"
+                />
+                <br />
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  placeholder="username"
+                  onChange={handleChange}
+                />
+                <br />
+                <input
+                  ref={fileInput}
+                  type="file"
+                  name="avatar"
+                  onChange={handleFile}
+                  accept="image/png, image/jpg, image/jpeg"
+                  className="text-input-position"
+                />
+                <br />
+                <button className="custom-button" type="submit">
+                  Update
+                </button>
+              </Form>
+            </div>
+
+            <div className="profile-pic-text-div">
+              It's never too late,
               <br />
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                placeholder="password"
-                onChange={handleChange}
-              />
-              <br />
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                placeholder="username"
-                onChange={handleChange}
-              />
-              <br />
-              <input
-                ref={fileInput}
-                type="file"
-                name="avatar"
-                onChange={handleFile}
-                accept="image/png, image/jpg, image/jpeg"
-              />
-              <br />
-              <button type="submit">edit profile</button>
-            </Form>
+              To make a positive change!
+            </div>
           </div>
         </div>
       </div>

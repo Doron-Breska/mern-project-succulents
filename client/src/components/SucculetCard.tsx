@@ -5,6 +5,7 @@ import React, {
   FormEvent,
   useState,
   useContext,
+  useEffect,
   useReducer,
 } from "react";
 import { MdDeleteForever } from "react-icons/md";
@@ -14,6 +15,7 @@ import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { ModalContext } from "../contexts/ModalContext";
 import NewModalElement from "../components/NewModalElement";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 interface Owner {
   _id: string;
@@ -58,6 +60,7 @@ interface SucculentCardProps {
   succulent: Succulent;
   deleteSucculent: (succulentId: string) => void;
   setSucculents: React.Dispatch<React.SetStateAction<Succulent[]>>;
+  // speices: string;
 }
 
 const SucculentCard = ({
@@ -77,12 +80,13 @@ const SucculentCard = ({
   const token = localStorage.getItem("token");
   const userId = user?._id.toString();
   const [likes, setLikes] = useState(succulent.likes);
-  const [speices, setSpeices] = useState(succulent.species);
+  // const [speices, setSpeices] = useState(succulent.species);
+  const speices = succulent.species;
   const [isFlipped, setIsFlipped] = useState(false);
   // const [comments, setComments] = useState(succulent.Comments);
   const [comments, setComments] = useState<Comment[]>([]);
   const [textInput, setTextInput] = useState("");
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  // const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [editFormData, setEditFormData] = useState<FormData>({
     species: "",
     description: "",
@@ -90,9 +94,38 @@ const SucculentCard = ({
     img: "",
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
-  const [plantCare, setPlantCare] = useState<string | null>(null);
 
+  const fetchSucculents = async () => {
+    const requestOptions = {
+      method: "GET",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5001/api/succulents/all",
+        requestOptions
+      );
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+      const result = await response.json();
+      console.log(result);
+      setSucculents(result);
+    } catch (error) {
+      console.error("Failed to fetch succulents:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSucculents();
+  }, []);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const getPlantCareAi = async (speices: string) => {
+    if (!user) {
+      setModalContent("Members only feature");
+      openModal();
+      return;
+    }
     try {
       const response = await fetch(
         `http://localhost:5001/api/succulents/plantCare/${speices}`,
@@ -114,17 +147,26 @@ const SucculentCard = ({
         "this is the result from open ai",
         data["response from OpenAI"].choices[0].text
       );
-      // let unfilteredText = data["response from OpenAI"].choices[0].text;
-      // let filteredText = unfilteredText.trim();
-      // console.log("test for filted text", filteredText);
-      // setPlantCare(data["response from OpenAI"].choices[0].text);
+      console.log("test for speices -  ", speices);
+      const robiRobot = (
+        <>
+          <h3>
+            Robo Robi <FaRobot /> AI
+          </h3>
+          <p>{data["response from OpenAI"].choices[0].text}</p>
+        </>
+      );
+      setModalContent2(robiRobot);
+      openModal();
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////
-  const handleEditChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleEditChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
   };
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -173,7 +215,7 @@ const SucculentCard = ({
       //   prevState.map((succ) =>
       //     succ._id === succulent._id ? result.updatedSucculent : succ
       //   )
-      // );
+      // );  //// To ask Emily why it doesnot work !!!!
       setIsFlipped(false); // flip the card back to front view
       setEditFormData({
         species: "",
@@ -184,6 +226,7 @@ const SucculentCard = ({
       if (fileInput.current) {
         fileInput.current.value = ""; // reset the file input
       }
+      fetchSucculents();
     } catch (error) {
       console.error("Failed to update succulent:", error);
     }
@@ -242,6 +285,7 @@ const SucculentCard = ({
       setComments([...comments, newComment]);
       setTextInput("");
       toggleModal([...comments, newComment]);
+      fetchSucculents();
     } catch (error) {
       console.error("Failed to create a comment:", error);
       setModalContent("Failed to create a comment"); // a general error message when an unexpected error (like network error) occurs
@@ -273,6 +317,7 @@ const SucculentCard = ({
 
       setComments(updatedComments);
       toggleModal(updatedComments);
+      fetchSucculents();
     } catch (error) {
       console.error("Failed to delete comment:", error);
     }
@@ -282,37 +327,6 @@ const SucculentCard = ({
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //     const ModalEl =
-  //     <>
-  //     <h3>Comments</h3>
-  //     {
-  //         user ? (
-  //         <>
-  //             { comments.length > 0 ? (
-  //                 comments.map(comment => (
-  //                     <div key={comment._id} className="single-comment-modal">
-  //                         <img src={comment.authorImage} alt="profile-img-author" className="comment-user-pic"></img><span>{comment.authorName}: {comment.text}</span>
-  //                         <p>Posted on: {new Date(comment.createdAt).toLocaleDateString()} {new Date(comment.createdAt).toLocaleTimeString()}</p>
-  //                         { user && comment.authorId === user._id && <MdDeleteForever className='delete-icon-comment' onClick={() => deleteCommentModal(succulent._id, comment._id)} /> }
-  //                     </div>
-  //                 ))
-  //             ) : (
-  //                 <p>No comments found for this post</p>
-  //             )}
-
-  //            <form onSubmit={handleCommentSubmit}>
-  //             <input type='text' name='comment' placeholder='write something' onChange={handleCommentChange} /><br />
-  //             <button type="submit" >Submit</button>
-  //             </form>
-  //         </>
-  //         ) : (
-  //             <p>You have to log in to comment</p>
-  //         )
-  //     }
-  // </>
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -367,6 +381,7 @@ const SucculentCard = ({
       setLikes(data.succulent.likes);
 
       // Handle the response data here
+      fetchSucculents();
     } catch (error) {
       console.error("Failed to update likes:", error);
     }
@@ -422,42 +437,58 @@ const SucculentCard = ({
           className="succulent-card-img"
         />
         <p>Species: {succulent.species}</p>
-        <p>Description: {succulent.description}</p>
+        <p className="testclass">Description: {succulent.description}</p>
         <p>City: {succulent.city}</p>
         <p>
           Posted by: {succulent.owner.username}, on:{" "}
           {new Date(succulent.createdAt).toLocaleDateString()}{" "}
           {new Date(succulent.createdAt).toLocaleTimeString()}
         </p>
-        <MdComment className="succulent-card-btn" onClick={toggleModal} />
-        <FaRobot
-          className="succulent-card-btn"
-          onClick={() => getPlantCareAi(succulent.species)}
-        />
-        {user && likes.includes(user._id) ? (
-          <AiFillLike
+        <p>
+          {succulent.likes.length !== 0 && (
+            <>
+              <AiFillLike className="pt-0" /> {succulent.likes.length}
+            </>
+          )}{" "}
+          {succulent.Comments.length !== 0 && (
+            <>
+              <MdComment /> {succulent.Comments.length}
+            </>
+          )}
+        </p>
+        <div className="succulent-card-buttons">
+          <MdComment className="succulent-card-btn" onClick={toggleModal} />
+          <FaRobot
             className="succulent-card-btn"
-            onClick={addOrRemoveLike}
+            onClick={() => getPlantCareAi(succulent.species)}
           />
-        ) : (
-          <AiOutlineLike
-            className="succulent-card-btn"
-            onClick={addOrRemoveLike}
-          />
-        )}
-        {succulent.owner._id === userId && (
-          <MdDeleteForever
-            className="succulent-card-btn"
-            onClick={handleDeleteSucculent}
-          />
-        )}
-        {succulent.owner._id === userId && (
-          <FaEdit className="succulent-card-btn" onClick={handleFlip} />
-        )}
+          {user && likes.includes(user._id) ? (
+            <AiFillLike
+              className="succulent-card-btn"
+              onClick={addOrRemoveLike}
+            />
+          ) : (
+            <AiOutlineLike
+              className="succulent-card-btn"
+              onClick={addOrRemoveLike}
+            />
+          )}
+          {succulent.owner._id === userId && (
+            <MdDeleteForever
+              className="succulent-card-btn"
+              onClick={handleDeleteSucculent}
+            />
+          )}
+          {succulent.owner._id === userId && (
+            <FaEdit className="succulent-card-btn" onClick={handleFlip} />
+          )}
+        </div>
       </div>
       <div className="back">
-        <p>this is the back of the Card</p>
-        <button onClick={handleFlip}>flip back</button>
+        {/* <p>this is the back of the Card</p> */}
+        {/* <button onClick={handleFlip}>flip back</button> */}
+        <RiArrowGoBackFill className="flip-back-icon" onClick={handleFlip} />
+
         <form onSubmit={handleEditSubmit}>
           <input
             type="text"
@@ -467,12 +498,14 @@ const SucculentCard = ({
             placeholder="Species"
           />
           <br />
-          <input
-            type="text"
+          <textarea
             name="description"
             value={editFormData.description}
             onChange={handleEditChange}
-            placeholder="Description"
+            placeholder="Description 
+            (Max 120 characters)"
+            maxLength={120}
+            rows={4}
           />
           <br />
           <input
@@ -488,9 +521,12 @@ const SucculentCard = ({
             type="file"
             name="img"
             onChange={handleFileChange}
+            className="text-input-position-edit-from"
           />
           <br />
-          <button type="submit">Update</button>
+          <button className="custom-button" type="submit">
+            Update
+          </button>
         </form>
       </div>
     </div>

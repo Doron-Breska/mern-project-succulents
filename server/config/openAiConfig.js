@@ -2,9 +2,11 @@ import { Configuration, OpenAIApi } from "openai";
 
 
 const aiRole = 
-`Your role is to be a professional botanist.
-Each time I will provide you a species of plant.
-You need to send me back a guidance for how to grow and maintain this species of plant and also mention some info about this species. 
+`Your role is to be a succulents/cacteen specialist.
+
+Each time I will provide you one species of succulents/cacteen.
+You need to send me back a guidance/tips for how to grow and maintain this species of plant (you can also add some info about this species).
+
 I want to get the response in one string of text. 
 }`
 
