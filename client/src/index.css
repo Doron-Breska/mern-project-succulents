@@ -181,18 +181,59 @@ background-color: lightseagreen;
   display: flex;
   flex-wrap: wrap;
   justify-content:center;
-  column-gap: 20px;
-  row-gap: 20px;
+  gap: 30px;
   margin: 3rem auto;
 }
 .profile-likes-container{
     display: flex;
     flex-wrap: wrap;
     justify-content:center;
-    column-gap: 20px;
-    row-gap: 20px;
+    gap: 30px;
     margin: 3rem auto;
 }
+
+.like-card{
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #053313;
+  border-radius: 10px;
+}
+.like-card:hover {
+  cursor: pointer;
+}
+.like-card:hover:before {
+  content: '\2715';
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6em;
+  font-weight: bolder;
+  color: white;
+}
+
+.comment-card{
+  position: relative;
+  border: 2px solid #053313;
+  border-radius: 10px;
+}
+.comment-card p {
+  margin: 0.5rem;
+}
+.comment-card:hover{
+  cursor: pointer;
+}
+.comment-card:hover:before{
+    content: '\2715';
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 7em;
+    color: white;
+    font-weight: bolder;
+}
+
 
 /***************************************    succulent card    ******************************************/
 
@@ -283,7 +324,7 @@ margin-bottom: 0.5rem;
   /* Add border radius */
   background-color: #fff;
   padding: 1em;
-  padding-top: 3rem;
+  padding-top: 4rem;
   max-width: 90%;
   max-height: 90%;
   overflow: auto;
@@ -486,7 +527,7 @@ background-size: cover;
 }
 
 input[type="text"],input[type="file"],button[type="submit"],
-textarea, .TEST {
+textarea, .input-text-area {
   width: 172px;
   margin: 0.5rem auto;
   outline-color:lightseagreen;
@@ -586,6 +627,23 @@ color: #053313;
 text-decoration: underline;
 }
 
+
+.register-page-header{
+  font-weight: 800;
+  margin: 1rem auto;
+  margin-bottom: 5rem;
+  color: #053313;
+  line-height: 4rem;
+text-decoration: underline;
+}
+.register-page-container{
+  margin: 5rem auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  max-width: 850px;
+  padding: 1rem;
+  background-color: cadetblue;
+}
 hr {
   border: none;
   /* removes the default border */
@@ -595,10 +653,80 @@ hr {
   /* gradient effect */
 }
 
+.register-page-form{
+margin: 0 auto;
+border: 2px solid black;
+border-bottom: none;
+padding: 2rem;
+display: flex;
+flex-direction: column;
+width: 250px;
+background-color: white;
+}
+
+.register-div-gif{
+  width: 250px;
+  height: 250px;
+  border: 2px solid black; 
+  border-top: none;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  background-image: url(/Users/doronbrsqh/Downloads/plants/giphy.gif);
+  background-size: cover;
+}
+.register-container-test{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.home-page-container{
+background-color: #3dab7f15;
+height: 100vh;
+width: 100vw;
+display: flex;
+flex-direction: column;
+/* justify-content: flex-end; */
+justify-content:space-around;
+align-items: center;
+
+
+}
+.home-page-gif{
+  width: 400px;
+  height: 400px;
+  background-image: url(/Users/doronbrsqh/Downloads/plants/plantgif.gif);
+  background-size: contain ;
+  background-repeat: no-repeat;
+  /* border: 2px solid black; */
+  
+}
+.home-page-text{
+  max-width: 700px;
+  margin-top: 3rem;
+}
+
 @media (max-width: 750px) {
   .page-container {
    
     width: 90%;
    
   }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeInText {
+  animation-name: fadeIn;
+  animation-duration: 5s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
 }

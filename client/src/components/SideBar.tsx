@@ -114,14 +114,14 @@ const SideBar = (props: Props) => {
               {" "}
               <form onSubmit={handleSubmit}>
                 <input
-                  className="TEST"
+                  className="input-text-area"
                   type="email"
                   name="email"
                   placeholder="email"
                   onChange={handleChange}
                 />
                 <input
-                  className="TEST"
+                  className="input-text-area"
                   type="password"
                   name="password"
                   placeholder="password"

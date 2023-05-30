@@ -212,7 +212,8 @@ const ProfileHistory = (props: Props) => {
                 <div
                   key={comment._id}
                   className="comment-card"
-                  style={{ width: "150px" }}
+                  onClick={() => deleteComment(succulent._id, comment._id)}
+                  style={{ width: "200px" }}
                 >
                   <div className="succulent-card">
                     <img
@@ -220,19 +221,24 @@ const ProfileHistory = (props: Props) => {
                       alt={succulent.species}
                       style={{
                         width: "100%",
-                        height: "150px",
+                        height: "200px",
                         objectFit: "cover",
+                        borderRadius: "8px",
                       }}
                     />
                   </div>
                   <div className="comment-details">
-                    <p>{comment.text}</p>
+                    <p>
+                      Comment:
+                      <br />
+                      {comment.text}
+                    </p>
                     <p>{new Date(comment.createdAt).toLocaleString()}</p>
-                    <button
+                    {/* <button
                       onClick={() => deleteComment(succulent._id, comment._id)}
                     >
                       Delete Comment
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               ))

@@ -61,6 +61,7 @@ const Register = (props: Props) => {
           "Successfully registered! Please log-in through the side-bar"
         );
         openModal();
+        setFormData({ email: "", password: "", username: "", avatar: "" });
       } else {
         setModalContent(result.error);
         openModal();
@@ -75,38 +76,53 @@ const Register = (props: Props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          placeholder="email"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          placeholder="password"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          placeholder="username"
-          onChange={handleChange}
-        />
-        <input
-          type="file"
-          ref={fileInput}
-          name="avatar"
-          onChange={handleFile}
-          accept="image/png, image/jpg, image/jpeg"
-        />
-        <button type="submit">Register</button>
-      </form>
+    <div className="register-page-outer-container">
+      <div className="register-page-container">
+        <h1 className="register-page-header">
+          Register here to post,
+          <br />
+          like, comment, and use our Robi Robot <br />
+          for guidance regarding your succulents.
+        </h1>
+        <div className="register-container-test">
+          <form className="register-page-form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              placeholder="email"
+              onChange={handleChange}
+              className="input-text-area"
+            />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              placeholder="password"
+              onChange={handleChange}
+              className="input-text-area"
+            />
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              placeholder="username"
+              onChange={handleChange}
+            />
+            <input
+              type="file"
+              ref={fileInput}
+              name="avatar"
+              onChange={handleFile}
+              accept="image/png, image/jpg, image/jpeg"
+            />
+            <button className="custom-button" type="submit">
+              Register
+            </button>
+          </form>
+          <div className="register-div-gif"></div>
+        </div>
+      </div>
     </div>
   );
 };

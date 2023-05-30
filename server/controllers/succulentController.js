@@ -267,6 +267,7 @@ const updateSucculent = async (req, res) => {
   }
 };
 /////////////////////////////////////////////////////////////////////////////////
+
 const getPlantCare = async (req, res) => {
   try {
     const { speciesName } = req.params;

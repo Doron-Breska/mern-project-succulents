@@ -105,7 +105,7 @@ const ProfileUpdate = (props: Props) => {
                   value={formData.email}
                   placeholder="email"
                   onChange={handleChange}
-                  className="TEST"
+                  className="input-text-area"
                 />
                 <br />
                 <input
@@ -114,7 +114,7 @@ const ProfileUpdate = (props: Props) => {
                   value={formData.password}
                   placeholder="password"
                   onChange={handleChange}
-                  className="TEST"
+                  className="input-text-area"
                 />
                 <br />
                 <input
