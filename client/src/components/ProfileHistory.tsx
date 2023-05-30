@@ -200,6 +200,7 @@ const ProfileHistory = (props: Props) => {
               />
             ))}
         </div>
+        <hr />
         <div className="profile-comments-container">
           {userComments.length === 0 ? (
             <p>You did not comment on any succulent, Go and hit the keyboard</p>
@@ -238,6 +239,7 @@ const ProfileHistory = (props: Props) => {
             )
           )}
         </div>
+        <hr />
         <div className="profile-likes-container">
           {succulents.filter(
             (succulent) => userId && succulent.likes.includes(userId)
