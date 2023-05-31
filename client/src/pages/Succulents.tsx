@@ -249,7 +249,9 @@ const Succulents = (props: Props) => {
         </button>
       </div>
       <div>
-        <h1 className="wobble-hor-bottom">Click To Post</h1>
+        <h1 className="wobble-hor-bottom succulent-page-header">
+          Click To Post
+        </h1>
         <span>
           {showForm ? (
             <FiMinusSquare

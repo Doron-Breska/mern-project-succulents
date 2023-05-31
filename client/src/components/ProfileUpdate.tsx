@@ -106,6 +106,7 @@ const ProfileUpdate = (props: Props) => {
                   placeholder="email"
                   onChange={handleChange}
                   className="input-text-area"
+                  id="email-input-profile-page"
                 />
                 <br />
                 <input
@@ -134,7 +135,11 @@ const ProfileUpdate = (props: Props) => {
                   className="text-input-position"
                 />
                 <br />
-                <button className="custom-button" type="submit">
+                <button
+                  id="submit-btn-profile-page"
+                  className="custom-button"
+                  type="submit"
+                >
                   Update
                 </button>
               </Form>

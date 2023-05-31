@@ -32,7 +32,7 @@ body {
 
 .page-container {
     margin: 2rem 2rem;
-    margin-top: 5.5rem;
+    margin-top: 6rem;
     width: 80%;
     padding: 20px;
     border: 1px solid #000;
@@ -532,6 +532,12 @@ textarea, .input-text-area {
   margin: 0.5rem auto;
   outline-color:lightseagreen;
 }
+#email-input-profile-page{
+  margin-top: 0;
+}
+#submit-btn-profile-page{
+  margin-bottom: 1.1rem;
+}
 
 .custom-button {
   font-size: 17px;
@@ -550,13 +556,17 @@ textarea, .input-text-area {
 .custom-button:active {
   transform: translate(0em, 0.2em);
 }
-
+.succulent-page-header{
+color: #053313;
+font-weight:bold;
+margin-top: 2rem;
+}
 .create-post-icon{
 width: 4rem;
 height: 4rem;
 color: #053313;
 cursor: pointer;
-margin-bottom: 1rem;
+margin-bottom: 2rem;
 }
 
 .flip-back-icon {
@@ -637,7 +647,7 @@ text-decoration: underline;
 text-decoration: underline;
 }
 .register-page-container{
-  margin: 5rem auto;
+  margin: 6rem auto;
   border: 2px solid black;
   border-radius: 10px;
   max-width: 850px;
@@ -702,8 +712,15 @@ align-items: center;
   
 }
 .home-page-text{
-  max-width: 700px;
-  margin-top: 3rem;
+  max-width: 780px;
+  margin-top: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-weight: bold;
+}
+.home-page-text h4{
+  font-weight: bold;
+  line-height: 2.5rem;
 }
 
 @media (max-width: 750px) {

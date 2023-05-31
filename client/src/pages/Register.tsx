@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
 import { ModalContext } from "../contexts/ModalContext";
+import { FaRobot } from "react-icons/fa";
 
 type Props = {};
 
@@ -78,12 +79,12 @@ const Register = (props: Props) => {
   return (
     <div className="register-page-outer-container">
       <div className="register-page-container">
-        <h1 className="register-page-header">
+        <h3 className="register-page-header">
           Register here to post,
           <br />
-          like, comment, and use our Robi Robot <br />
+          like, comment, and use our Robi <FaRobot /> Robot AI <br />
           for guidance regarding your succulents.
-        </h1>
+        </h3>
         <div className="register-container-test">
           <form className="register-page-form" onSubmit={handleSubmit}>
             <input

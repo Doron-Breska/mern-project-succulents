@@ -151,7 +151,7 @@ const SucculentCard = ({
       const robiRobot = (
         <>
           <h3>
-            Robo Robi <FaRobot /> AI
+            Robi <FaRobot /> Robot AI
           </h3>
           <p>{data["response from OpenAI"].choices[0].text}</p>
         </>
