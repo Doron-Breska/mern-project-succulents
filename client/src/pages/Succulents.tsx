@@ -73,6 +73,7 @@ const Succulents = (props: Props) => {
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
   const [showForm, setShowForm] = useState(false);
+  const { loading, setLoading } = useContext(AuthContext);
 
   function scrollToBottom() {
     window.scrollTo(0, document.body.scrollHeight);
@@ -106,6 +107,7 @@ const Succulents = (props: Props) => {
       }),
       body: submitData,
     };
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:5001/api/succulents/new`,
@@ -135,6 +137,7 @@ const Succulents = (props: Props) => {
         scrollToBottom();
       });
       setShowForm(false);
+      setLoading(false);
     } catch (error) {
       console.error("Failed to update succulent:", error);
     }
@@ -231,6 +234,16 @@ const Succulents = (props: Props) => {
 
   return (
     <>
+      {loading && (
+        <>
+          <div className="spinner">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </>
+      )}
       <div className="filter-buttons-container">
         <button className="custom-button2" onClick={sortSucculentsByLikes}>
           Sort by likes

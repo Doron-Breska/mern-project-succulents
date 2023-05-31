@@ -36,6 +36,7 @@ body {
     width: 80%;
     padding: 20px;
     border: 1px solid #000;
+    border-radius: 10px;
     background-color: #e8f4ea;
 }
 .inner-component{
@@ -48,7 +49,7 @@ body {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  background-color: #007bff;
+  background-color: #5ad095;
   color: #ffffff;
   padding: 1rem 1rem;
   padding-top: 1.2rem;
@@ -60,7 +61,7 @@ body {
 }
 
 .menu-button:hover {
-  background-color: #0056b3;
+  background-color: #009155;
 }
 
 .sidebar {
@@ -98,13 +99,13 @@ body {
 }
 
 .sidebar a:hover {
-  color: #007bff;
+  color: #5ad095;
   text-decoration: underline;
 }
 
 .sidebar a.active {
   font-weight: bold;
-  color: #007bff;
+  color: #5ad095;
 }
 
 /****************************************************************************************************************************/
@@ -216,6 +217,7 @@ background-color: lightseagreen;
   position: relative;
   border: 2px solid #053313;
   border-radius: 10px;
+  background-color: #d2e7d6;
 }
 .comment-card p {
   margin: 0.5rem;
@@ -281,6 +283,7 @@ flex-direction: column;
 align-items: center;
 justify-content: space-between;
   border-radius: 10px;
+  background-color:#d2e7d6;
 }
 .succulent-card-buttons{
  margin-bottom: 1rem;
@@ -746,4 +749,65 @@ align-items: center;
   animation-duration: 5s;
   animation-delay: 0;
   animation-fill-mode: forwards;
+}
+
+
+.spinner {
+  position: fixed;
+  /* modified from absolute to fixed */
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  height: 96px;
+  width: 96px;
+  animation: rotate_3922 1.2s linear infinite;
+  background-color: #9b59b6;
+  background-image: linear-gradient(#9b59b6, #84cdfa, #5ad1cd);
+}
+
+.spinner span {
+  position: absolute;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background-color: #9b59b6;
+  background-image: linear-gradient(#9b59b6, #84cdfa, #5ad1cd);
+}
+
+.spinner span:nth-of-type(1) {
+  filter: blur(5px);
+}
+
+.spinner span:nth-of-type(2) {
+  filter: blur(10px);
+}
+
+.spinner span:nth-of-type(3) {
+  filter: blur(25px);
+}
+
+.spinner span:nth-of-type(4) {
+  filter: blur(50px);
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background-color: #fff;
+  border: solid 5px #ffffff;
+  border-radius: 50%;
+}
+
+@keyframes rotate_3922 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }

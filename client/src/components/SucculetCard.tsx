@@ -94,6 +94,7 @@ const SucculentCard = ({
     img: "",
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
+  const { loading, setLoading } = useContext(AuthContext);
 
   const fetchSucculents = async () => {
     const requestOptions = {
@@ -126,6 +127,7 @@ const SucculentCard = ({
       openModal();
       return;
     }
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:5001/api/succulents/plantCare/${speices}`,
@@ -157,6 +159,7 @@ const SucculentCard = ({
         </>
       );
       setModalContent2(robiRobot);
+      setLoading(false);
       openModal();
     } catch (error) {
       console.error("Error:", error);
@@ -200,6 +203,7 @@ const SucculentCard = ({
       }),
       body: submitData,
     };
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:5001/api/succulents/update/${succulent._id}`,
@@ -227,6 +231,7 @@ const SucculentCard = ({
         fileInput.current.value = ""; // reset the file input
       }
       fetchSucculents();
+      setLoading(false);
     } catch (error) {
       console.error("Failed to update succulent:", error);
     }
@@ -429,107 +434,119 @@ const SucculentCard = ({
   //////////////////////////////////////////////////////////////////////////////////////
 
   return (
-    <div className={`succulent-card-div ${isFlipped ? "flipped" : ""}`}>
-      <div className="front">
-        <img
-          src={succulent.img}
-          alt={succulent.species}
-          className="succulent-card-img"
-        />
-        <p>Species: {succulent.species}</p>
-        <p className="testclass">Description: {succulent.description}</p>
-        <p>City: {succulent.city}</p>
-        <p>
-          Posted by: {succulent.owner.username}, on:{" "}
-          {new Date(succulent.createdAt).toLocaleDateString()}{" "}
-          {new Date(succulent.createdAt).toLocaleTimeString()}
-        </p>
-        <p>
-          {succulent.likes.length !== 0 && (
-            <>
-              <AiFillLike className="pt-0" /> {succulent.likes.length}
-            </>
-          )}{" "}
-          {succulent.Comments.length !== 0 && (
-            <>
-              <MdComment /> {succulent.Comments.length}
-            </>
-          )}
-        </p>
-        <div className="succulent-card-buttons">
-          <MdComment className="succulent-card-btn" onClick={toggleModal} />
-          <FaRobot
-            className="succulent-card-btn"
-            onClick={() => getPlantCareAi(succulent.species)}
+    <>
+      {loading && (
+        <>
+          <div className="spinner">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </>
+      )}
+      <div className={`succulent-card-div ${isFlipped ? "flipped" : ""}`}>
+        <div className="front">
+          <img
+            src={succulent.img}
+            alt={succulent.species}
+            className="succulent-card-img"
           />
-          {user && likes.includes(user._id) ? (
-            <AiFillLike
+          <p>Species: {succulent.species}</p>
+          <p className="testclass">Description: {succulent.description}</p>
+          <p>City: {succulent.city}</p>
+          <p>
+            Posted by: {succulent.owner.username}, on:{" "}
+            {new Date(succulent.createdAt).toLocaleDateString()}{" "}
+            {new Date(succulent.createdAt).toLocaleTimeString()}
+          </p>
+          <p>
+            {succulent.likes.length !== 0 && (
+              <>
+                <AiFillLike className="pt-0" /> {succulent.likes.length}
+              </>
+            )}{" "}
+            {succulent.Comments.length !== 0 && (
+              <>
+                <MdComment /> {succulent.Comments.length}
+              </>
+            )}
+          </p>
+          <div className="succulent-card-buttons">
+            <MdComment className="succulent-card-btn" onClick={toggleModal} />
+            <FaRobot
               className="succulent-card-btn"
-              onClick={addOrRemoveLike}
+              onClick={() => getPlantCareAi(succulent.species)}
             />
-          ) : (
-            <AiOutlineLike
-              className="succulent-card-btn"
-              onClick={addOrRemoveLike}
+            {user && likes.includes(user._id) ? (
+              <AiFillLike
+                className="succulent-card-btn"
+                onClick={addOrRemoveLike}
+              />
+            ) : (
+              <AiOutlineLike
+                className="succulent-card-btn"
+                onClick={addOrRemoveLike}
+              />
+            )}
+            {succulent.owner._id === userId && (
+              <MdDeleteForever
+                className="succulent-card-btn"
+                onClick={handleDeleteSucculent}
+              />
+            )}
+            {succulent.owner._id === userId && (
+              <FaEdit className="succulent-card-btn" onClick={handleFlip} />
+            )}
+          </div>
+        </div>
+        <div className="back">
+          {/* <p>this is the back of the Card</p> */}
+          {/* <button onClick={handleFlip}>flip back</button> */}
+          <RiArrowGoBackFill className="flip-back-icon" onClick={handleFlip} />
+
+          <form onSubmit={handleEditSubmit}>
+            <input
+              type="text"
+              name="species"
+              value={editFormData.species}
+              onChange={handleEditChange}
+              placeholder="Species"
             />
-          )}
-          {succulent.owner._id === userId && (
-            <MdDeleteForever
-              className="succulent-card-btn"
-              onClick={handleDeleteSucculent}
+            <br />
+            <textarea
+              name="description"
+              value={editFormData.description}
+              onChange={handleEditChange}
+              placeholder="Description 
+            (Max 120 characters)"
+              maxLength={120}
+              rows={4}
             />
-          )}
-          {succulent.owner._id === userId && (
-            <FaEdit className="succulent-card-btn" onClick={handleFlip} />
-          )}
+            <br />
+            <input
+              type="text"
+              name="city"
+              value={editFormData.city}
+              onChange={handleEditChange}
+              placeholder="City"
+            />
+            <br />
+            <input
+              ref={fileInput}
+              type="file"
+              name="img"
+              onChange={handleFileChange}
+              className="text-input-position-edit-from"
+            />
+            <br />
+            <button className="custom-button" type="submit">
+              Update
+            </button>
+          </form>
         </div>
       </div>
-      <div className="back">
-        {/* <p>this is the back of the Card</p> */}
-        {/* <button onClick={handleFlip}>flip back</button> */}
-        <RiArrowGoBackFill className="flip-back-icon" onClick={handleFlip} />
-
-        <form onSubmit={handleEditSubmit}>
-          <input
-            type="text"
-            name="species"
-            value={editFormData.species}
-            onChange={handleEditChange}
-            placeholder="Species"
-          />
-          <br />
-          <textarea
-            name="description"
-            value={editFormData.description}
-            onChange={handleEditChange}
-            placeholder="Description 
-            (Max 120 characters)"
-            maxLength={120}
-            rows={4}
-          />
-          <br />
-          <input
-            type="text"
-            name="city"
-            value={editFormData.city}
-            onChange={handleEditChange}
-            placeholder="City"
-          />
-          <br />
-          <input
-            ref={fileInput}
-            type="file"
-            name="img"
-            onChange={handleFileChange}
-            className="text-input-position-edit-from"
-          />
-          <br />
-          <button className="custom-button" type="submit">
-            Update
-          </button>
-        </form>
-      </div>
-    </div>
+    </>
   );
 };
 

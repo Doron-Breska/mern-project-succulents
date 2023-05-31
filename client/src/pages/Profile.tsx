@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProfileHistory from "../components/ProfileHistory";
 import ProfileUpdate from "../components/ProfileUpdate";
+import { AuthContext } from "../contexts/AuthContext";
 
 type Props = {};
 
 const Profile = (props: Props) => {
+  const { loading, setLoading } = useContext(AuthContext);
   return (
     <div className="parent-div">
       <div className="page-container">
