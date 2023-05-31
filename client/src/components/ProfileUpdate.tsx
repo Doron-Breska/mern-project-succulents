@@ -95,8 +95,8 @@ const ProfileUpdate = (props: Props) => {
           <div className="profile-edit">
             <div className="semi-img-edit-profile">
               <p>
-                current eamil : {user && user.email}
-                <br /> current username : {user && user.username}
+                Current eamil : {user && user.email}
+                <br /> Current username : {user && user.username}
               </p>
               <Form onSubmit={handleSubmit}>
                 <input
