@@ -364,7 +364,8 @@ transform: scale(1.1);
   border-radius: 50%;
   border: 4px solid rgba(128, 128, 128, 0.312);
   box-sizing: content-box;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 .single-comment-modal{
   border: 2px dotted black;
@@ -373,6 +374,7 @@ transform: scale(1.1);
   margin-bottom: 0.5rem;
   padding: 1.5rem;
   position: relative;
+  text-align: left;
 }
 .delete-icon-comment {
   width: 25px;
@@ -749,6 +751,7 @@ align-items: center;
   animation-duration: 5s;
   animation-delay: 0;
   animation-fill-mode: forwards;
+color: #053313;
 }
 
 
