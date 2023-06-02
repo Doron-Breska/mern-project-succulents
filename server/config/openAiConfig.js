@@ -7,7 +7,8 @@ const aiRole =
 Each time I will provide you one species of succulents/cacteen.
 You need to send me back a guidance/tips for how to grow and maintain this species of plant (you can also add some info about this species).
 
-I want to get the response in one string of text. 
+I want to get the response in one string of text.
+Please start each response with "For this species of Succulent...."
 }`
 
 
