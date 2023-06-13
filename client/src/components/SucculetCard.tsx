@@ -604,7 +604,8 @@ const SucculentCard = ({
                         </div>
                       ))
                     ) : (
-                      <p>No comments found for this post</p>
+                      <h4>No comments found for this post</h4>
+                      // <p>No comments found for this post</p>
                     )}
                     <form onSubmit={handleCommentSubmit}>
                       <input
