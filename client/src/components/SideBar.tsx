@@ -1,6 +1,13 @@
-import React, { ChangeEvent, FormEvent, useContext, useState, useRef, useEffect } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { NavLink, useLocation } from "react-router-dom";
 
 type Props = {};
 
@@ -9,23 +16,21 @@ const SideBar = (props: Props) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const toggleSidebar = () => {
-    setIsSidebarVisible(!isSidebarVisible);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      sidebarRef.current &&
+      !sidebarRef.current.contains(event.target as Node)
+    ) {
+      setIsSidebarVisible(false);
+    }
   };
 
-const handleClickOutside = (event: MouseEvent) => {
-  if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-    setIsSidebarVisible(false);
-  }
-};
-
-useEffect(() => {
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
-
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const [formData, setFormData] = useState<SubmitLoginData>({
     email: "",
@@ -48,37 +53,93 @@ useEffect(() => {
 
   const activePath = useActivePath();
 
+  const closeSidebar = () => {
+    setIsSidebarVisible(false);
+  };
+
   return (
     <>
-       <span className="menu-button" onClick={toggleSidebar}>
-        {isSidebarVisible ? <i className="fa-sharp fa-regular fa-circle-xmark fa-2xl"></i> : <i className="fa-solid fa-bars fa-2xl"></i>}
-      </span>
+      {!isSidebarVisible && (
+        <span className="menu-button" onClick={() => setIsSidebarVisible(true)}>
+          <i className="fa-solid fa-bars fa-2xl" />
+        </span>
+      )}
+
       {isSidebarVisible && (
         <aside className="sidebar" ref={sidebarRef}>
-          <div className='first-line-sidebar'>{user ? <p>User logged in!</p> : <p>User logged out!</p>}</div>
+          <div className="first-line-sidebar">
+            {/* {user ? <p>User logged in!</p> : <p>User logged out!</p>} */}
+          </div>
           <nav>
             <ul>
               <li>
-                <NavLink className={activePath === "/" ? "active" : ""} onClick={toggleSidebar} to="/">Home</NavLink>
+                <NavLink className={activePath === "/" ? "active" : ""} to="/">
+                  Home
+                </NavLink>
               </li>
               <li>
-                <NavLink className={activePath === "/register" ? "active" : ""} onClick={toggleSidebar} to="/register">Register</NavLink>
+                <NavLink
+                  className={activePath === "/register" ? "active" : ""}
+                  to="/register"
+                >
+                  Register
+                </NavLink>
               </li>
               <li>
-                <NavLink className={activePath === "/succulents" ? "active" : ""} onClick={toggleSidebar} to="/succulents">Succulents</NavLink>
+                <NavLink
+                  className={activePath === "/succulents" ? "active" : ""}
+                  to="/succulents"
+                >
+                  Succulents
+                </NavLink>
               </li>
               {user !== null && (
                 <li>
-                  <NavLink className={activePath === "/profile" ? "active" : ""} onClick={toggleSidebar} to="/profile">Profile</NavLink>
+                  <NavLink
+                    className={activePath === "/profile" ? "active" : ""}
+                    to="/profile"
+                  >
+                    Profile
+                  </NavLink>
                 </li>
               )}
             </ul>
           </nav>
-          {user !== null ? <button onClick={logout}>Log-Out</button> : <> <form onSubmit={handleSubmit}>
-            <input type='email' name='email' placeholder='email' onChange={handleChange}/>
-            <input type='password' name='password' placeholder='password' onChange={handleChange}/>
-            <button type='submit'>Log-In</button>
-          </form></>}
+          {user !== null ? (
+            <button className="custom-button" onClick={logout}>
+              Log-Out
+            </button>
+          ) : (
+            <>
+              {" "}
+              <form onSubmit={handleSubmit}>
+                <input
+                  className="input-text-area"
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  onChange={handleChange}
+                />
+                <input
+                  className="input-text-area"
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  onChange={handleChange}
+                />
+                <button className="custom-button" type="submit">
+                  Log-In
+                </button>
+              </form>
+            </>
+          )}
+          <br />
+          {/* <button className="close-button" onClick={closeSidebar}>
+            Close
+          </button> */}
+          <span className="menu-button" onClick={closeSidebar}>
+            <i className="fa-solid fa-circle-xmark fa-2xl"></i>
+          </span>
         </aside>
       )}
     </>

@@ -10,43 +10,19 @@ body {
   cursive; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-
 }
 
 .app-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  text-align: center
+  text-align: center;
+  font-family: 'Josefin Sans',
+  sans-serif;
+  /* font-family: 'Gloria Hallelujah',
+    cursive;
+    font-family: 'Josefin Sans',
+    sans-serif;
+    font-family: 'Sigmar',cursive; */
 }
 
-.app-container::before {
-  content: "";
-  background-image: url('/Users/doronbrsqh/Downloads/Web\ Dev\ Code\ Academy\ \ /mern-project/client/assets/light-green.jpg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 0.2;
-  /* Set the opacity you want (0 to 1) */
-
-  /* Set the dimensions and position of the pseudo-element */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  /* Ensure the pseudo-element is below the actual content */
-  z-index: -1;
-}
-
-@media (max-width: 768px) {
-  .app-container::before {
-    background-size: auto 100%;
-  }
-}
 
 .parent-div {
   display: flex;
@@ -56,10 +32,11 @@ body {
 
 .page-container {
     margin: 2rem 2rem;
-    margin-top: 5.5rem;
-    max-width: 800px;
+    margin-top: 6rem;
+    width: 80%;
     padding: 20px;
     border: 1px solid #000;
+    border-radius: 10px;
     background-color: #e8f4ea;
 }
 .inner-component{
@@ -72,9 +49,10 @@ body {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  background-color: #007bff;
+  background-color: #5ad095;
   color: #ffffff;
   padding: 1rem 1rem;
+  padding-top: 1.2rem;
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
@@ -83,7 +61,7 @@ body {
 }
 
 .menu-button:hover {
-  background-color: #0056b3;
+  background-color: #009155;
 }
 
 .sidebar {
@@ -98,7 +76,7 @@ body {
   z-index: 900;
 }
 .first-line-sidebar{
-  margin-top: 4rem;
+  margin-top: 6rem;
 }
 
 .sidebar h1 {
@@ -121,13 +99,13 @@ body {
 }
 
 .sidebar a:hover {
-  color: #007bff;
+  color: #5ad095;
   text-decoration: underline;
 }
 
 .sidebar a.active {
   font-weight: bold;
-  color: #007bff;
+  color: #5ad095;
 }
 
 /****************************************************************************************************************************/
@@ -136,42 +114,139 @@ body {
 /***************************************************    Profile   ********************************************************/
 .profile-pic{
   width: 300px;
-  height:300px ;
+  height:305px ;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin-bottom: 1rem;
 }
 
 
-.profile-pic-frame, .profile-edit-frame {
+.profile-pic-frame{
+ padding: 1rem;
+ background-color: white;
+ padding-bottom: 0%;
+ line-height: 0.7;
+}
+
+.profile-edit-frame {
   border: 15px solid white;
-  border-bottom: 70px solid white;
+  background-color: white;
+  /* border-bottom: 80px solid white; */
   display: inline-block;
+  width: 332px;
+  padding-bottom: 0rem;
 }
+.profile-pic-text{
+  font-family:'Gloria Hallelujah',
+  cursive;
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+.profile-pic-text-div{
+  background-color: white;
+  /* margin-bottom: 0;
+  padding-bottom: 0; */
+  font-family:'Gloria Hallelujah',
+  cursive;
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+.semi-img-edit-profile{
+background-color: lightseagreen;
+}
+.semi-img-edit-profile p{
+  padding-top: 0.5rem;
+}
+
 .edit-profile-container{
   display: flex ;
-  flex-direction: row; 
+  flex-wrap: wrap;
+  justify-content: space-around;
   column-gap: 20px;
+  row-gap: 20px;
+  margin-bottom: 4rem;
 }
-.profile-comments-container, .profile-likes-container ,.profile-succulents-container{
-  border: 2px dotted black;
+
+.profile-succulents-container{
+    display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  column-gap: 40px;
+  row-gap: 40px;
+  margin-bottom: 3rem;
+}
+
+
+.profile-comments-container{
   display: flex;
   flex-wrap: wrap;
   justify-content:center;
-  column-gap: 15px;
-  row-gap: 15px;
+  gap: 30px;
+  margin: 3rem auto;
 }
+.profile-likes-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    gap: 30px;
+    margin: 3rem auto;
+}
+
+.like-card{
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #053313;
+  border-radius: 10px;
+}
+.like-card:hover {
+  cursor: pointer;
+}
+.like-card:hover:before {
+  content: '\2715';
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6em;
+  font-weight: bolder;
+  color: white;
+}
+
+.comment-card{
+  position: relative;
+  border: 2px solid #053313;
+  border-radius: 10px;
+  background-color: #d2e7d6;
+}
+.comment-card p {
+  margin: 0.5rem;
+}
+.comment-card:hover{
+  cursor: pointer;
+}
+.comment-card:hover:before{
+    content: '\2715';
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 7em;
+    color: white;
+    font-weight: bolder;
+}
+
 
 /***************************************    succulent card    ******************************************/
 
 .succulent-card-div {
-  border: 2px solid red;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
   width: 300px;
-  height: 520px;
-  padding: 1rem;
+  height: 690px;
+  padding: 2rem;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  /* overflow: auto; */
 }
 .succulent-card-div.flipped {
   transform: rotateY(180deg);
@@ -188,17 +263,47 @@ body {
   backface-visibility: hidden;
 }
 
+.succulent-card-div p {
+  margin-left:2rem ;
+  margin-right:2rem ;
+  max-width:250px ;
+  word-break: break-word;
+}
+
+
 .back {
   transform: rotateY(180deg);
+  background-image: url("/Users/doronbrsqh/Downloads/plants/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464.jpg");
+  background-size: cover;
+  border-radius: 10px;
 }
-/* test flipping card */
+.front{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+  border-radius: 10px;
+  background-color:#d2e7d6;
+}
+.succulent-card-buttons{
+ margin-bottom: 1rem;
+}
+
+.succulent-card-div p{
+  border-bottom: 1px dotted black;
+  
+}
+
 
 .succulent-card-img{
 width: 250px;
 height: 250px;
 object-fit:cover;
 margin-top: 1.3rem;
+border-radius: 10px;
+margin-bottom: 0.5rem;
 }
+
 
 .Succulent-Card-Modal {
   position: fixed;
@@ -222,7 +327,7 @@ margin-top: 1.3rem;
   /* Add border radius */
   background-color: #fff;
   padding: 1em;
-  padding-top: 3rem;
+  padding-top: 4rem;
   max-width: 90%;
   max-height: 90%;
   overflow: auto;
@@ -233,11 +338,25 @@ margin-top: 1.3rem;
 .close-modal-btn {
   position: absolute;
   /* Position the button absolutely within the div */
-  top: 10px;
+  top: 12px;
   /* Place it near the top */
-  right: 10px;
+  right: 12px;
   /* And near the right side */
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #053313;
+  /* margin: 1.5rem auto; */
+  border: 2px solid #053313;
+  border-radius: 50%;
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
 }
+.close-modal-btn:hover{
+background-color: lightgrey;
+transform: scale(1.1);
+}
+
+
 .comment-user-pic{
   width: 55px;
   height:55px;
@@ -245,7 +364,8 @@ margin-top: 1.3rem;
   border-radius: 50%;
   border: 4px solid rgba(128, 128, 128, 0.312);
   box-sizing: content-box;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 .single-comment-modal{
   border: 2px dotted black;
@@ -254,6 +374,7 @@ margin-top: 1.3rem;
   margin-bottom: 0.5rem;
   padding: 1.5rem;
   position: relative;
+  text-align: left;
 }
 .delete-icon-comment {
   width: 25px;
@@ -300,10 +421,396 @@ margin-top: 1.3rem;
 
 .succulents-page-container{
   width: 80%;
-  border: 2px solid black;
-  margin: 5rem auto;
+  margin: 1.5rem auto;
+  margin-bottom: 4rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  row-gap: 55px;
+  column-gap: 55px;
 /* need to change the % on smaller screens !!!!! */
+}
+
+/* ///////////////////////////////////////// SUCCULENTS PAGE /////////////////////////////////////// */
+.wobble-hor-bottom {
+  -webkit-animation: wobble-hor-bottom 5s both;
+  animation: wobble-hor-bottom 5s both;
+}
+
+@-webkit-keyframes wobble-hor-bottom {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+@keyframes wobble-hor-bottom {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+
+
+/* .text-input-position-edit-from{
+  transform: translateX(45px);
+} */
+/* .text-input-position-create-succulent{
+  transform: translateX(0px)
+} */
+
+.create-succulent-form{
+margin-top: 2rem;
+border: 2px dotted black;
+border-radius: 5px;
+width: 260px;
+margin: 2rem auto;
+padding-top: 2rem;
+padding-bottom: 2rem;
+background-image: url("/Users/doronbrsqh/Downloads/plants/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464.jpg");
+background-size: cover;
+
+}
+
+input[type="text"],input[type="file"],button[type="submit"],
+textarea, .input-text-area {
+  width: 172px;
+  margin: 0.5rem auto;
+  outline-color:lightseagreen;
+}
+#email-input-profile-page{
+  margin-top: 0;
+}
+#submit-btn-profile-page{
+  margin-bottom: 1.1rem;
+}
+
+.custom-button {
+  font-size: 17px;
+  padding: 0.2em 0.7em;
+  border: transparent;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  background: rgb(110, 171, 110);
+  color: white;
+  border-radius: 4px;
+}
+
+.custom-button:hover {
+  background: linear-gradient(135deg, rgb(111, 189, 111) 0%, rgb(149, 234, 23) 100%);
+}
+
+.custom-button:active {
+  transform: translate(0em, 0.2em);
+}
+.succulent-page-header{
+color: #053313;
+font-weight:bold;
+margin-top: 2rem;
+}
+.create-post-icon{
+width: 4rem;
+height: 4rem;
+color: #053313;
+cursor: pointer;
+margin-bottom: 2rem;
+}
+
+.flip-back-icon {
+width: 3rem;
+height: 3rem;
+color: #053313;
+margin: 1.5rem auto;
+border: 2px solid #053313;
+border-radius: 50%;
+padding: 0.5rem 0.5rem;
+cursor: pointer;
+}
+.flip-back-icon:hover{
+  background-color: lightgrey;
+  transform: scale(1.1);
+}
+
+.custom-button2 {
+  --color: #32CD32;
+  font-family: inherit;
+  display: inline-block;
+  width: 12em;
+  height: 2.6em;
+  line-height: 2.5em;
+  overflow: hidden;
+  margin: 20px;
+  font-size: 17px;
+  border: 2px solid var(--color);
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.custom-button2::before {
+  position: absolute;
+  content: "";
+  background: var(--color);
+  width: 300%;
+  height: 300%;
+  border-radius: 50%;
+  top: -100%;
+  right: -100%;
+  bottom: -100%;
+  left: -100%;
+  transition: .3s all;
+  z-index: -1;
+}
+
+.custom-button2:hover {
+  color: white;
+  z-index: 3;
+}
+
+.custom-button2:hover::before {
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+}
+.filter-buttons-container {
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}
+.profile-page-header{
+font-weight: 800;
+margin: 3rem auto;
+color: #053313;
+text-decoration: underline;
+}
+
+
+.register-page-header{
+  font-weight: 800;
+  margin: 1rem auto;
+  margin-bottom: 5rem;
+  color: #053313;
+  line-height: 4rem;
+text-decoration: underline;
+}
+.register-page-container{
+  margin: 6rem auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  max-width: 850px;
+  padding: 1rem;
+  background-color: cadetblue;
+}
+hr {
+  border: none;
+  /* removes the default border */
+  height: 7px;
+  /* height of the line */
+  background-image: linear-gradient(to right, rgba(0, 255, 0, 0), rgba(0, 255, 0, 0.75), rgba(0, 255, 0, 0));
+  /* gradient effect */
+}
+
+.register-page-form{
+margin: 0 auto;
+border: 2px solid black;
+border-bottom: none;
+padding: 2rem;
+display: flex;
+flex-direction: column;
+width: 250px;
+background-color: white;
+}
+
+.register-div-gif{
+  width: 250px;
+  height: 250px;
+  border: 2px solid black; 
+  border-top: none;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  background-image: url(/Users/doronbrsqh/Downloads/plants/giphy.gif);
+  background-size: cover;
+}
+.register-container-test{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.home-page-container{
+background-color: #3dab7f15;
+height: 100vh;
+width: 100vw;
+display: flex;
+flex-direction: column;
+/* justify-content: flex-end; */
+justify-content:space-around;
+align-items: center;
+
+
+}
+.home-page-gif{
+  width: 400px;
+  height: 400px;
+  background-image: url(/Users/doronbrsqh/Downloads/plants/plantgif.gif);
+  background-size: contain ;
+  background-repeat: no-repeat;
+  /* border: 2px solid black; */
+  
+}
+.home-page-text{
+  max-width: 780px;
+  margin-top: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-weight: bold;
+}
+.home-page-text h4{
+  font-weight: bold;
+  line-height: 2.5rem;
+}
+
+@media (max-width: 750px) {
+  .page-container {
+   
+    width: 90%;
+   
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeInText {
+  animation-name: fadeIn;
+  animation-duration: 5s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
+color: #053313;
+}
+
+
+.spinner {
+  position: fixed;
+  /* modified from absolute to fixed */
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  height: 96px;
+  width: 96px;
+  animation: rotate_3922 1.2s linear infinite;
+  background-color: #9b59b6;
+  background-image: linear-gradient(#9b59b6, #84cdfa, #5ad1cd);
+}
+
+.spinner span {
+  position: absolute;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background-color: #9b59b6;
+  background-image: linear-gradient(#9b59b6, #84cdfa, #5ad1cd);
+}
+
+.spinner span:nth-of-type(1) {
+  filter: blur(5px);
+}
+
+.spinner span:nth-of-type(2) {
+  filter: blur(10px);
+}
+
+.spinner span:nth-of-type(3) {
+  filter: blur(25px);
+}
+
+.spinner span:nth-of-type(4) {
+  filter: blur(50px);
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background-color: #fff;
+  border: solid 5px #ffffff;
+  border-radius: 50%;
+}
+
+@keyframes rotate_3922 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }

@@ -1,22 +1,21 @@
-import React from 'react'
-import ProfileHistory from '../components/ProfileHistory'
-import ProfileUpdate from '../components/ProfileUpdate'
+import React, { useContext } from "react";
+import ProfileHistory from "../components/ProfileHistory";
+import ProfileUpdate from "../components/ProfileUpdate";
+import { AuthContext } from "../contexts/AuthContext";
 
-type Props = {}
-
+type Props = {};
 
 const Profile = (props: Props) => {
-
-
-
+  const { loading, setLoading } = useContext(AuthContext);
   return (
-    <div className='parent-div'>
-      <div className='page-container'>
+    <div className="parent-div">
+      <div className="page-container">
         <ProfileUpdate />
+        <hr />
         <ProfileHistory />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
