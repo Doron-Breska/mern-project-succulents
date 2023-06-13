@@ -113,7 +113,7 @@ const SucculentCard = ({
       console.log(result);
       setSucculents(result);
     } catch (error) {
-      console.error("Failed to fetch succulents:", error);
+      console.error("Failed to fetch succulents:-", error);
     }
   };
 
