@@ -28,7 +28,7 @@ const SucculentCardModal = ({
         </button> */}
         <IoMdClose onClick={closeModal} className="close-modal-btn" />
         {modalContent && <p>{modalContent}</p>}
-        {modalContent2 && <>{modalContent2}</>}
+        {/* {modalContent2 && <>{modalContent2}</>} */}
         {children}
       </div>
     </div>

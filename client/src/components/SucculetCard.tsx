@@ -14,8 +14,19 @@ import { MdComment } from "react-icons/md";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { ModalContext } from "../contexts/ModalContext";
-import NewModalElement from "../components/NewModalElement";
+// import NewModalElement from "../components/NewModalElement";
 import { RiArrowGoBackFill } from "react-icons/ri";
+
+///testing dialog
+import { useRef } from "react";
+
+interface ExtendedHTMLDialogElement extends HTMLDialogElement {
+  open: boolean;
+  close: () => void;
+  showModal: () => void;
+}
+
+/// testing dialog
 
 interface Owner {
   _id: string;
@@ -95,6 +106,45 @@ const SucculentCard = ({
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
   const { loading, setLoading } = useContext(AuthContext);
+  const [modalComments, setModalComments] = useState<Comment[]>([]);
+
+  ////dialog test
+  const dialogRef = useRef<ExtendedHTMLDialogElement>(null);
+  useEffect(() => {
+    const dialogElement = dialogRef.current;
+    const isModalDialogOpen = sessionStorage.getItem("isModalDialogOpen");
+
+    if (dialogElement) {
+      if (isModalDialogOpen === "true" && !dialogElement.open) {
+        dialogElement.showModal();
+      }
+    }
+
+    return () => {
+      if (dialogElement && dialogElement.open) {
+        dialogElement.close();
+      }
+    };
+  }, []);
+
+  const openModalDialog = () => {
+    const dialogElement = dialogRef.current;
+    if (dialogElement && !dialogElement.open) {
+      getModalComments(succulent._id);
+      dialogElement.showModal();
+      sessionStorage.setItem("isModalDialogOpen", "true");
+    }
+  };
+
+  const closeModalDialog = () => {
+    const dialogElement = dialogRef.current;
+    if (dialogElement && dialogElement.open) {
+      dialogElement.close();
+      sessionStorage.removeItem("isModalDialogOpen");
+    }
+  };
+
+  ////dialog test
 
   const fetchSucculents = async () => {
     const requestOptions = {
@@ -339,21 +389,22 @@ const SucculentCard = ({
     if (!user) {
       setModalContent("Members only feature");
       openModal();
-    } else {
-      setModalContent2(
-        <NewModalElement
-          user={user}
-          succulent={succulent}
-          comments={updatedComments}
-          setComments={setComments}
-          handleCommentSubmit={handleCommentSubmit}
-          handleCommentChange={handleCommentChange}
-          deleteCommentModal={deleteCommentModal}
-          textInput={textInput}
-        />
-      );
-      openModal();
     }
+    // else {
+    //   setModalContent2(
+    //     <NewModalElement
+    //       user={user}
+    //       succulent={succulent}
+    //       comments={updatedComments}
+    //       setComments={setComments}
+    //       handleCommentSubmit={handleCommentSubmit}
+    //       handleCommentChange={handleCommentChange}
+    //       deleteCommentModal={deleteCommentModal}
+    //       textInput={textInput}
+    //     />
+    //   );
+    //   openModal();
+    // }
   };
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -433,6 +484,44 @@ const SucculentCard = ({
   };
   //////////////////////////////////////////////////////////////////////////////////////
 
+  //test dialog
+  const getModalComments = async (succulentId: string) => {
+    // console.log('%csucculent ID',"color:blue",  succulentId)
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
+        requestOptions
+      );
+      //  console.log("%call comments :>> ", "color:green",response);
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+      const result = await response.json();
+      // console.log("%call comments :>> ", "color:green",result);
+      const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
+      console.log("%call comments :>> ", "color:green", updatedComments);
+
+      setModalComments(updatedComments);
+
+      // openModal();
+    } catch (error) {
+      console.error("Failed to delete comment:", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("%cuseEffectmodal", "color:lightblue", succulent._id);
+    getModalComments(succulent._id);
+  }, [comments.length, modalComments.length]);
+  /////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <>
       {loading && (
@@ -473,7 +562,70 @@ const SucculentCard = ({
             )}
           </p>
           <div className="succulent-card-buttons">
-            <MdComment className="succulent-card-btn" onClick={toggleModal} />
+            {/* <MdComment className="succulent-card-btn" onClick={toggleModal} /> */}
+            {/* testing modal dialog  */}
+
+            <MdComment
+              className="succulent-card-btn"
+              onClick={openModalDialog}
+            />
+            <dialog ref={dialogRef}>
+              <button onClick={closeModalDialog}>Close</button>
+              <>
+                {user ? (
+                  <>
+                    <h3>Comments</h3>
+                    {console.log('JSX modal "comments">>> :', modalComments)}
+                    {modalComments.length > 0 ? (
+                      modalComments.map((comment) => (
+                        <div key={comment._id} className="single-comment-modal">
+                          <img
+                            src={comment.authorImage}
+                            alt="profile-img-author"
+                            className="comment-user-pic"
+                          ></img>
+                          <span>
+                            {comment.authorName}: {comment.text}
+                          </span>
+                          <p>
+                            Posted on:{" "}
+                            {new Date(comment.createdAt).toLocaleDateString()}{" "}
+                            {new Date(comment.createdAt).toLocaleTimeString()}
+                          </p>
+                          {user && comment.authorId === user._id && (
+                            <MdDeleteForever
+                              className="delete-icon-comment"
+                              onClick={() => {
+                                deleteCommentModal(succulent._id, comment._id);
+                                // getModalComments(succulent._id)
+                              }}
+                            />
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <p>No comments found for this post</p>
+                    )}
+                    <form onSubmit={handleCommentSubmit}>
+                      <input
+                        type="text"
+                        name="comment"
+                        placeholder="write something"
+                        onChange={handleCommentChange}
+                        value={textInput}
+                      />
+                      <br />
+                      <button className="custom-button" type="submit">
+                        Submit
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  <p>You have to log in to comment</p>
+                )}
+              </>
+            </dialog>
+
             <FaRobot
               className="succulent-card-btn"
               onClick={() => getPlantCareAi(succulent.species)}
@@ -551,6 +703,6 @@ const SucculentCard = ({
 };
 
 export default SucculentCard;
-function async(species: string) {
-  throw new Error("Function not implemented.");
-}
+// function async(species: string) {
+//   throw new Error("Function not implemented.");
+// }

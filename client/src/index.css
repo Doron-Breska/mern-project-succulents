@@ -333,6 +333,17 @@ margin-bottom: 0.5rem;
   overflow: auto;
   width: 400px;   
 }
+dialog{
+  padding: 1em;
+  padding-top: 4rem;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  width: 400px;
+  border-radius: 5px;
+  border: 2px solid rgb(0, 0, 0);
+ 
+}
 
 /* New style for the close button */
 .close-modal-btn {
