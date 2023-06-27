@@ -19,7 +19,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   setUser: (user: User | null) => void;
-  error: Error | null;
+  // error: Error | null;
   login(email: string, password: string): void;
   logout(): void;
   loading: boolean;
@@ -35,7 +35,7 @@ const initialAuth: AuthContextType = {
     throw new Error("setUser function not implemented.");
   },
 
-  error: null,
+  // error: null,
   login: () => {
     throw new Error("login function not implemented.");
   },
@@ -54,7 +54,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   // console.log("active user testing: ", user)
   const { setModalContent, openModal } = useContext(ModalContext); // get setModalContent from ModalContext
-  const [error, setError] = useState<Error | null>(null);
+  // const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
   const login = async (email: string, password: string) => {
@@ -160,7 +160,15 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, login, logout, error, loading, setLoading }}
+      value={{
+        user,
+        setUser,
+        login,
+        logout,
+        // error,
+        loading,
+        setLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

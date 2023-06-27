@@ -1,12 +1,12 @@
 import { AuthContext } from "../contexts/AuthContext";
-import SucculentCardModal from "../components/SucculentCardModal";
+// import SucculentCardModal from "../components/SucculentCardModal";
 import React, {
   ChangeEvent,
   FormEvent,
   useState,
   useContext,
   useEffect,
-  useReducer,
+  // useReducer,
 } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRobot } from "react-icons/fa";
@@ -81,10 +81,10 @@ const SucculentCard = ({
 }: SucculentCardProps) => {
   const { user } = useContext(AuthContext);
   const {
-    isModalOpen,
-    closeModal,
+    // isModalOpen,
+    // closeModal,
     openModal,
-    modalContent,
+    // modalContent,
     setModalContent,
     setModalContent2,
   } = useContext(ModalContext);
@@ -92,7 +92,7 @@ const SucculentCard = ({
   const userId = user?._id.toString();
   const [likes, setLikes] = useState(succulent.likes);
   // const [speices, setSpeices] = useState(succulent.species);
-  const speices = succulent.species;
+  // const speices = succulent.species;
   const [isFlipped, setIsFlipped] = useState(false);
   // const [comments, setComments] = useState(succulent.Comments);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -171,7 +171,7 @@ const SucculentCard = ({
     fetchSucculents();
   }, []);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const getPlantCareAi = async (speices: string) => {
+  const getPlantCareAi = async (species: string) => {
     if (!user) {
       setModalContent("Members only feature");
       openModal();
@@ -180,7 +180,7 @@ const SucculentCard = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/plantCare/${speices}`,
+        `http://localhost:5001/api/succulents/plantCare/${species}`,
         {
           method: "GET",
           headers: {
@@ -199,7 +199,7 @@ const SucculentCard = ({
         "this is the result from open ai",
         data["response from OpenAI"].choices[0].text
       );
-      console.log("test for speices -  ", speices);
+      console.log("test for speices -  ", species);
       const robiRobot = (
         <>
           <h3>
@@ -451,37 +451,37 @@ const SucculentCard = ({
     }
   };
   /////////////////////////////////////////////////////////////////////////////////////
-  const getAllComments = async (succulentId: string) => {
-    // console.log('%csucculent ID',"color:blue",  succulentId)
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  // const getAllComments = async (succulentId: string) => {
+  //   // console.log('%csucculent ID',"color:blue",  succulentId)
+  //   const requestOptions = {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
 
-    try {
-      const response = await fetch(
-        `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
-        requestOptions
-      );
-      console.log("%call comments :>> ", "color:green", response);
-      if (!response.ok) {
-        throw new Error("HTTP error " + response.status);
-      }
-      const result = await response.json();
-      console.log("%call comments :>> ", "color:green", result);
-      const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
-      console.log("%call comments :>> ", "color:green", updatedComments);
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
+  //       requestOptions
+  //     );
+  //     console.log("%call comments :>> ", "color:green", response);
+  //     if (!response.ok) {
+  //       throw new Error("HTTP error " + response.status);
+  //     }
+  //     const result = await response.json();
+  //     console.log("%call comments :>> ", "color:green", result);
+  //     const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
+  //     console.log("%call comments :>> ", "color:green", updatedComments);
 
-      setComments(updatedComments);
-      toggleModal(updatedComments);
-      // toggleModal()
-      // openModal();
-    } catch (error) {
-      console.error("Failed to delete comment:", error);
-    }
-  };
+  //     setComments(updatedComments);
+  //     toggleModal(updatedComments);
+  //     // toggleModal()
+  //     // openModal();
+  //   } catch (error) {
+  //     console.error("Failed to delete comment:", error);
+  //   }
+  // };
   //////////////////////////////////////////////////////////////////////////////////////
 
   //test dialog

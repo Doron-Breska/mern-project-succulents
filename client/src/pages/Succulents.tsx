@@ -8,8 +8,8 @@ import React, {
 import SucculentCard from "../components/SucculetCard";
 import { AuthContext } from "../contexts/AuthContext";
 import { ModalContext } from "../contexts/ModalContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLeaf } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import { FiPlusSquare } from "react-icons/fi";
 import { FiMinusSquare } from "react-icons/fi";
 
@@ -57,8 +57,13 @@ interface FormData {
 
 const Succulents = (props: Props) => {
   const { user } = useContext(AuthContext);
-  const { isModalOpen, closeModal, modalContent, setModalContent, openModal } =
-    useContext(ModalContext);
+  const {
+    // isModalOpen,
+    // closeModal,
+    // modalContent,
+    setModalContent,
+    openModal,
+  } = useContext(ModalContext);
   const token = localStorage.getItem("token");
   const [succulents, setSucculents] = useState<Succulent[]>([]);
   const userId = user?._id.toString();

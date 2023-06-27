@@ -63,6 +63,9 @@ const Register = (props: Props) => {
         );
         openModal();
         setFormData({ email: "", password: "", username: "", avatar: "" });
+        if (fileInput.current) {
+          fileInput.current.value = ""; // reset the file input
+        }
       } else {
         setModalContent(result.error);
         openModal();
