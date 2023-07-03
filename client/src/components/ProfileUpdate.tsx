@@ -88,7 +88,10 @@ const ProfileUpdate = (props: Props) => {
             className="profile-pic"
             style={{ backgroundImage: `url(${(user && user.avatar) || ""})` }}
           ></div>
-          <p className="profile-pic-text">{user && user.username}</p>
+          <p className="profile-pic-text">
+            {user && user.username}
+            <br />
+          </p>
           <p className="profile-pic-text">{user && user.email}</p>
         </div>
         <div className="profile-edit-frame">

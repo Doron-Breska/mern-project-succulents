@@ -7,7 +7,7 @@ function Home(props: Props) {
   return (
     <div className="home-page-container">
       <div className="home-page-text fadeInText">
-        <h4>
+        <h4 style={{ fontSize: "clamp(1.1rem, 2.1vw, 1.7rem)" }}>
           This is an app for succulent enthusiasts where you can share your own
           plants and experiences in growing them, and growing with them. You can
           also comment/favorite plants and use our Robi <FaRobot /> Robot AI. I

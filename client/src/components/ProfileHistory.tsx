@@ -203,7 +203,9 @@ const ProfileHistory = (props: Props) => {
         <hr />
         <div className="profile-comments-container">
           {userComments.length === 0 ? (
-            <p>You did not comment on any succulent, Go and hit the keyboard</p>
+            <p>
+              You did not comment on any succulent, Go and hit the keyboard !
+            </p>
           ) : (
             userComments.flatMap((succulent) =>
               succulent.Comments.filter(
@@ -250,7 +252,7 @@ const ProfileHistory = (props: Props) => {
           {succulents.filter(
             (succulent) => userId && succulent.likes.includes(userId)
           ).length === 0 ? (
-            <p>You did not like anything yet, go an hit the like button</p>
+            <p>You did not like anything yet, go an hit the like button !</p>
           ) : (
             succulents
               .filter((succulent) => userId && succulent.likes.includes(userId))

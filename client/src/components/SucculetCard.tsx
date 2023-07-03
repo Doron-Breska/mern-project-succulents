@@ -541,11 +541,29 @@ const SucculentCard = ({
             alt={succulent.species}
             className="succulent-card-img"
           />
-          <p>Species: {succulent.species}</p>
-          <p className="testclass">Description: {succulent.description}</p>
-          <p>City: {succulent.city}</p>
           <p>
-            Posted by: {succulent.owner.username}, on:{" "}
+            <b>
+              <i>Species:</i>
+            </b>{" "}
+            {succulent.species}
+          </p>
+          <p className="testclass">
+            <i>
+              <b>Description:</b>
+            </i>{" "}
+            {succulent.description}
+          </p>
+          <p>
+            <i>
+              <b>City: </b>
+            </i>
+            {succulent.city}
+          </p>
+          <p>
+            <i>
+              <b>Posted by: </b>
+            </i>
+            {succulent.owner.username}, on:{" "}
             {new Date(succulent.createdAt).toLocaleDateString()}{" "}
             {new Date(succulent.createdAt).toLocaleTimeString()}
           </p>

@@ -82,7 +82,10 @@ const Register = (props: Props) => {
   return (
     <div className="register-page-outer-container">
       <div className="register-page-container">
-        <h3 className="register-page-header">
+        <h3
+          className="register-page-header"
+          style={{ fontSize: "clamp(1.1rem, 2.1vw, 1.7rem)" }}
+        >
           Register here to post,
           <br />
           like, comment, and use our Robi <FaRobot /> Robot AI <br />
