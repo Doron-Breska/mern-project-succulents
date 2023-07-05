@@ -677,7 +677,8 @@ text-decoration: underline;
   border-radius: 10px;
   width: 50%;
   padding: 1rem;
-  background-color: rgb(144, 253, 195);
+  background-color: #CFFDE1;
+  /* background-color: red; */
 }
 
 @media (max-width: 1050px) {
