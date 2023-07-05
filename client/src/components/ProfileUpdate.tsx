@@ -1,5 +1,4 @@
 import { AuthContext } from "../contexts/AuthContext";
-import Form from "react-bootstrap/Form";
 import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
 
 type Props = {};
@@ -98,10 +97,10 @@ const ProfileUpdate = (props: Props) => {
           <div className="profile-edit">
             <div className="semi-img-edit-profile">
               <p>
-                Current eamil : {user && user.email}
+                Current email : {user && user.email}
                 <br /> Current username : {user && user.username}
               </p>
-              <Form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <input
                   type="email"
                   name="email"
@@ -145,7 +144,7 @@ const ProfileUpdate = (props: Props) => {
                 >
                   Update
                 </button>
-              </Form>
+              </form>
             </div>
 
             <div className="profile-pic-text-div">
