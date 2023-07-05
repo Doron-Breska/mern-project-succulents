@@ -14,6 +14,7 @@ interface FormData {
 }
 
 const Register = (props: Props) => {
+  //eslint-disable-next-line
   const { isModalOpen, closeModal, openModal, setModalContent } =
     useContext(ModalContext);
   const [formData, setFormData] = useState<FormData>({
@@ -44,7 +45,7 @@ const Register = (props: Props) => {
     submitData.append("password", formData.password);
     submitData.append("username", formData.username);
     submitData.append("avatar", formData.avatar);
-    console.log("testing registration - submitdata", submitData);
+    // console.log("testing registration - submitdata", submitData);
     const requestOptions = {
       method: "POST",
       body: submitData,

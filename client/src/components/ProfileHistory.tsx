@@ -38,6 +38,7 @@ interface Succulent {
 
 const ProfileHistory = (props: Props) => {
   const { user } = useContext(AuthContext);
+  //eslint-disable-next-line
   const { isModalOpen, closeModal, modalContent, setModalContent } =
     useContext(ModalContext);
   const token = localStorage.getItem("token");

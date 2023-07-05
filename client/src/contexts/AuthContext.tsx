@@ -84,10 +84,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         setUser(result.user);
         // console.log("test--- result.user :",result.user )
         localStorage.setItem("token", result.token);
-        localStorage.setItem("my name", "doron");
+        // localStorage.setItem("my name", "doron");
         setModalContent("");
       }
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.log(error);
       setModalContent("Unexpected error occurred"); // a general error message when an unexpected error (like network error) occurs
@@ -100,7 +100,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
-  //old vers start
+  //old version start
   // const checkForToken = () => {
   //   const token = localStorage.getItem("token");
   //   if (token) {
@@ -117,7 +117,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   //   }
   // }, []);
 
-  // old vers end
+  // old version end
 
   const checkForToken = useCallback(() => {
     const token = localStorage.getItem("token");
@@ -127,6 +127,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     } else {
       // console.log("There is no token");
     }
+    //eslint-disable-next-line
   }, []);
 
   const fetchActiveUser = async (token: string) => {

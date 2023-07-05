@@ -67,6 +67,7 @@ const Succulents = (props: Props) => {
   const token = localStorage.getItem("token");
   const [succulents, setSucculents] = useState<Succulent[]>([]);
   const userId = user?._id.toString();
+  //eslint-disable-next-line
   const userComments = succulents.filter((succulent) =>
     succulent.Comments.some((comment) => comment.authorId.toString() === userId)
   );

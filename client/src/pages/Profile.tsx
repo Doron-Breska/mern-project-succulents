@@ -6,6 +6,7 @@ import { AuthContext } from "../contexts/AuthContext";
 type Props = {};
 
 const Profile = (props: Props) => {
+  //eslint-disable-next-line
   const { loading, setLoading } = useContext(AuthContext);
   return (
     <div className="parent-div">

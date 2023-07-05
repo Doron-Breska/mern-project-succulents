@@ -97,8 +97,9 @@ const NewModalElement = ({
   };
 
   useEffect(() => {
-    console.log("%cuseEffectmodal", "color:lightblue", succulent._id);
+    // console.log("%cuseEffectmodal", "color:lightblue", succulent._id);
     getModalComments(succulent._id);
+    //eslint-disable-next-line
   }, [comments.length, modalComments.length]);
   return (
     <>

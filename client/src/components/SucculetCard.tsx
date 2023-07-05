@@ -169,6 +169,7 @@ const SucculentCard = ({
 
   useEffect(() => {
     fetchSucculents();
+    //eslint-disable-next-line
   }, []);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const getPlantCareAi = async (species: string) => {
@@ -264,12 +265,6 @@ const SucculentCard = ({
       }
       const result = await response.json();
       console.log("Updated succulent: ", result.updatedSucculent);
-
-      // setSucculents((prevState) =>
-      //   prevState.map((succ) =>
-      //     succ._id === succulent._id ? result.updatedSucculent : succ
-      //   )
-      // );  //// To ask Emily why it doesnot work !!!!
       setIsFlipped(false); // flip the card back to front view
       setEditFormData({
         species: "",
@@ -517,8 +512,9 @@ const SucculentCard = ({
   };
 
   useEffect(() => {
-    console.log("%cuseEffectmodal", "color:lightblue", succulent._id);
+    // console.log("%cuseEffectmodal", "color:lightblue", succulent._id);
     getModalComments(succulent._id);
+    //eslint-disable-next-line
   }, [comments.length, modalComments.length]);
   /////////////////////////////////////////////////////////////////////////////////////
 
