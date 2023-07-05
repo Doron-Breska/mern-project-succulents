@@ -724,7 +724,7 @@ background-color: white;
   border-top: none;
   margin: 0 auto;
   margin-bottom: 2rem;
-  background-image: url(/Users/doronbrsqh/Downloads/plants/giphy.gif);
+  background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561744/giphy_lzyjdt.gif");
   background-size: cover;
 }
 .register-container-test{
@@ -748,7 +748,7 @@ align-items: center;
 .home-page-gif{
   width: 400px;
   height: 400px;
-  background-image: url(/Users/doronbrsqh/Downloads/plants/plantgif.gif);
+  background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561682/plantgif_xxadoy.gif");
   background-size: contain ;
   background-repeat: no-repeat;
   /* border: 2px solid black; */
