@@ -282,7 +282,7 @@ height: 305px;
 
 .back {
   transform: rotateY(180deg);
-  background-image: url("/Users/doronbrsqh/Downloads/plants/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464.jpg");
+  background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561231/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464_owtkj6.jpg");
   background-size: cover;
   border-radius: 10px;
 }
@@ -546,7 +546,7 @@ width: 260px;
 margin: 2rem auto;
 padding-top: 2rem;
 padding-bottom: 2rem;
-background-image: url("/Users/doronbrsqh/Downloads/plants/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464.jpg");
+background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561231/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464_owtkj6.jpg");
 background-size: cover;
 
 }
