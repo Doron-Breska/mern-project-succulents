@@ -58,9 +58,15 @@ const connectRoutes = () => {
 }
 
 
-setMiddlewares();
-connectMongoose();
-connectRoutes(); 
+
+
+
+(async function controller() {
+  setMiddlewares();
+  connectRoutes(); 
+await connectMongoose();
+
+})()
 
 
   
