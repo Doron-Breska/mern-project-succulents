@@ -12,6 +12,19 @@ import { passportConfig } from "./config/passport.js";
 
 const app = express();
 const port = process.env.PORT || 5001;
+const allowedOrigins = ["http://localhost:5001","https://mern-project-succulents-client.vercel.app"]
+
+const corsOptions = {
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  };
+
+
 
 const setMiddlewares = () => {
   app.use(express.json());
@@ -20,7 +33,7 @@ app.use(
     extended: true,
   })
 );
-app.use(cors());
+app.use(cors(corsOptions));
   cloudinaryConfig();
   passportConfig();
 }
