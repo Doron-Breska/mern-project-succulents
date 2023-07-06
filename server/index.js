@@ -55,22 +55,15 @@ app.use(cors()); // this will allow requests from any origin
 const connectMongoose = () => {
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(port, () => {
-      console.log("Connection to MongoDB established, and server is running on port " + port);
-    });
-  })
-  .catch((err) => console.log(err));
+  .then(() => console.log("Connection to MongoDB established, and server is running on port " + port))
+  
+  .catch((err) => console.log(err))
 }
  
 const connectRoutes = () => {
   app.use('/api/users', userRouter);
   app.use('/api/succulents', succulentRouter)
 }
-
-
-
-
 
 (async function controller() {
   setMiddlewares();
@@ -79,7 +72,6 @@ const connectRoutes = () => {
   startServer()
 
 })()
-
 
   
 
