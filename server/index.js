@@ -33,7 +33,8 @@ app.use(
     extended: true,
   })
 );
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors()); // this will allow requests from any origin
   cloudinaryConfig();
   passportConfig();
 }
