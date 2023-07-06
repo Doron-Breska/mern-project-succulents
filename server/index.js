@@ -11,7 +11,18 @@ import { passportConfig } from "./config/passport.js";
 
 
 const app = express();
-const port = process.env.PORT || 5001;
+
+
+const startServer = () => {
+  const port = process.env.PORT || 5001;
+
+  app.listen(port, () => {
+    console.log("Server is running in port ", port);
+  });
+};
+
+
+
 const allowedOrigins = ["http://localhost:5001","https://mern-project-succulents-client.vercel.app"]
 
 const corsOptions = {
@@ -63,8 +74,9 @@ const connectRoutes = () => {
 
 (async function controller() {
   setMiddlewares();
+  await connectMongoose();
   connectRoutes(); 
-await connectMongoose();
+  startServer()
 
 })()
 
