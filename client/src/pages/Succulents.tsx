@@ -161,6 +161,7 @@ const Succulents = (props: Props) => {
         `${serverURL}/api/succulents/all`,
         requestOptions
       );
+      console.log(serverURL);
       if (!response.ok) {
         throw new Error("HTTP error " + response.status);
       }
