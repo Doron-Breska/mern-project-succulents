@@ -23,17 +23,17 @@ const startServer = () => {
 
 
 
-const allowedOrigins = ["http://localhost:5001","https://mern-project-succulents-client.vercel.app"]
+// const allowedOrigins = ["http://localhost:5001","https://mern-project-succulents-client.vercel.app"]
 
-const corsOptions = {
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  };
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//       if (allowedOrigins.indexOf(origin) !== -1) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//   };
 
 
 
