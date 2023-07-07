@@ -7,6 +7,7 @@ import {
   useContext,
 } from "react";
 import { ModalContext } from "./ModalContext";
+import { serverURL } from "../utils/serverURL";
 
 interface User {
   _id: string;
@@ -70,7 +71,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}users/login`,
+        `${serverURL}/api/users/login`,
         requestOptions
       );
       if (!response.ok) {
@@ -139,7 +140,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     };
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}users/active`,
+        `${serverURL}/api/users/active`,
         requestOptions
       );
       if (!response.ok) {

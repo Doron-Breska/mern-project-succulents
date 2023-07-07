@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { MdDeleteForever } from "react-icons/md";
+import { serverURL } from "../utils/serverURL";
 
 interface User {
   _id: string;
@@ -76,7 +77,7 @@ const NewModalElement = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
+        `${serverURL}/api/succulents/allcomments/${succulentId}`,
         requestOptions
       );
       //  console.log("%call comments :>> ", "color:green",response);

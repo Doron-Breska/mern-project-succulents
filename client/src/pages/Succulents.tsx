@@ -12,6 +12,7 @@ import { ModalContext } from "../contexts/ModalContext";
 // import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import { FiPlusSquare } from "react-icons/fi";
 import { FiMinusSquare } from "react-icons/fi";
+import { serverURL } from "../utils/serverURL";
 
 type Props = {};
 
@@ -116,7 +117,7 @@ const Succulents = (props: Props) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/new`,
+        `${serverURL}/api/succulents/new`,
         requestOptions
       );
       if (!response.ok) {
@@ -157,7 +158,7 @@ const Succulents = (props: Props) => {
 
     try {
       const response = await fetch(
-        "http://localhost:5001/api/succulents/all",
+        `${serverURL}/api/succulents/all`,
         requestOptions
       );
       if (!response.ok) {
@@ -184,15 +185,12 @@ const Succulents = (props: Props) => {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5001/api/succulents/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${serverURL}/api/succulents/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await response.json();
 

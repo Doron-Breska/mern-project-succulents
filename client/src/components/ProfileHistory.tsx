@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import SucculentCard from "./SucculetCard";
 import { AuthContext } from "../contexts/AuthContext";
 import { ModalContext } from "../contexts/ModalContext";
+import { serverURL } from "../utils/serverURL";
 
 type Props = {};
 
@@ -56,7 +57,7 @@ const ProfileHistory = (props: Props) => {
 
     try {
       const response = await fetch(
-        "http://localhost:5001/api/succulents/all",
+        `${serverURL}/api/succulents/all`,
         requestOptions
       );
       if (!response.ok) {
@@ -86,7 +87,7 @@ const ProfileHistory = (props: Props) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/delete/${succulentId}/comments/${commentId}`,
+        `${serverURL}/api/succulents/delete/${succulentId}/comments/${commentId}`,
         requestOptions
       );
       if (!response.ok) {
@@ -124,7 +125,7 @@ const ProfileHistory = (props: Props) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/likes/${succulentId}`,
+        `${serverURL}/api/succulents/likes/${succulentId}`,
         requestOptions
       );
       if (!response.ok) {
@@ -157,15 +158,12 @@ const ProfileHistory = (props: Props) => {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5001/api/succulents/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${serverURL}/api/succulents/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await response.json();
 

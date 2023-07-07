@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import { FaRobot } from "react-icons/fa";
+import { serverURL } from "../utils/serverURL";
 
 type Props = {};
 
@@ -53,7 +54,7 @@ const Register = (props: Props) => {
     try {
       // const response = await fetch(`${process.env.REACT_APP_BASE_URL}api/users/new`, requestOptions);
       const response = await fetch(
-        "http://localhost:5001/api/users/new",
+        `${serverURL}/api/users/new`,
         requestOptions
       );
       const result = await response.json();

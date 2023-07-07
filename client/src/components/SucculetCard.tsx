@@ -19,6 +19,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 
 ///testing dialog
 import { useRef } from "react";
+import { serverURL } from "../utils/serverURL";
 
 interface ExtendedHTMLDialogElement extends HTMLDialogElement {
   open: boolean;
@@ -153,7 +154,7 @@ const SucculentCard = ({
 
     try {
       const response = await fetch(
-        "http://localhost:5001/api/succulents/all",
+        `${serverURL}/api/succulents/all`,
         requestOptions
       );
       if (!response.ok) {
@@ -181,7 +182,7 @@ const SucculentCard = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/plantCare/${species}`,
+        `${serverURL}/api/succulents/plantCare/${species}`,
         {
           method: "GET",
           headers: {
@@ -257,7 +258,7 @@ const SucculentCard = ({
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/update/${succulent._id}`,
+        `${serverURL}/api/succulents/update/${succulent._id}`,
         requestOptions
       );
       if (!response.ok) {
@@ -317,7 +318,7 @@ const SucculentCard = ({
 
       // send a POST request to create a new comment
       const response = await fetch(
-        `http://localhost:5001/api/succulents/comments/${succulent._id}`,
+        `${serverURL}/api/succulents/comments/${succulent._id}`,
         requestOptions
       );
 
@@ -355,7 +356,7 @@ const SucculentCard = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/delete/${succulentId}/comments/${commentId}`,
+        `${serverURL}/api/succulents/delete/${succulentId}/comments/${commentId}`,
         requestOptions
       );
       if (!response.ok) {
@@ -414,7 +415,7 @@ const SucculentCard = ({
     try {
       // Send a PUT request to the server with the succulent's ID
       const response = await fetch(
-        `http://localhost:5001/api/succulents/likes/${succulent._id}`,
+        `${serverURL}/api/succulents/likes/${succulent._id}`,
         {
           method: "PUT",
           headers: {
@@ -491,7 +492,7 @@ const SucculentCard = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/succulents/allcomments/${succulentId}`,
+        `${serverURL}/api/succulents/allcomments/${succulentId}`,
         requestOptions
       );
       //  console.log("%call comments :>> ", "color:green",response);
