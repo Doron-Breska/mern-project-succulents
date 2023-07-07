@@ -1,5 +1,6 @@
 import { AuthContext } from "../contexts/AuthContext";
 import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
+import { serverURL } from "../utils/serverURL";
 
 type Props = {};
 
@@ -58,7 +59,7 @@ const ProfileUpdate = (props: Props) => {
     };
     try {
       const response = await fetch(
-        `http://localhost:5001/api/users/update/${user?._id}`,
+        `${serverURL}/api/users/update/${user?._id}`,
         requestOptions
       );
       const result = await response.json();
