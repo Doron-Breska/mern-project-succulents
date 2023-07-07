@@ -57,7 +57,7 @@ const Register = (props: Props) => {
         requestOptions
       );
       const result = await response.json();
-      console.log("testing registration", result);
+      // console.log("testing registration", result);
       if (result.msg === "Successfully registered!") {
         setModalContent(
           "Successfully registered! Please log-in through the side-bar"

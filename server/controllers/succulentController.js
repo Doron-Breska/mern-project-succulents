@@ -19,10 +19,10 @@ const getAllSucculents = async (req, res) => {
 const getAllComments = async (req, res) => {
   const userId = req.user._id;
   const { succulentId } = req.params;
-  console.log("getAllcomments server----------", succulentId);
+  // console.log("getAllcomments server----------", succulentId);
   try {
     const succulent = await SucculentModel.findById(succulentId);
-    console.log("allComments ln 64 >>>", succulent);
+    // console.log("allComments ln 64 >>>", succulent);
     res.status(200).json({
       msg: `all comments from succulent :${succulentId}`,
       succulent,
@@ -275,7 +275,6 @@ const getPlantCare = async (req, res) => {
     res.status(200).json({ "response from OpenAI": data });
   } catch (error) {
     console.log(error.message);
-    console.log
     res.status(500).json({ "something went wrong with getPlantCare backend": error });
   }
 };

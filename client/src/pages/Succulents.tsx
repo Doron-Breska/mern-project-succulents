@@ -213,7 +213,7 @@ const Succulents = (props: Props) => {
     const sortedSucculents = [...succulents].sort(
       (a, b) => b.likes.length - a.likes.length
     );
-    console.log("test for sorting by likes", sortedSucculents);
+    // console.log("test for sorting by likes", sortedSucculents);
     setSucculents(sortedSucculents);
   };
 

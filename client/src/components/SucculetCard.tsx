@@ -160,7 +160,7 @@ const SucculentCard = ({
         throw new Error("HTTP error " + response.status);
       }
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       setSucculents(result);
     } catch (error) {
       console.error("Failed to fetch succulents:-", error);
@@ -200,7 +200,7 @@ const SucculentCard = ({
         "this is the result from open ai",
         data["response from OpenAI"].choices[0].text
       );
-      console.log("test for speices -  ", species);
+      // console.log("test for speices -  ", species);
       const robiRobot = (
         <>
           <h3>
@@ -264,7 +264,7 @@ const SucculentCard = ({
         throw new Error("HTTP error " + response.status);
       }
       const result = await response.json();
-      console.log("Updated succulent: ", result.updatedSucculent);
+      // console.log("Updated succulent: ", result.updatedSucculent);
       setIsFlipped(false); // flip the card back to front view
       setEditFormData({
         species: "",
@@ -285,14 +285,14 @@ const SucculentCard = ({
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setTextInput(e.target.value);
   };
   console.log(textInput);
 
   const handleCommentSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(textInput);
+    // console.log(textInput);
     // check if user exists
     if (!user) {
       setModalContent("Members only feature!");
@@ -362,7 +362,7 @@ const SucculentCard = ({
         throw new Error("HTTP error " + response.status);
       }
       const result = await response.json();
-      console.log("results fetched again :>> ", result);
+      // console.log("results fetched again :>> ", result);
       const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
 
       setComments(updatedComments);

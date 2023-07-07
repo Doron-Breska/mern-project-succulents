@@ -19,9 +19,9 @@ const getUsers = async (req, res) => {
 
 const getUserById = async(req, res) => {
     const params = req.params;
-    console.log(params); // should show {id: blahblah}
+    // console.log(params); // should show {id: blahblah}
     const id = req.params.id;
-    console.log(id); //should show just "blahblah"
+    // console.log(id); //should show just "blahblah"
  try {
      const user = await UserModel.findById(id).populate("succulents");
      res.status(200).json(user)
