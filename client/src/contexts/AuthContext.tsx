@@ -9,7 +9,7 @@ import {
 import { ModalContext } from "./ModalContext";
 import { serverURL } from "../utils/serverURL";
 
-interface User {
+export interface User {
   _id: string;
   email: string;
   username: string;
@@ -17,12 +17,13 @@ interface User {
   succulents: [];
   role: string;
 }
-interface AuthContextType {
+
+export interface AuthContextType {
   user: User | null;
   setUser: (user: User | null) => void;
   // error: Error | null;
-  login(email: string, password: string): void;
-  logout(): void;
+  login: (email: string, password: string) => void;
+  logout: () => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }

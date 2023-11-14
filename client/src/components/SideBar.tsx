@@ -60,13 +60,17 @@ const SideBar = (props: Props) => {
   return (
     <>
       {!isSidebarVisible && (
-        <span className="menu-button" onClick={() => setIsSidebarVisible(true)}>
+        <span
+          className="menu-button"
+          data-testid="menu-button"
+          onClick={() => setIsSidebarVisible(true)}
+        >
           <i className="fa-solid fa-bars fa-2xl" />
         </span>
       )}
 
       {isSidebarVisible && (
-        <aside className="sidebar" ref={sidebarRef}>
+        <aside className="sidebar" data-testid="sidebar" ref={sidebarRef}>
           <div className="first-line-sidebar">
             {/* {user ? <p>User logged in!</p> : <p>User logged out!</p>} */}
           </div>
@@ -96,6 +100,7 @@ const SideBar = (props: Props) => {
               {user !== null && (
                 <li>
                   <NavLink
+                    data-testid="profile"
                     className={activePath === "/profile" ? "active" : ""}
                     to="/profile"
                   >
@@ -137,7 +142,11 @@ const SideBar = (props: Props) => {
           {/* <button className="close-button" onClick={closeSidebar}>
             Close
           </button> */}
-          <span className="menu-button" onClick={closeSidebar}>
+          <span
+            className="menu-button"
+            data-testid="menu-button"
+            onClick={closeSidebar}
+          >
             <i className="fa-solid fa-circle-xmark fa-2xl"></i>
           </span>
         </aside>
