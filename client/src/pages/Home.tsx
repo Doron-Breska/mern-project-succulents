@@ -9,11 +9,12 @@ function Home(props: Props) {
     <div className="home-page-container">
       <div className="home-page-text fadeInText">
         <h4 style={{ fontSize: "clamp(1.1rem, 2.1vw, 1.7rem)" }}>
-          This is an app for succulent enthusiasts where you can share your own
-          plants and experiences in growing them, and growing with them. You can
-          also comment/favorite plants and use our Robi <FaRobot /> Robot AI. I
-          could watter my 40+ plants with the tears I cried while building this
-          app. So, I hope you'll enjoy it!
+          Welcome to my succulent app, designed for plant lovers to share and
+          discover. Here, you can showcase your plants, exchange growing tips,
+          and favorite others' green gems.
+          <br /> Plus, meet Robi <FaRobot />, our AI assistant, guiding you on
+          nurturing each species.
+          <br /> Enjoy your green journey!
         </h4>
       </div>
       <div className="home-page-gif"></div>

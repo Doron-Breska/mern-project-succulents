@@ -755,13 +755,11 @@ align-items: center;
 
 }
 .home-page-gif{
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 350px;
   background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561682/plantgif_xxadoy.gif");
-  background-size: contain ;
+  background-size: contain;
   background-repeat: no-repeat;
-  /* border: 2px solid black; */
-  
 }
 .home-page-text{
   max-width: 780px;

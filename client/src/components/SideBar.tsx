@@ -77,12 +77,21 @@ const SideBar = (props: Props) => {
           <nav>
             <ul>
               <li>
-                <NavLink className={activePath === "/" ? "active" : ""} to="/">
+                <NavLink
+                  onClick={() => {
+                    setIsSidebarVisible(false);
+                  }}
+                  className={activePath === "/" ? "active" : ""}
+                  to="/"
+                >
                   Home
                 </NavLink>
               </li>
               <li>
                 <NavLink
+                  onClick={() => {
+                    setIsSidebarVisible(false);
+                  }}
                   className={activePath === "/register" ? "active" : ""}
                   to="/register"
                 >
@@ -91,6 +100,9 @@ const SideBar = (props: Props) => {
               </li>
               <li>
                 <NavLink
+                  onClick={() => {
+                    setIsSidebarVisible(false);
+                  }}
                   className={activePath === "/succulents" ? "active" : ""}
                   to="/succulents"
                 >
@@ -100,6 +112,9 @@ const SideBar = (props: Props) => {
               {user !== null && (
                 <li>
                   <NavLink
+                    onClick={() => {
+                      setIsSidebarVisible(false);
+                    }}
                     data-testid="profile"
                     className={activePath === "/profile" ? "active" : ""}
                     to="/profile"
