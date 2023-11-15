@@ -1,8 +1,7 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import SucculentCard from "../components/SucculetCard";
 import { SetStateAction } from "react";
 import { AuthContext, AuthContextType, User } from "../contexts/AuthContext"; // Adjust the import path as needed
-
 function deleteSucculent(succulentId: string): void {
   throw new Error("Function not implemented.");
 }
@@ -82,7 +81,7 @@ test("back side of the crad NOT shows initally", () => {
 // {succulent.owner._id === userId && (<FaEdit data-testid="flipFrontToBack" className="succulent-card-btn" onClick={handleFlip}/>)}
 test("having the class 'flipped' after clicking on the flipp icon", () => {
   const mockUser: User = {
-    _id: "123", // This must match the owner's ID of the succulent - line 116
+    _id: "123", // This must match the owner's ID of the succulent - line 115
     email: "user@example.com",
     username: "TestUser",
     avatar: "avatar_url",
@@ -97,7 +96,7 @@ test("having the class 'flipped' after clicking on the flipp icon", () => {
   const mockSetLoading = jest.fn();
 
   // Mock AuthContext
-  const mockAuthContext = {
+  const mockAuthContext: AuthContextType = {
     user: mockUser,
     setUser: mockSetUser,
     login: mockLogin,
@@ -106,14 +105,14 @@ test("having the class 'flipped' after clicking on the flipp icon", () => {
     setLoading: mockSetLoading,
   };
   render(
-    <AuthContext.Provider value={mockAuthContext as AuthContextType}>
+    <AuthContext.Provider value={mockAuthContext}>
       <SucculentCard
         key={11}
         succulent={{
           _id: "1",
           species: "Epithelantha micromeris",
           owner: {
-            _id: "123", //// this must match the id of the user - line 85
+            _id: "123", //// this must match the id of the user - line 84
             email: "doron@email.com",
             username: "Doron2",
             avatar:
