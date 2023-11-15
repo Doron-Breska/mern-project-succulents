@@ -20,7 +20,6 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 ///testing dialog
 import { useRef } from "react";
 import { serverURL } from "../utils/serverURL";
-import { IoMdClose } from "react-icons/io";
 
 interface ExtendedHTMLDialogElement extends HTMLDialogElement {
   open: boolean;
@@ -537,8 +536,11 @@ const SucculentCard = ({
           </div>
         </>
       )}
-      <div className={`succulent-card-div ${isFlipped ? "flipped" : ""}`}>
-        <div className="front">
+      <div
+        data-testid="fullCard"
+        className={`succulent-card-div ${isFlipped ? "flipped" : ""}`}
+      >
+        <div data-testid="frontCard" className="front">
           <img
             src={succulent.img}
             alt={succulent.species}
@@ -684,13 +686,15 @@ const SucculentCard = ({
               />
             )}
             {succulent.owner._id === userId && (
-              <FaEdit className="succulent-card-btn" onClick={handleFlip} />
+              <FaEdit
+                data-testid="flipFrontToBack"
+                className="succulent-card-btn"
+                onClick={handleFlip}
+              />
             )}
           </div>
         </div>
-        <div className="back">
-          {/* <p>this is the back of the Card</p> */}
-          {/* <button onClick={handleFlip}>flip back</button> */}
+        <div className="back" data-testid="backCard">
           <RiArrowGoBackFill className="flip-back-icon" onClick={handleFlip} />
 
           <form onSubmit={handleEditSubmit}>
@@ -739,6 +743,3 @@ const SucculentCard = ({
 };
 
 export default SucculentCard;
-// function async(species: string) {
-//   throw new Error("Function not implemented.");
-// }
