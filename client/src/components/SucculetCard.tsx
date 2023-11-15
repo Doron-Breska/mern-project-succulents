@@ -109,6 +109,7 @@ const SucculentCard = ({
   const fileInput = React.useRef<HTMLInputElement>(null);
   const { loading, setLoading } = useContext(AuthContext);
   const [modalComments, setModalComments] = useState<Comment[]>([]);
+  const [publishing, setPublishing] = useState<boolean>(false);
 
   ////dialog test
   const dialogRef = useRef<ExtendedHTMLDialogElement>(null);
@@ -294,6 +295,7 @@ const SucculentCard = ({
 
   const handleCommentSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setPublishing(true);
     // console.log(textInput);
     // check if user exists
     if (!user) {
@@ -329,10 +331,12 @@ const SucculentCard = ({
       if (!response.ok) {
         setModalContent(data.error); // set the error message as modal content
         openModal();
+        setPublishing(false);
       }
 
       const newComment =
         data.succulent.Comments[data.succulent.Comments.length - 1];
+      setPublishing(false);
 
       setComments([...comments, newComment]);
       setTextInput("");
@@ -342,6 +346,7 @@ const SucculentCard = ({
       console.error("Failed to create a comment:", error);
       setModalContent("Failed to create a comment"); // a general error message when an unexpected error (like network error) occurs
       openModal();
+      setPublishing(false);
     }
   };
 
@@ -637,9 +642,14 @@ const SucculentCard = ({
                         placeholder="write something"
                         onChange={handleCommentChange}
                         value={textInput}
+                        required
                       />
                       <br />
-                      <button className="custom-button" type="submit">
+                      <button
+                        disabled={publishing}
+                        className="custom-button"
+                        type="submit"
+                      >
                         Submit
                       </button>
                     </form>
