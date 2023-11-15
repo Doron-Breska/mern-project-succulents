@@ -20,6 +20,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 ///testing dialog
 import { useRef } from "react";
 import { serverURL } from "../utils/serverURL";
+import { IoMdClose } from "react-icons/io";
 
 interface ExtendedHTMLDialogElement extends HTMLDialogElement {
   open: boolean;
@@ -585,7 +586,14 @@ const SucculentCard = ({
               onClick={openModalDialog}
             />
             <dialog ref={dialogRef}>
-              <button onClick={closeModalDialog}>Close</button>
+              <button
+                className="close-modal-btn"
+                onClick={() => {
+                  closeModalDialog();
+                }}
+              >
+                &#10005;
+              </button>
               <>
                 {user ? (
                   <>
@@ -637,7 +645,9 @@ const SucculentCard = ({
                     </form>
                   </>
                 ) : (
-                  <p>You have to log in to comment</p>
+                  <div className="center-p-test">
+                    <div>You need to log-In to comment</div>
+                  </div>
                 )}
               </>
             </dialog>

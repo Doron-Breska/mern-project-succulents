@@ -351,16 +351,18 @@ dialog{
   overflow: auto;
   width: 400px;
   border-radius: 5px;
-  border: 2px solid rgb(0, 0, 0);
+  border: 2px solid;
+  border-color: black !important;
 }
+
 
 /* New style for the close button */
 .close-modal-btn {
   position: absolute;
   /* Position the button absolutely within the div */
-  top: 12px;
+  top: 15px;
   /* Place it near the top */
-  right: 12px;
+  right: 15px;
   /* And near the right side */
   width: 2.5rem;
   height: 2.5rem;
@@ -374,6 +376,11 @@ dialog{
 .close-modal-btn:hover{
 background-color: lightgrey;
 transform: scale(1.1);
+}
+.center-p-test{
+  display: flex;
+  justify-content: center;
+  margin-block: 1rem;
 }
 
 
@@ -767,6 +774,7 @@ align-items: center;
   font-weight: bold;
   line-height: 2.5rem;
 }
+
 
 @media (max-width: 750px) {
   .page-container {
