@@ -90,12 +90,14 @@ body {
 }
 
 .sidebar li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .sidebar a {
   text-decoration: none;
   color: #333;
+  font-size: 1rem;
+
 }
 
 .sidebar a:hover {

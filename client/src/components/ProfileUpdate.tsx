@@ -92,7 +92,7 @@ const ProfileUpdate = (props: Props) => {
             {user && user.username}
             <br />
           </p>
-          <p className="profile-pic-text">{user && user.email}</p>
+          <p className="profile-pic-text">{user && user.email && user.email}</p>
         </div>
         <div className="profile-edit-frame">
           <div className="profile-edit">
