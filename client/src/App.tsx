@@ -16,7 +16,7 @@ function App() {
     useContext(ModalContext);
 
   return (
-    <div className="app-container" style={{ width: "100%" }}>
+    <div className="app-container">
       <AuthContextProvider>
         <BrowserRouter>
           <SideBar />

@@ -87,15 +87,12 @@ const Register = (props: Props) => {
   };
 
   return (
-    <div className="home-page-container">
-      <h3
-        className="register-page-header"
-        style={{ fontSize: "clamp(1.1rem, 2.1vw, 1.7rem)" }}
-      >
-        Register here to post,
-        <br />
-        like, comment, and use our Robi <FaRobot /> Robot AI <br />
-        for guidance regarding your succulents.
+    <div>
+      <h3 className="registerOrHome-header">
+        Sign up and join fellow plant enthusiasts!
+        <br /> Engage, share, and grow with our community. Get personalized care
+        tips from our 'Robi <FaRobot /> Robot AI' for each of your plants.
+        Elevate your plant journey with us!
       </h3>
       <div>
         <form className="register-page-form" onSubmit={handleSubmit}>

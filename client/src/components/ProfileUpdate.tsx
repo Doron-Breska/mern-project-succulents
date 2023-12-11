@@ -17,6 +17,7 @@ const ProfileUpdate = (props: Props) => {
   const { user, setUser } = useContext(AuthContext);
   const token = localStorage.getItem("token");
   console.log("this is the user", user);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -39,6 +40,7 @@ const ProfileUpdate = (props: Props) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const submitData = new FormData();
     if (formData.email !== "") {
       submitData.append("email", formData.email);
@@ -63,6 +65,7 @@ const ProfileUpdate = (props: Props) => {
         requestOptions
       );
       const result = await response.json();
+      setLoading(false);
       setUser(result);
       setFormData({
         // Reset form
@@ -76,6 +79,7 @@ const ProfileUpdate = (props: Props) => {
       }
     } catch (error) {
       console.error("error", error);
+      setLoading(false);
     }
   };
 
@@ -132,13 +136,18 @@ const ProfileUpdate = (props: Props) => {
                   className="text-input-position"
                 />
                 <br />
-                <button
-                  id="submit-btn-profile-page"
-                  className="custom-button"
-                  type="submit"
-                >
-                  Update
-                </button>
+
+                {loading ? (
+                  <div className="loader2"></div>
+                ) : (
+                  <button
+                    id="submit-btn-profile-page"
+                    className="custom-button"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                )}
               </form>
             </div>
 
