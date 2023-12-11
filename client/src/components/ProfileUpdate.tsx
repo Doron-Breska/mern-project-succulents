@@ -92,10 +92,7 @@ const ProfileUpdate = (props: Props) => {
           <p className="profile-pic-text">{user && user.username}</p>
           <p className="profile-pic-text">{user && user.email}</p>
         </div>
-        <div
-          className="profile-edit-frame"
-          // style={{ width: "350px" }}
-        >
+        <div className="profile-edit-frame">
           <div className="profile-edit">
             <div className="semi-img-edit-profile">
               <form onSubmit={handleSubmit}>

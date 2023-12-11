@@ -25,6 +25,7 @@ const Register = (props: Props) => {
     avatar: "",
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,6 +41,7 @@ const Register = (props: Props) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     // console.log(formData)
     const submitData = new FormData();
     submitData.append("email", formData.email);
@@ -60,6 +62,7 @@ const Register = (props: Props) => {
       const result = await response.json();
       // console.log("testing registration", result);
       if (result.msg === "Successfully registered!") {
+        setLoading(false);
         setModalContent(
           "Successfully registered! Please log-in through the side-bar"
         );
@@ -69,12 +72,14 @@ const Register = (props: Props) => {
           fileInput.current.value = ""; // reset the file input
         }
       } else {
+        setLoading(false);
         setModalContent(result.error);
         openModal();
         setFormData({ email: "", password: "", username: "", avatar: "" });
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
       setModalContent("Something went wrong - check console");
       openModal();
       setFormData({ email: "", password: "", username: "", avatar: "" });
@@ -92,7 +97,7 @@ const Register = (props: Props) => {
         like, comment, and use our Robi <FaRobot /> Robot AI <br />
         for guidance regarding your succulents.
       </h3>
-      <div className="register-container-test">
+      <div>
         <form className="register-page-form" onSubmit={handleSubmit}>
           <input
             type="email"
@@ -124,11 +129,13 @@ const Register = (props: Props) => {
             onChange={handleFile}
             accept="image/png, image/jpg, image/jpeg"
           />
-          <button className="custom-button" type="submit">
+          <button className="custom-button" type="submit" disabled={loading}>
             Register
           </button>
         </form>
-        <div className="register-div-gif"></div>
+        <div className="register-div-gif" style={{ display: "relative" }}>
+          {loading && <div className="loader"></div>}
+        </div>
       </div>
     </div>
   );
