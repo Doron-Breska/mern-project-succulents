@@ -152,7 +152,7 @@ const NewModalElement = ({
           </form>
         </>
       ) : (
-        <p>You have to log in to comment</p>
+        <p>Log-In to use this feature</p>
       )}
     </>
   );

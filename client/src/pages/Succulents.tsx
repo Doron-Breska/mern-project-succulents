@@ -184,7 +184,7 @@ const Succulents = (props: Props) => {
   const deleteSucculent = async (id: string) => {
     // check if user exists
     if (!user) {
-      setModalContent("Members only feature");
+      setModalContent("Log-In to use this feature");
       return;
     }
 
@@ -233,7 +233,7 @@ const Succulents = (props: Props) => {
 
   const toggleFormVisibility = () => {
     if (!user) {
-      setModalContent("Members only feature");
+      setModalContent("Log-In to use this feature");
       openModal();
       return;
     }

@@ -154,7 +154,7 @@ const ProfileHistory = (props: Props) => {
   const deleteSucculent = async (id: string) => {
     // check if user exists
     if (!user) {
-      setModalContent("Members only feature");
+      setModalContent("Log-In to use this feature");
       return;
     }
 

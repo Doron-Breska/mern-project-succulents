@@ -178,7 +178,7 @@ const SucculentCard = ({
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const getPlantCareAi = async (species: string) => {
     if (!user) {
-      setModalContent("Members only feature");
+      setModalContent("Log-In to use this feature");
       openModal();
       return;
     }
@@ -300,7 +300,7 @@ const SucculentCard = ({
     // console.log(textInput);
     // check if user exists
     if (!user) {
-      setModalContent("Members only feature!");
+      setModalContent("Log-In to use this feature");
       openModal();
       return;
     }
@@ -390,7 +390,7 @@ const SucculentCard = ({
 
   const toggleModal = async (updatedComments: any) => {
     if (!user) {
-      setModalContent("Members only feature");
+      setModalContent("Log-In to use this feature");
       openModal();
     }
     // else {
@@ -415,7 +415,7 @@ const SucculentCard = ({
   const addOrRemoveLike = async () => {
     // check if user exists
     if (!user) {
-      setModalContent("Members only feature");
+      setModalContent("Log-In to use this feature");
       openModal();
       return;
     }
@@ -658,7 +658,7 @@ const SucculentCard = ({
                         </div>
                       ))
                     ) : (
-                      <h4>No comments found for this post</h4>
+                      <h4>Be the first one to comment!</h4>
                       // <p>No comments found for this post</p>
                     )}
                     <form onSubmit={handleCommentSubmit}>
@@ -683,7 +683,7 @@ const SucculentCard = ({
                   </>
                 ) : (
                   <div className="center-p-test">
-                    <div>You need to log-In to comment</div>
+                    <div>Log-In to use this feature</div>
                   </div>
                 )}
               </>
