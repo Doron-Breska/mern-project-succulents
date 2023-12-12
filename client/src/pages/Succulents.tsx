@@ -79,9 +79,9 @@ const Succulents = (props: Props) => {
     img: "",
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState<boolean>(false);
   const { loading, setLoading } = useContext(AuthContext);
-
+  const [loader, setLoader] = useState<boolean>(false);
   function scrollToBottom() {
     window.scrollTo(0, document.body.scrollHeight);
   }
@@ -114,7 +114,7 @@ const Succulents = (props: Props) => {
       }),
       body: submitData,
     };
-    setLoading(true);
+    setLoader(true);
     try {
       const response = await fetch(
         `${serverURL}/api/succulents/new`,
@@ -144,9 +144,10 @@ const Succulents = (props: Props) => {
         scrollToBottom();
       });
       setShowForm(false);
-      setLoading(false);
+      setLoader(false);
     } catch (error) {
       console.error("Failed to update succulent:", error);
+      setLoader(false);
     }
   };
 
@@ -324,9 +325,13 @@ const Succulents = (props: Props) => {
               className="text-input-position-create-succulent"
             />
             <br />
-            <button className="custom-button" type="submit">
-              Post
-            </button>
+            {loader ? (
+              <div className="loader2"></div>
+            ) : (
+              <button className="custom-button" type="submit">
+                Post
+              </button>
+            )}
           </form>
         )}
       </div>

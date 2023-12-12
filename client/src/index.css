@@ -236,20 +236,18 @@ align-items: center;
 /***************************************    succulent card    ******************************************/
 
 .succulent-card-div {
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 10px;
-  width: 300px;
-  height: 690px;
-  padding: 2rem;
+  width: 370px;
+  height: 520px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  /* border: 2px solid rgb(225, 229, 222); */
 }
 
-.succulent-card-div:hover{
+/* .succulent-card-div:hover{
   border: 4px solid rgb(149, 255, 87);
   background-color: #d2e7d6;
   border-radius: 8px;
-}
+} */
 .succulent-card-div.flipped {
   transform: rotateY(180deg);
 }
@@ -265,12 +263,12 @@ align-items: center;
   backface-visibility: hidden;
 }
 
-.succulent-card-div p {
+/* .succulent-card-div p {
   margin-left:2rem ;
   margin-right:2rem ;
   max-width:250px ;
   word-break: break-word;
-}
+} */
 
 
 .back {
@@ -278,33 +276,38 @@ align-items: center;
   background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561231/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464_owtkj6.jpg");
   background-size: cover;
   border-radius: 10px;
+  border: 2px solid rgb(225, 229, 222);
 }
+
 .front{
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: space-between;
   border-radius: 10px;
   background-color:#d2e7d6;
+  background-color:rgb(224, 238, 224);
+  background-color: rgb(235, 245, 235);
+  background-color: rgb(243, 248, 243);
+  background-color: rgb(252, 255, 252);
+  border: 2px solid rgb(225, 229, 222);
+  color: #053313;
+  position:relative;
 }
 
-.succulent-card-buttons{
- margin-bottom: 1rem;
-}
 
-.succulent-card-div p{
-  border-bottom: 1px dotted black;
-  
-}
+/* .succulent-card-buttons{
 
+} */
+
+
+
+/* .new-testing{
+  border: 1px solid black;
+} */
 
 .succulent-card-img{
-width: 250px;
-height: 250px;
+width: 100%;
+aspect-ratio: 13/9;
 object-fit:cover;
-margin-top: 1.3rem;
-border-radius: 10px;
-margin-bottom: 0.5rem;
+border-radius:  10px 10px 0 0;
+display: block;
 }
 
 
@@ -531,24 +534,19 @@ transform: scale(1.1);
 
 
 
-/* .text-input-position-edit-from{
-  transform: translateX(45px);
-} */
-/* .text-input-position-create-succulent{
-  transform: translateX(0px)
-} */
+
 
 .create-succulent-form{
 margin-top: 2rem;
 border: 2px dotted black;
-border-radius: 5px;
+border: 2px solid rgb(225, 229, 222);
+border-radius: 10px;
 width: 260px;
 margin: 2rem auto;
-padding-top: 2rem;
-padding-bottom: 2rem;
+padding-block: 2rem;
 background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561231/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464_owtkj6.jpg");
 background-size: cover;
-
+margin-bottom: 4rem;
 }
 
 input[type="text"],input[type="file"],button[type="submit"],
@@ -947,6 +945,7 @@ color: #053313;
   /* color: #FF3D00; */
   color: rgb(61, 171, 127);
   color: white;
+  color: #053313;
   transform: rotateY(70deg);
   animation-delay: .4s;
 }

@@ -107,8 +107,10 @@ const SucculentCard = ({
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
   const { loading, setLoading } = useContext(AuthContext);
+
   const [modalComments, setModalComments] = useState<Comment[]>([]);
   const [publishing, setPublishing] = useState<boolean>(false);
+  const [editing, setEditing] = useState<boolean>(false);
 
   ////dialog test
   const dialogRef = useRef<ExtendedHTMLDialogElement>(null);
@@ -234,7 +236,7 @@ const SucculentCard = ({
 
   const handleEditSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setEditing(true);
     const submitData = new FormData();
     if (editFormData.species !== "") {
       submitData.append("species", editFormData.species);
@@ -256,7 +258,6 @@ const SucculentCard = ({
       }),
       body: submitData,
     };
-    setLoading(true);
     try {
       const response = await fetch(
         `${serverURL}/api/succulents/update/${succulent._id}`,
@@ -278,9 +279,10 @@ const SucculentCard = ({
         fileInput.current.value = ""; // reset the file input
       }
       fetchSucculents();
-      setLoading(false);
+      setEditing(false);
     } catch (error) {
       console.error("Failed to update succulent:", error);
+      setEditing(false);
     }
   };
 
@@ -540,50 +542,64 @@ const SucculentCard = ({
         data-testid="fullCard"
         className={`succulent-card-div ${isFlipped ? "flipped" : ""}`}
       >
-        <div data-testid="frontCard" className="front">
+        <div
+          data-testid="frontCard"
+          className="front"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            paddingBottom: "0.3rem",
+          }}
+        >
           <img
             src={succulent.img}
             alt={succulent.species}
             className="succulent-card-img"
           />
-          <p>
-            <b>
-              <i>Species:</i>
-            </b>{" "}
-            {succulent.species}
-          </p>
-          <p className="testclass">
-            <i>
-              <b>Description:</b>
-            </i>{" "}
-            {succulent.description}
-          </p>
-          <p>
-            <i>
-              <b>City: </b>
-            </i>
-            {succulent.city}
-          </p>
-          <p>
-            <i>
-              <b>Posted by: </b>
-            </i>
-            {succulent.owner.username}, on:{" "}
-            {new Date(succulent.createdAt).toLocaleDateString()}{" "}
-            {new Date(succulent.createdAt).toLocaleTimeString()}
-          </p>
-          <p>
-            {succulent.likes.length !== 0 && (
-              <>
-                <AiFillLike className="pt-0" /> {succulent.likes.length}
-              </>
-            )}{" "}
-            {succulent.Comments.length !== 0 && (
-              <>
-                <MdComment /> {succulent.Comments.length}
-              </>
-            )}
-          </p>
+
+          <div style={{ textAlign: "left", paddingInline: "1rem" }}>
+            {" "}
+            <p>
+              <b>
+                <i>Species:</i>
+              </b>{" "}
+              {succulent.species}
+            </p>
+            <p className="testclass">
+              <i>
+                <b>Description:</b>
+              </i>{" "}
+              {succulent.description}
+            </p>
+            <p>
+              <i>
+                <b>City: </b>
+              </i>
+              {succulent.city}
+            </p>
+            <p>
+              <i>
+                <b>Posted by: </b>
+              </i>
+              {succulent.owner.username}, on:{" "}
+              {new Date(succulent.createdAt).toLocaleDateString()}{" "}
+              {new Date(succulent.createdAt).toLocaleTimeString()}
+            </p>
+            <p>
+              {succulent.likes.length !== 0 && (
+                <>
+                  <AiFillLike className="pt-0" /> {succulent.likes.length}
+                </>
+              )}{" "}
+              {succulent.Comments.length !== 0 && (
+                <>
+                  <MdComment /> {succulent.Comments.length}
+                </>
+              )}
+            </p>
+          </div>
+
           <div className="succulent-card-buttons">
             {/* <MdComment className="succulent-card-btn" onClick={toggleModal} /> */}
             {/* testing modal dialog  */}
@@ -704,19 +720,22 @@ const SucculentCard = ({
               value={editFormData.species}
               onChange={handleEditChange}
               placeholder="Species"
+              style={{ width: "80%" }}
             />
             <br />
             <textarea
+              style={{ width: "80%" }}
               name="description"
               value={editFormData.description}
               onChange={handleEditChange}
               placeholder="Description 
             (Max 120 characters)"
               maxLength={120}
-              rows={4}
+              rows={6}
             />
             <br />
             <input
+              style={{ width: "80%" }}
               type="text"
               name="city"
               value={editFormData.city}
@@ -725,6 +744,7 @@ const SucculentCard = ({
             />
             <br />
             <input
+              style={{ width: "80%" }}
               ref={fileInput}
               type="file"
               name="img"
@@ -732,9 +752,13 @@ const SucculentCard = ({
               className="text-input-position-edit-from"
             />
             <br />
-            <button className="custom-button" type="submit">
-              Update
-            </button>
+            {editing ? (
+              <div className="loader2"></div>
+            ) : (
+              <button className="custom-button" type="submit">
+                Update
+              </button>
+            )}
           </form>
         </div>
       </div>
