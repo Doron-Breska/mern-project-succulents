@@ -3,6 +3,7 @@ import SucculentCard from "./SucculetCard";
 import { AuthContext } from "../contexts/AuthContext";
 import { ModalContext } from "../contexts/ModalContext";
 import { serverURL } from "../utils/serverURL";
+import { MdDeleteForever } from "react-icons/md";
 
 type Props = {};
 
@@ -182,11 +183,11 @@ const ProfileHistory = (props: Props) => {
 
   return (
     <div className="inner-component">
-      <h1 className="profile-page-header">
+      <h2 className="profile-page-header">
         Posts &#8674; Comments &#8674; Likes
-      </h1>
+      </h2>
       <div className="history-profile-container">
-        <div className="profile-succulents-container">
+        <div className="succulents-page-container">
           {succulents
             .filter((succulent) => succulent.owner._id === user?._id)
             .map((succulent) => (
@@ -199,7 +200,8 @@ const ProfileHistory = (props: Props) => {
               />
             ))}
         </div>
-        <hr />
+        <hr style={{ width: "80%" }} />
+        <h2 className="profile-page-header">Comments</h2>
         <div className="profile-comments-container">
           {userComments.length === 0 ? (
             <p>
@@ -214,39 +216,54 @@ const ProfileHistory = (props: Props) => {
                   key={comment._id}
                   className="comment-card"
                   onClick={() => deleteComment(succulent._id, comment._id)}
-                  style={{ width: "200px" }}
                 >
-                  <div className="succulent-card">
-                    <img
-                      src={succulent.img}
-                      alt={succulent.species}
-                      style={{
-                        width: "100%",
-                        height: "200px",
-                        objectFit: "cover",
-                        borderRadius: "8px",
-                      }}
-                    />
-                  </div>
-                  <div className="comment-details">
-                    <p>
-                      Comment:
-                      <br />
-                      {comment.text}
-                    </p>
-                    <p>{new Date(comment.createdAt).toLocaleString()}</p>
-                    {/* <button
-                      onClick={() => deleteComment(succulent._id, comment._id)}
-                    >
-                      Delete Comment
-                    </button> */}
-                  </div>
+                  <img
+                    src={succulent.img}
+                    alt={succulent.species}
+                    style={{
+                      width: "100%",
+                      aspectRatio: "13/9",
+                      objectFit: "cover",
+                      borderRadius: "10px 10px 0 0",
+                      display: "block",
+                    }}
+                  />
+
+                  <p className="croll-comment">
+                    <i>
+                      <b>Comment:</b>
+                    </i>{" "}
+                    {comment.text}
+                  </p>
+                  <p style={{ textAlign: "left", paddingInline: "1rem" }}>
+                    {" "}
+                    <i>
+                      <b>Posted at:</b>
+                    </i>{" "}
+                    {new Date(comment.createdAt).toLocaleString()}
+                  </p>
+                  {/* <button
+                    onClick={() => deleteComment(succulent._id, comment._id)}
+                  >
+                    Delete Comment
+                  </button> */}
+                  <MdDeleteForever
+                    className="succulent-card-btn"
+                    // onClick={handleDeleteSucculent}
+                    onClick={() => deleteComment(succulent._id, comment._id)}
+                  />
                 </div>
               ))
             )
           )}
         </div>
-        <hr />
+        <hr style={{ width: "80%" }} />
+        <h2 className="profile-page-header" style={{ marginBottom: "0" }}>
+          Likes
+        </h2>
+        <p>
+          <i>* click on the item you want to dislike</i>
+        </p>
         <div className="profile-likes-container">
           {succulents.filter(
             (succulent) => userId && succulent.likes.includes(userId)
@@ -259,7 +276,7 @@ const ProfileHistory = (props: Props) => {
                 <div
                   key={succulent._id}
                   className="like-card"
-                  style={{ width: "150px", height: "150px" }}
+                  // style={{ width: "150px", height: "150px" }}
                   onClick={() => dislikeSucculent(succulent._id)}
                 >
                   <img

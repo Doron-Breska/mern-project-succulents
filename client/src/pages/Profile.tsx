@@ -9,13 +9,11 @@ const Profile = (props: Props) => {
   //eslint-disable-next-line
   const { loading, setLoading } = useContext(AuthContext);
   return (
-    <div className="parent-div">
-      <div className="page-container">
-        <ProfileUpdate />
-        <hr />
-        <ProfileHistory />
-      </div>
-    </div>
+    <>
+      <ProfileUpdate />
+      <hr style={{ width: "80%" }} />
+      <ProfileHistory />
+    </>
   );
 };
 

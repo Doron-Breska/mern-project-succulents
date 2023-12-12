@@ -20,22 +20,23 @@ background-color: #3dab7f15;
 }
 
 
-.parent-div {
+/* .parent-div {
   display: flex;
   justify-content: center;
   width: 100%;
-}
+} */
 
-.page-container {
+/* .page-container {
     margin: 2rem 2rem;
     margin-top: 4rem;
     width: 80%;
     padding: 20px;
 
-}
-.inner-component{
+} */
+/* .inner-component{
   width: 100%;
-}
+  border: 2px solid black;
+} */
 
 /***************************     side bar      **********************************/ 
 
@@ -164,36 +165,39 @@ align-items: center;
   margin-bottom: 4rem;
 }
 
-.profile-succulents-container{
-    display: flex;
-  flex-wrap: wrap;
-  justify-content:center;
-  column-gap: 40px;
-  row-gap: 40px;
-  margin-bottom: 3rem;
-}
 
 
 .profile-comments-container{
   display: flex;
   flex-wrap: wrap;
   justify-content:center;
-  gap: 30px;
+  column-gap: 0;
   margin: 3rem auto;
+  padding-inline: 0.5rem;
+  row-gap: 1rem;
+  max-width: 1300px;
 }
 .profile-likes-container{
     display: flex;
-    flex-wrap: wrap;
-    justify-content:center;
-    gap: 30px;
-    margin: 3rem auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      column-gap: 0;
+      margin: 3rem auto;
+    padding-inline: 0.5rem;
+      row-gap: 1rem;
+      max-width: 1300px;
 }
 
 .like-card{
   position: relative;
   overflow: hidden;
-  border: 2px solid #053313;
+  /* border: 2px solid #053313; */
   border-radius: 10px;
+  width: 170px;
+  aspect-ratio: 13/9;
+  border: 2px solid rgb(225, 229, 222);
+  box-shadow: -1rem -0.5rem 2rem rgb(210, 228, 210);
+
 }
 .like-card:hover {
   cursor: pointer;
@@ -210,13 +214,44 @@ align-items: center;
 }
 
 .comment-card{
+  width: 300px;
   position: relative;
   border: 2px solid #053313;
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: #d2e7d6;
+  background-color: rgb(252, 255, 252);
+  border: 2px solid rgb(225, 229, 222);
+  color: #053313;
+  padding-bottom: 0.3rem;
+  box-shadow: -1rem -0.5rem 2rem rgb(210, 228, 210);
 }
-.comment-card p {
-  margin: 0.5rem;
+
+
+.croll-comment {
+  /* height: 300px; */
+  /* Adjust as needed */
+  padding-inline:1rem ;
+  text-align: left;
+  padding-inline: "1rem";
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: 2.5rem;
+  /* For Firefox */
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  /* For Internet Explorer/Edge */
+}
+
+/* For WebKit browsers like Chrome, Safari */
+.croll-comment::-webkit-scrollbar {
+  width: 12px;
+  /* Adjust the width of the scrollbar */
+}
+
+.croll-comment::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  /* Color of the scrollbar thumb */
+  border-radius: 6px;
+  /* Optional: to make the scrollbar thumb rounded */
 }
 .comment-card:hover{
   cursor: pointer;
@@ -235,19 +270,36 @@ align-items: center;
 
 /***************************************    succulent card    ******************************************/
 
+.succulents-page-container {
+  /* border: 1px solid black; */
+  width: 100%;
+  margin: 1.5rem auto;
+  margin-bottom: 4rem;
+  /* display: grid; */
+  /* grid-template-columns: repeat(3, 370px); */
+  /* justify-content: center; */
+  /* row-gap: 1rem; */
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 0;
+    /* margin: 3rem auto; */
+    padding-inline: 0.5rem;
+    row-gap: 1rem;
+    max-width: 1300px;
+}
+
 .succulent-card-div {
   width: 370px;
   height: 520px;
-  transition: transform 0.6s;
+  transition: transform 0.4s;
   transform-style: preserve-3d;
-  /* border: 2px solid rgb(225, 229, 222); */
+  border-radius:12px;
+  box-shadow: -1rem -0.5rem 2rem rgb(210, 228, 210);
+  /* margin-inline:0.3rem ; */
 }
 
-/* .succulent-card-div:hover{
-  border: 4px solid rgb(149, 255, 87);
-  background-color: #d2e7d6;
-  border-radius: 8px;
-} */
+
 .succulent-card-div.flipped {
   transform: rotateY(180deg);
 }
@@ -261,30 +313,22 @@ align-items: center;
   -webkit-backface-visibility: hidden;
   /* for Safari */
   backface-visibility: hidden;
+ 
 }
 
-/* .succulent-card-div p {
-  margin-left:2rem ;
-  margin-right:2rem ;
-  max-width:250px ;
-  word-break: break-word;
-} */
+
 
 
 .back {
   transform: rotateY(180deg);
   background-image: url("https://res.cloudinary.com/danq3q4qv/image/upload/v1688561231/vector-light-grey-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-90904464_owtkj6.jpg");
   background-size: cover;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 2px solid rgb(225, 229, 222);
 }
 
 .front{
-  border-radius: 10px;
-  background-color:#d2e7d6;
-  background-color:rgb(224, 238, 224);
-  background-color: rgb(235, 245, 235);
-  background-color: rgb(243, 248, 243);
+  border-radius: 12px;
   background-color: rgb(252, 255, 252);
   border: 2px solid rgb(225, 229, 222);
   color: #053313;
@@ -292,15 +336,8 @@ align-items: center;
 }
 
 
-/* .succulent-card-buttons{
-
-} */
 
 
-
-/* .new-testing{
-  border: 1px solid black;
-} */
 
 .succulent-card-img{
 width: 100%;
@@ -442,17 +479,7 @@ transform: scale(1.1);
   transform: scale(1.1);
 }
 
-.succulents-page-container{
-  width: 80%;
-  margin: 1.5rem auto;
-  margin-bottom: 4rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  row-gap: 55px;
-  column-gap: 55px;
-/* need to change the % on smaller screens !!!!! */
-}
+
 
 /* ///////////////////////////////////////// SUCCULENTS PAGE /////////////////////////////////////// */
 .wobble-hor-bottom {
@@ -538,7 +565,6 @@ transform: scale(1.1);
 
 .create-succulent-form{
 margin-top: 2rem;
-border: 2px dotted black;
 border: 2px solid rgb(225, 229, 222);
 border-radius: 10px;
 width: 260px;
@@ -655,11 +681,16 @@ cursor: pointer;
 }
 .profile-page-header{
 font-weight: 800;
-margin: 3rem auto;
+margin: 0 auto;
 margin-top:0 ;
 color: #053313;
-text-decoration: underline;
+margin-bottom: 3rem;
+padding-top: 1rem;
+font-size: 2rem;
+
 }
+
+
 
 
 .registerOrHome-header{
@@ -669,7 +700,6 @@ text-decoration: underline;
   line-height: 3rem;
   font-size: clamp(1.1rem, 2.1vw, 1.7rem);
   padding-inline: 1rem;
-  
 }
 
 
@@ -742,14 +772,26 @@ align-items: center;
   line-height: 2.5rem;
 }
 
-
-@media (max-width: 750px) {
-  .page-container {
-   
-    width: 90%;
-   
-  }
+.Home-second-header{
+    color: #053313;
+    color:gray;
+    line-height: 2.4rem;
+    font-size: clamp(1.1rem, 2.1vw, 1.7rem);
+    font-weight: 300;
+   margin-bottom: 1rem;
 }
+.home-icon {
+  color: #053313;
+    color: gray;
+  margin-inline: 1rem;
+  font-size: 2rem;
+  transition: all 1s linear;
+}
+.home-icon:hover {
+  color: #053313;
+
+}
+
 
 @keyframes fadeIn {
   0% {
@@ -766,7 +808,6 @@ align-items: center;
   animation-duration: 5s;
   animation-delay: 0;
   animation-fill-mode: forwards;
-color: #053313;
 }
 
 
@@ -1004,4 +1045,20 @@ color: #053313;
   87% {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
+}
+
+@media (max-width:640px) {
+.comment-card {
+    width: 170px;
+    position: relative;
+    border: 2px solid #053313;
+    border-radius: 12px;
+    background-color: #d2e7d6;
+    background-color: rgb(252, 255, 252);
+    border: 2px solid rgb(225, 229, 222);
+    color: #053313;
+    padding-bottom: 0.3rem;
+    box-shadow: -1rem -0.5rem 2rem rgb(210, 228, 210);
+  }
+
 }

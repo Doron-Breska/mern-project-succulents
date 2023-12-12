@@ -587,12 +587,20 @@ const SucculentCard = ({
               {new Date(succulent.createdAt).toLocaleTimeString()}
             </p>
             <p>
-              {succulent.likes.length !== 0 && (
+              {succulent.likes.length === 0 ? (
+                <>
+                  <AiFillLike className="pt-0" /> 0
+                </>
+              ) : (
                 <>
                   <AiFillLike className="pt-0" /> {succulent.likes.length}
                 </>
               )}{" "}
-              {succulent.Comments.length !== 0 && (
+              {succulent.Comments.length === 0 ? (
+                <>
+                  <MdComment /> 0
+                </>
+              ) : (
                 <>
                   <MdComment /> {succulent.Comments.length}
                 </>

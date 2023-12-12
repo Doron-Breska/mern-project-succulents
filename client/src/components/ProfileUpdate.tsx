@@ -85,7 +85,9 @@ const ProfileUpdate = (props: Props) => {
 
   return (
     <div className="inner-component">
-      <h1 className="profile-page-header">View / Edit your profile</h1>
+      <h2 className="profile-page-header" style={{ paddingTop: "5rem" }}>
+        View / Edit your profile
+      </h2>
       <div className="edit-profile-container">
         <div className="profile-pic-frame">
           {/* <div
