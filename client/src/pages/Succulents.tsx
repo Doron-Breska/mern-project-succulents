@@ -82,6 +82,8 @@ const Succulents = (props: Props) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const { loading, setLoading } = useContext(AuthContext);
   const [loader, setLoader] = useState<boolean>(false);
+  const [activeButton, setActiveButton] = useState("default");
+
   function scrollToBottom() {
     window.scrollTo(0, document.body.scrollHeight);
   }
@@ -251,19 +253,48 @@ const Succulents = (props: Props) => {
         </>
       )}
       <div className="filter-buttons-container">
-        <button className="custom-button2" onClick={sortSucculentsByLikes}>
+        <button
+          className={`custom-button2 ${
+            activeButton === "likes" ? "filterSucculents" : ""
+          }`}
+          onClick={() => {
+            sortSucculentsByLikes();
+            setActiveButton("likes");
+          }}
+        >
           Sort by likes
         </button>
-        <button className="custom-button2" onClick={sortSucculentsByComments}>
+        <button
+          className={`custom-button2 ${
+            activeButton === "comments" ? "filterSucculents" : ""
+          }`}
+          onClick={() => {
+            sortSucculentsByComments();
+            setActiveButton("comments");
+          }}
+        >
           Sort by comments
         </button>
         <button
-          className="custom-button2"
-          onClick={sortAlphabeticallyBySpecies}
+          className={`custom-button2 ${
+            activeButton === "alphabetical" ? "filterSucculents" : ""
+          }`}
+          onClick={() => {
+            sortAlphabeticallyBySpecies();
+            setActiveButton("alphabetical");
+          }}
         >
           Sort alphabetically
         </button>
-        <button className="custom-button2" onClick={fetchSucculents}>
+        <button
+          className={`custom-button2 ${
+            activeButton === "default" ? "filterSucculents" : ""
+          }`}
+          onClick={() => {
+            fetchSucculents();
+            setActiveButton("default");
+          }}
+        >
           Default order
         </button>
       </div>

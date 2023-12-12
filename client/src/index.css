@@ -364,7 +364,8 @@ display: block;
 .Succulent-Card-Modal-inner {
   position: relative;
   /* Add this to position the close button relative to this div */
-  border: 2px solid rgb(0, 0, 0);
+  color: #053313;
+ border:2px solid rgb(225, 229, 222) ;
   /* Add border */
   border-radius: 5px;
   /* Add border radius */
@@ -385,7 +386,8 @@ dialog{
   width: 400px;
   border-radius: 5px;
   border: 2px solid;
-  border-color: black !important;
+  color: #053313;
+  border-color: rgb(225, 229, 222) !important;
 }
 
 
@@ -428,7 +430,7 @@ transform: scale(1.1);
   margin-bottom: 1rem;
 }
 .single-comment-modal{
-  border: 2px dotted black;
+  border: 0.5px solid rgba(225, 229, 222, 0.652);
   border-radius: 5px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -634,47 +636,27 @@ cursor: pointer;
 }
 
 .custom-button2 {
-  --color: #32CD32;
+  --color:rgb(225, 229, 222);
   font-family: inherit;
-  display: inline-block;
-  width: 12em;
-  height: 2.6em;
-  line-height: 2.5em;
-  overflow: hidden;
-  margin: 20px;
-  font-size: 17px;
+  font-size: 1rem;
   border: 2px solid var(--color);
-  border-radius: 6px;
-  position: relative;
-  z-index: 1;
+  border-radius: 20px;
+padding: 5px 10px;
+color: #053313;
+background-color: #f8f9fa;
+cursor: pointer;
+}
+.custom-button2:hover{
+  
+  text-decoration: underline;
+}
+.filterSucculents{
+  background-color: rgb(232, 249, 233);
 }
 
-.custom-button2::before {
-  position: absolute;
-  content: "";
-  background: var(--color);
-  width: 300%;
-  height: 300%;
-  border-radius: 50%;
-  top: -100%;
-  right: -100%;
-  bottom: -100%;
-  left: -100%;
-  transition: .3s all;
-  z-index: -1;
-}
 
-.custom-button2:hover {
-  color: white;
-  z-index: 3;
-}
 
-.custom-button2:hover::before {
-  top: -50%;
-  right: -50%;
-  bottom: -50%;
-  left: -50%;
-}
+
 .filter-buttons-container {
   margin-top: 5rem;
   margin-bottom: 1rem;

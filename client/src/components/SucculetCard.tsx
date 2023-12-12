@@ -663,6 +663,7 @@ const SucculentCard = ({
                     )}
                     <form onSubmit={handleCommentSubmit}>
                       <input
+                        style={{ width: "100%" }}
                         type="text"
                         name="comment"
                         placeholder="write something"
