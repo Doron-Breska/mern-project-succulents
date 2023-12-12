@@ -291,7 +291,7 @@ align-items: center;
 
 .succulent-card-div {
   width: 370px;
-  height: 520px;
+  height: 540px;
   transition: transform 0.4s;
   transform-style: preserve-3d;
   border-radius:12px;
