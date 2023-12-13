@@ -200,10 +200,12 @@ const SucculentCard = ({
       // const text = data["response from OpenAI"].choices.text;
 
       // setPlantCare(text);
-      console.log(
-        "this is the result from open ai",
-        data["response from OpenAI"].choices[0].text
-      );
+
+      // console.log(
+      //   "this is the result from open ai",
+      //   data["response from OpenAI"].choices[0].text
+      // );
+
       // console.log("test for speices -  ", species);
       const robiRobot = (
         <>
