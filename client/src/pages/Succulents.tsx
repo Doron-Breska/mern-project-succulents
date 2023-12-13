@@ -203,7 +203,7 @@ const Succulents = (props: Props) => {
       }
 
       // Handle the response data here
-      console.log(data.msg); // Succulent successfully deleted!
+      // console.log(data.msg);
       setSucculents(succulents.filter((succulent) => succulent._id !== id));
       setModalContent(null); // Clear the modal content
     } catch (error) {
