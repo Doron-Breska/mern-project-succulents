@@ -629,7 +629,7 @@ const SucculentCard = ({
                 {user ? (
                   <>
                     <h3>Comments</h3>
-                    {console.log('JSX modal "comments">>> :', modalComments)}
+                    {/* {console.log('JSX modal "comments">>> :', modalComments)} */}
                     {modalComments.length > 0 ? (
                       modalComments.map((comment) => (
                         <div key={comment._id} className="single-comment-modal">

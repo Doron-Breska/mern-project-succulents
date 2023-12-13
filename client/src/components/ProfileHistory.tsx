@@ -133,7 +133,7 @@ const ProfileHistory = (props: Props) => {
         throw new Error("HTTP error " + response.status);
       }
       const result = await response.json(); // If your API returns updated succulent data, parse it as JSON
-      console.log("response:", result);
+      // console.log("response:", result);
 
       // Update the state
       setSucculents(
@@ -173,7 +173,7 @@ const ProfileHistory = (props: Props) => {
       }
 
       // Handle the response data here
-      console.log(data.msg); // Succulent successfully deleted!
+      // console.log(data.msg);
       setSucculents(succulents.filter((succulent) => succulent._id !== id));
       setModalContent(null); // Clear the modal content
     } catch (error) {

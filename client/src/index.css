@@ -287,16 +287,20 @@ align-items: center;
 
 
 /***************************************    succulent card    ******************************************/
+.pagination-controls{
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+}
+.pagination-controls span:hover {
+  cursor: pointer;
+}
 
 .succulents-page-container {
   /* border: 1px solid black; */
   width: 100%;
   margin: 1.5rem auto;
   margin-bottom: 4rem;
-  /* display: grid; */
-  /* grid-template-columns: repeat(3, 370px); */
-  /* justify-content: center; */
-  /* row-gap: 1rem; */
+
   display: flex;
     flex-wrap: wrap;
     justify-content: center;

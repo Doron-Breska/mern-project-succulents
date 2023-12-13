@@ -87,7 +87,7 @@ const NewModalElement = ({
       const result = await response.json();
       // console.log("%call comments :>> ", "color:green",result);
       const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
-      console.log("%call comments :>> ", "color:green", updatedComments);
+      // console.log("%call comments :>> ", "color:green", updatedComments);
 
       setModalComments(updatedComments);
 
@@ -107,7 +107,7 @@ const NewModalElement = ({
       <h3>Comments</h3>
       {user ? (
         <>
-          {console.log('JSX modal "comments">>> :', modalComments)}
+          {/* {console.log('JSX modal "comments">>> :', modalComments)} */}
           {modalComments.length > 0 ? (
             modalComments.map((comment) => (
               <div key={comment._id} className="single-comment-modal">

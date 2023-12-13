@@ -239,6 +239,24 @@ const Succulents = (props: Props) => {
     }
     setShowForm((prevShowForm) => !prevShowForm);
   };
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+  const [paginatedSucculents, setPaginatedSucculents] = useState<Succulent[]>(
+    []
+  );
+  useEffect(() => {
+    // Logic to fetch succulents from the server or context
+    // Assuming succulents are already fetched and set in the state
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setPaginatedSucculents(succulents.slice(indexOfFirstItem, indexOfLastItem));
+  }, [succulents, currentPage]);
+
+  const totalPages = Math.ceil(succulents.length / itemsPerPage);
+
+  const navigate = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <>
@@ -367,7 +385,7 @@ const Succulents = (props: Props) => {
         )}
       </div>
       <div className="succulents-page-container">
-        {succulents.map((succulent) => (
+        {paginatedSucculents.map((succulent) => (
           <SucculentCard
             key={succulent._id}
             succulent={succulent}
@@ -375,6 +393,19 @@ const Succulents = (props: Props) => {
             setSucculents={setSucculents}
           />
         ))}
+      </div>
+      <div className="pagination-controls">
+        {currentPage > 1 && (
+          <span onClick={() => navigate(currentPage - 1)}>&#8672; </span>
+        )}
+
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+
+        {currentPage < totalPages && (
+          <span onClick={() => navigate(currentPage + 1)}> &#8674;</span>
+        )}
       </div>
     </>
   );
