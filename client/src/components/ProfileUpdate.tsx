@@ -16,7 +16,7 @@ interface FormData {
 const ProfileUpdate = (props: Props) => {
   const { user, setUser } = useContext(AuthContext);
   const token = localStorage.getItem("token");
-  console.log("this is the user", user);
+  // console.log("this is the user", user);
   const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     email: "",
