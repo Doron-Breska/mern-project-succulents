@@ -113,11 +113,20 @@ background-color: #3dab7f15;
 
 
 .profile-pic-frame{
-max-width: 310px;
+width: 330px;
  padding: 1rem;
  background-color: white;
  padding-bottom: 0%;
  line-height: 0.7;
+ position: relative;
+}
+.pin{
+width: 50px !important;
+position: absolute;
+left: 0.5rem;
+top: -1rem;
+
+
 }
 .profile-pic-frame img{
  width: 100%;
@@ -129,7 +138,15 @@ max-width: 310px;
   display: inline-block;
  background-color: white;
   padding:1rem;
-  /* border: 1px solid black; */
+  width: 330px;
+ position: relative;
+}
+
+.pin2 {
+  width: 80px !important;
+  position: absolute;
+  left: 0rem;
+  top: -1rem;
 }
 .profile-pic-text{
   font-family:'Gloria Hallelujah',
@@ -163,6 +180,7 @@ align-items: center;
   column-gap: 60px;
   row-gap: 40px;
   margin-bottom: 4rem;
+  padding-inline: 1rem;
 }
 
 

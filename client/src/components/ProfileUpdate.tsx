@@ -90,15 +90,13 @@ const ProfileUpdate = (props: Props) => {
       </h2>
       <div className="edit-profile-container">
         <div className="profile-pic-frame">
-          {/* <div
-            className="profile-pic"
-            style={{ backgroundImage: `url(${(user && user.avatar) || ""})` }}
-          ></div> */}
+          <img className="pin" src="/gpin.png" alt="clip"></img>
           <img src={user! && user.avatar} alt="profile pic" />
           <p className="profile-pic-text">{user && user.username}</p>
           <p className="profile-pic-text">{user && user.email}</p>
         </div>
         <div className="profile-edit-frame">
+          <img className="pin2" src="/gpin.png" alt="clip"></img>
           <div className="profile-edit">
             <div className="semi-img-edit-profile">
               <form onSubmit={handleSubmit}>
