@@ -245,8 +245,6 @@ const Succulents = (props: Props) => {
     []
   );
   useEffect(() => {
-    // Logic to fetch succulents from the server or context
-    // Assuming succulents are already fetched and set in the state
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     setPaginatedSucculents(succulents.slice(indexOfFirstItem, indexOfLastItem));
