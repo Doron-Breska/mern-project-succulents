@@ -292,7 +292,7 @@ const SucculentCard = ({
     // console.log(e.target.value);
     setTextInput(e.target.value);
   };
-  console.log(textInput);
+  // console.log(textInput);
 
   const handleCommentSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -306,7 +306,7 @@ const SucculentCard = ({
     }
 
     try {
-      console.log("test for submit data :", textInput);
+      // console.log("test for submit data :", textInput);
       const submitData = new URLSearchParams();
       submitData.set("text", textInput);
 
