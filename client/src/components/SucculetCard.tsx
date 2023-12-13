@@ -509,7 +509,7 @@ const SucculentCard = ({
       const result = await response.json();
       // console.log("%call comments :>> ", "color:green",result);
       const updatedComments = result.succulent.Comments; // this is the new succulent back from the server without the comment we deleted
-      console.log("%call comments :>> ", "color:green", updatedComments);
+      // console.log("%call comments :>> ", "color:green", updatedComments);
 
       setModalComments(updatedComments);
 
