@@ -126,7 +126,7 @@ const Succulents = (props: Props) => {
         throw new Error("HTTP error " + response.status);
       }
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
 
       // setSucculents((prevState) =>
       //   prevState.map((succ) =>
