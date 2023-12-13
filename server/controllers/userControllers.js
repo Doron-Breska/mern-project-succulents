@@ -47,6 +47,7 @@ const createUser = async (req, res) => {
     res.status(200).json({
       msg: "Successfully registered!",
     });
+    // console.log("registeredUser ----", registeredUser);
   } catch (e) {
     console.log(e);
     if (e.code === 11000) {

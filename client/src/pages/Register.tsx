@@ -2,6 +2,8 @@ import React, { ChangeEvent, FormEvent, useState, useContext } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import { FaRobot } from "react-icons/fa";
 import { serverURL } from "../utils/serverURL";
+import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -18,6 +20,7 @@ const Register = (props: Props) => {
   //eslint-disable-next-line
   const { isModalOpen, closeModal, openModal, setModalContent } =
     useContext(ModalContext);
+  const { setUser, login } = useContext(AuthContext);
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -26,6 +29,11 @@ const Register = (props: Props) => {
   });
   const fileInput = React.useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const redirectToSucculents = () => {
+    navigate("/succulents");
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -63,10 +71,13 @@ const Register = (props: Props) => {
       // console.log("testing registration", result);
       if (result.msg === "Successfully registered!") {
         setLoading(false);
-        setModalContent(
-          "Successfully registered! Please log-in through the side-bar"
-        );
-        openModal();
+        login(formData.email, formData.password);
+        // setModalContent(
+        //   "Successfully registered! Please log-in through the side-bar"
+        // );
+        // openModal();
+        // setUser(result.user);
+        redirectToSucculents();
         setFormData({ email: "", password: "", username: "", avatar: "" });
         if (fileInput.current) {
           fileInput.current.value = ""; // reset the file input
