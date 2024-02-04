@@ -144,6 +144,12 @@ const ProfileUpdate = (props: Props) => {
                     id="submit-btn-profile-page"
                     className="custom-button"
                     type="submit"
+                    disabled={
+                      !formData.email &&
+                      !formData.password &&
+                      !formData.username &&
+                      !formData.avatar
+                    }
                   >
                     Update
                   </button>
